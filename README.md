@@ -22,24 +22,17 @@ El proyecto consiste en crear un sistema que funciona como asistente para tomar 
 
 ## Objetivos.
 
-Dada una especificación de una ciudad, una enfermedad y las acciones que puede tomar un organismo rector el sistema debe devolver una estrategia para contener la epidemia.
 
 ## Metodología.
 
-Utilizaremos agentes para simular las personas que viven en la ciudad y al agente que tomara las decisiones en la ciudad.
 
 ## Agentes y Entorno.
 
-Explicación de los agentes involucrados en la simulación, incluyendo sus características, comportamientos y cómo interactúan entre sí y con el entorno. También se debe describir el entorno en el que se desarrolla la simulación, incluyendo sus características físicas y las condiciones bajo las cuales se realizan las interacciones.
 
 ## Resultados y Análisis.
 
-Presentación de los resultados obtenidos a través de la simulación. Esto puede incluir gráficos, tablas y análisis estadísticos que ilustren los efectos de las estrategias de control de enfermedades simuladas. Se debe discutir cómo estos resultados se relacionan con los objetivos del proyecto y qué implicaciones tienen para el control de enfermedades en el contexto real.
 
 ## Conclusiones.
 
-Resumen de los hallazgos clave y las implicaciones de la simulación. Se debe discutir la eficacia de las estrategias de control de enfermedades simuladas y cómo estos resultados pueden informar políticas y prácticas de salud.
 
 ## Referencias.
-
-Lista de todas las fuentes consultadas durante la elaboración del proyecto, siguiendo un formato de citación adecuado.

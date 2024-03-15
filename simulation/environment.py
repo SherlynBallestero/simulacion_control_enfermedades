@@ -1,5 +1,8 @@
+from simulation.agents import Agent
+
 from typing import List, Tuple
 import random
+import numpy as np
 
 class Building:
     def __init__(self, name: str, location: Tuple[float, float]):
@@ -14,17 +17,19 @@ class Building:
         self.location = location
 
 class Environment:
-    def __init__(self, x_limit: float, y_limit: float, num_agents: int):
+    def __init__(self, x_limit: int, y_limit: int, num_agents: int):
         """
         Initialize the environment.
 
         Parameters:
-            x_limit (float): The x-coordinate limit of the environment.
-            y_limit (float): The y-coordinate limit of the environment.
+            x_limit (int): The x-coordinate limit of the environment.
+            y_limit (int): The y-coordinate limit of the environment.
             num_agents (int): The number of agents to initialize in the environment.
         """
-        self.x_limit: float = x_limit
-        self.y_limit: float = y_limit
+        self.x_limit: int = x_limit
+        self.y_limit: int = y_limit
+        #creating a numpy map of size x_limit, y_limit
+        self.map = np.zeros((x_limit,y_limit))
         self.agents: List[Agent] = []
         self.buildings: List[Building] = []
         self.initialize_agents(num_agents)
@@ -36,10 +41,13 @@ class Environment:
         Parameters:
             num_agents (int): The number of agents to initialize.
         """
+        infected_agents = random.randint(0, num_agents/2)
+        
+        
         for i in range(num_agents):
             agent = Agent(unique_id=i)
-            x = random.uniform(0, self.x_limit)
-            y = random.uniform(0, self.y_limit)
+            x = random.randint(0, self.x_limit)
+            y = random.randint(0, self.y_limit)
             self.add_agent(agent, x, y)
 
     def add_agent(self, agent: Agent, x: float, y: float):
@@ -63,7 +71,7 @@ class Environment:
         """
         self.buildings.append(building)
 
-    def move_agent(self, agent: Agent, new_x: float, new_y: float):
+    def move_agent(self, agent: Agent, dir_x: float, dir_y: float):
         """
         Move an agent to a new location.
 
@@ -72,7 +80,8 @@ class Environment:
             new_x (float): The new x-coordinate of the agent's location.
             new_y (float): The new y-coordinate of the agent's location.
         """
-        agent.location = (new_x, new_y)
+        prev_location = agent.location
+        agent.location = (dir_x + prev_location[0], dir_y + prev_location[1])
 
     def get_neighbors(self, agent: Agent, radius: float = 1.0) -> List[Agent]:
         """
@@ -108,15 +117,17 @@ class Environment:
         x2, y2 = pos2
         return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
 
-
-
     def step(self):
         """
         Perform a simulation step, where agents take actions.
         """
         for agent in self.agents:
             # Implement agent actions for each step
+            action, parameters = agent.act()
+            if action ==  "move":
+                self.move_agent(agent,*parameters)
             pass
+
 
 if __name__ == '__main__':
     # Example usage

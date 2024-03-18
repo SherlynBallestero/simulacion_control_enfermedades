@@ -66,7 +66,7 @@ class Agent:
         # Update beliefs, knowledge, mind map based on new information
         pass
 
-    def act(self) -> None:
+    def act(self) -> dict[str,any]:
         """Define agent's actions based on beliefs, knowledge, and mind map."""
 
         directions = [(0,1),(1,0),(1,1),(-1,0),(0,-1),(-1,1),(1,-1),(-1,-1)]

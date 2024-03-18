@@ -1,4 +1,5 @@
 from simulation.agents import Agent
+from simulation.epidemic import EpidemicModel
 
 from typing import List, Tuple
 import random
@@ -17,7 +18,7 @@ class Building:
         self.location = location
 
 class Environment:
-    def __init__(self, x_limit: int, y_limit: int, num_agents: int):
+    def __init__(self, x_limit: int, y_limit: int, num_agents: int, epidemic_model: EpidemicModel):
         """
         Initialize the environment.
 
@@ -32,6 +33,7 @@ class Environment:
         self.map = np.zeros((x_limit,y_limit))
         self.agents: List[Agent] = []
         self.buildings: List[Building] = []
+        self.epidemic_model = epidemic_model
         self.initialize_agents(num_agents)
 
     def initialize_agents(self, num_agents: int):
@@ -45,19 +47,19 @@ class Environment:
         
         
         for i in range(num_agents):
-            agent = Agent(unique_id=i)
+            agent = Agent(unique_id=i, status='infected') if i < infected_agents else Agent(unique_id=i)
             x = random.randint(0, self.x_limit)
             y = random.randint(0, self.y_limit)
             self.add_agent(agent, x, y)
 
-    def add_agent(self, agent: Agent, x: float, y: float):
+    def add_agent(self, agent: Agent, x: int, y: int):
         """
         Add an agent to the environment at a specified location.
 
         Parameters:
             agent (Agent): The agent to add.
-            x (float): The x-coordinate of the agent's location.
-            y (float): The y-coordinate of the agent's location.
+            x (int): The x-coordinate of the agent's location.
+            y (int): The y-coordinate of the agent's location.
         """
         agent.location = (x, y)
         self.agents.append(agent)
@@ -71,7 +73,7 @@ class Environment:
         """
         self.buildings.append(building)
 
-    def move_agent(self, agent: Agent, dir_x: float, dir_y: float):
+    def move_agent(self, agent: Agent, dir_x: int, dir_y: int):
         """
         Move an agent to a new location.
 
@@ -83,7 +85,7 @@ class Environment:
         prev_location = agent.location
         agent.location = (dir_x + prev_location[0], dir_y + prev_location[1])
 
-    def get_neighbors(self, agent: Agent, radius: float = 1.0) -> List[Agent]:
+    def get_neighbors(self, agent: Agent, radius: int = 20) -> List[Agent]:
         """
         Get neighboring agents within a certain radius of a given agent.
 
@@ -102,7 +104,7 @@ class Environment:
                     neighbors.append(other_agent)
         return neighbors
 
-    def calculate_distance(self, pos1: Tuple[float, float], pos2: Tuple[float, float]) -> float:
+    def calculate_distance(self, pos1: Tuple[int, int], pos2: Tuple[int, int]) -> float:
         """
         Calculate the Euclidean distance between two positions.
 
@@ -127,6 +129,7 @@ class Environment:
             if action ==  "move":
                 self.move_agent(agent,*parameters)
             pass
+        self.epidemic_model.step([(agent, self.get_neighbors(agent)) for agent in self.agents])
 
 
 if __name__ == '__main__':

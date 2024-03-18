@@ -2,6 +2,7 @@ from simulation.agents import Agent
 
 from typing import List, Tuple
 import random
+import logging
 
 class EpidemicModel:
     def __init__(self, transmission_rate: float, recovery_rate: float):
@@ -38,17 +39,16 @@ class EpidemicModel:
             if random.random() < self.recovery_rate:
                 agent.status = 'recovered'
 
-    def step(self, agents: List[Agent]):
+    def step(self, agents: List[Tuple[Agent, List[Agent]]]):
         """
         Perform a simulation step, where disease spreads and agents recover.
 
         Parameters:
             agents (List[Agent]): The list of agents in the simulation.
         """
-        for agent in agents:
+        for (agent, neighbors) in agents:
             if agent.status == 'infected':
                 # Simulate disease spread to neighboring agents
-                neighbors = agent.environment.get_neighbors(agent)
                 for neighbor in neighbors:
                     self.spread_disease(agent, neighbor)
                 # Simulate agent's recovery

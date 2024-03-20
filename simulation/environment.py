@@ -6,7 +6,7 @@ import random
 import numpy as np
 
 class Building:
-    def __init__(self, name: str, location: Tuple[float, float]):
+    def __init__(self, name: str, location: Tuple[float, float], building_type: str = None):
         """
         Initialize a building.
 
@@ -14,6 +14,7 @@ class Building:
             name (str): The name of the building.
             location (Tuple[float, float]): The location of the building as a (x, y) tuple.
         """
+        self.building_type = building_type # Ejemplo: 'home', 'workplace', 'school', 'public'
         self.name = name
         self.location = location
 
@@ -35,6 +36,7 @@ class Environment:
         self.buildings: List[Building] = []
         self.epidemic_model = epidemic_model
         self.initialize_agents(num_agents)
+        self.initialize_spaces()
 
     def initialize_agents(self, num_agents: int):
         """
@@ -73,7 +75,17 @@ class Environment:
         """
         self.buildings.append(building)
 
-    def move_agent(self, agent: Agent, dir_x: int, dir_y: int):
+    def initialize_spaces(self):
+        """
+        Add spaces to the environment.
+        """
+        self.add_building(Building("Home", (100, 100), "home"))
+        self.add_building(Building("Workplace", (200, 200), "workplace"))
+        self.add_building(Building("School", (300, 300), "school"))
+        self.add_building(Building("Park", (400, 400), "public"))
+        self.add_building(Building("Hospital", (500, 500), "hospital"))
+
+    def move_agent(self, agent: Agent, dir_x: float, dir_y: float):
         """
         Move an agent to a new location.
 

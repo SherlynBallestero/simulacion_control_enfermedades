@@ -6,7 +6,8 @@ class Agent:
     def __init__(self, unique_id: int, belief_system: Dict[str, Any] = None,
                  knowledge_base: Dict[str, List[Any]] = None,
                  mind_map: Dict[str, Set[str]] = None,
-                 status: str = 'susceptible'):
+                 status: str = 'susceptible',
+                 daily_route: List[Tuple[float, float]] = None):
         """
         Initialize the agent.
 
@@ -21,6 +22,7 @@ class Agent:
         self.knowledge_base = knowledge_base if knowledge_base is not None else {}
         self.mind_map = mind_map if mind_map is not None else {}
         self.status = status
+        self.daily_route = daily_route if daily_route is not None else []
 
     def update_belief(self, belief: str, value: Any) -> None:
         """
@@ -71,6 +73,21 @@ class Agent:
 
         directions = [(0,1),(1,0),(1,1),(-1,0),(0,-1),(-1,1),(1,-1),(-1,-1)]
         
+        if self.status == 'infected':
+            # Comportamiento para agentes infectados
+            # Por ejemplo, buscar un lugar seguro para recuperarse
+            # return ("move", self.find_safe_location())
+            pass
+    
+        if self.status == 'susceptible':
+            # Comportamiento para agentes susceptibles
+            # Por ejemplo, buscar información sobre la enfermedad
+            # return ("move", self.find_information())  
+            pass
+                        
+        if self.status == 'restored':
+            pass
+        
         return ("move", random.choice(directions))
     
     def interact(self, other_agent: 'Agent') -> None:
@@ -80,8 +97,41 @@ class Agent:
         Args:
             other_agent (Agent): The other agent to interact with.
         """
+        # Ejemplo de interacción: compartir información sobre la enfermedad
+        if self.status == 'infected' and other_agent.status == 'susceptible':
+            self.share_information(other_agent)
+        
+
+    def move_to_next_location(self):
+        if self.daily_route:
+            next_location = self.daily_route.pop(0)
+            self.location = next_location
+        pass
+            
+    def find_safe_location(self):
+        """
+        Encuentra un lugar seguro para el agente infectado.
+        """
+        # Lógica para encontrar un lugar seguro
         pass
 
+    def find_information(self):
+        """
+        Busca información sobre la enfermedad.
+        """
+        # Lógica para buscar información
+        pass
+    
+    def share_information(self, other_agent: 'Agent') -> None:
+        """
+        Comparte información sobre la enfermedad con otro agente.
+
+        Args:
+            other_agent (Agent): El agente con el que compartir información.
+        """
+        # Lógica para compartir información
+        pass
+    
 class RegentOrgAgent(Agent):
     def __init__(self):
         pass

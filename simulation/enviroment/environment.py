@@ -4,9 +4,9 @@ from simulation.epidemic import EpidemicModel
 from typing import List, Tuple
 import random
 import numpy as np
-
+from utils.graph import Node,Graph
 class Building:
-    def __init__(self, name: str, location: Tuple[float, float]):
+    def __init__(self, name: str, location: Tuple[float, float], building_type: str = None):
         """
         Initialize a building.
 
@@ -14,27 +14,26 @@ class Building:
             name (str): The name of the building.
             location (Tuple[float, float]): The location of the building as a (x, y) tuple.
         """
+        self.building_type = building_type # Ejemplo: 'home', 'workplace', 'school', 'public'
         self.name = name
         self.location = location
 
 class Environment:
-    def __init__(self, x_limit: int, y_limit: int, num_agents: int, epidemic_model: EpidemicModel):
+    def __init__(self,num_agents: int, epidemic_model: EpidemicModel,map: Graph = None):
         """
         Initialize the environment.
 
         Parameters:
-            x_limit (int): The x-coordinate limit of the environment.
-            y_limit (int): The y-coordinate limit of the environment.
             num_agents (int): The number of agents to initialize in the environment.
         """
-        self.x_limit: int = x_limit
-        self.y_limit: int = y_limit
-        #creating a numpy map of size x_limit, y_limit
-        self.map = np.zeros((x_limit,y_limit))
+        if map:
+            self.map = map
+            
         self.agents: List[Agent] = []
         self.buildings: List[Building] = []
         self.epidemic_model = epidemic_model
         self.initialize_agents(num_agents)
+        # self.initialize_spaces()
 
     def initialize_agents(self, num_agents: int):
         """
@@ -48,11 +47,10 @@ class Environment:
         
         for i in range(num_agents):
             agent = Agent(unique_id=i, status='infected') if i < infected_agents else Agent(unique_id=i)
-            x = random.randint(0, self.x_limit)
-            y = random.randint(0, self.y_limit)
-            self.add_agent(agent, x, y)
+            pos = random.randint(0, len(self.map.nodes))
+            self.add_agent(agent, pos)
 
-    def add_agent(self, agent: Agent, x: int, y: int):
+    def add_agent(self, agent: Agent, pos: int):
         """
         Add an agent to the environment at a specified location.
 
@@ -61,7 +59,7 @@ class Environment:
             x (int): The x-coordinate of the agent's location.
             y (int): The y-coordinate of the agent's location.
         """
-        agent.location = (x, y)
+        agent.location = pos
         self.agents.append(agent)
 
     def add_building(self, building: Building):
@@ -73,7 +71,17 @@ class Environment:
         """
         self.buildings.append(building)
 
-    def move_agent(self, agent: Agent, dir_x: int, dir_y: int):
+    def initialize_spaces(self):
+        """
+        Add spaces to the environment.
+        """
+        self.add_building(Building("Home", (100, 100), "home"))
+        self.add_building(Building("Workplace", (200, 200), "workplace"))
+        self.add_building(Building("School", (300, 300), "school"))
+        self.add_building(Building("Park", (400, 400), "public"))
+        self.add_building(Building("Hospital", (500, 500), "hospital"))
+
+    def move_agent(self, agent: Agent):
         """
         Move an agent to a new location.
 
@@ -83,7 +91,13 @@ class Environment:
             new_y (float): The new y-coordinate of the agent's location.
         """
         prev_location = agent.location
-        agent.location = (dir_x + prev_location[0], dir_y + prev_location[1])
+        for edge in self.map.edges:
+            if prev_location == edge[0]:
+                agent.location = edge[1]
+                break
+            if prev_location == edge[1]:
+                agent.location = edge[0]
+                break
 
     def get_neighbors(self, agent: Agent, radius: int = 20) -> List[Agent]:
         """
@@ -97,28 +111,14 @@ class Environment:
             List[Agent]: A list of neighboring agents.
         """
         neighbors = []
-        for other_agent in self.agents:
-            if agent != other_agent:
-                distance = self.calculate_distance(agent.location, other_agent.location)
-                if distance <= radius:
-                    neighbors.append(other_agent)
+        
+        for _agent in self.agents:
+            if agent.location == _agent.location:
+                neighbors.append(_agent)
+        
         return neighbors
 
-    def calculate_distance(self, pos1: Tuple[int, int], pos2: Tuple[int, int]) -> float:
-        """
-        Calculate the Euclidean distance between two positions.
-
-        Parameters:
-            pos1 (Tuple[float, float]): The first position as a (x, y) tuple.
-            pos2 (Tuple[float, float]): The second position as a (x, y) tuple.
-
-        Returns:
-            float: The Euclidean distance between the two positions.
-        """
-        x1, y1 = pos1
-        x2, y2 = pos2
-        return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
-
+    
     def step(self):
         """
         Perform a simulation step, where agents take actions.
@@ -127,7 +127,7 @@ class Environment:
             # Implement agent actions for each step
             action, parameters = agent.act()
             if action ==  "move":
-                self.move_agent(agent,*parameters)
+                self.move_agent(agent)
             pass
         self.epidemic_model.step([(agent, self.get_neighbors(agent)) for agent in self.agents])
 

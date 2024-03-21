@@ -1,3 +1,5 @@
+from typing import Tuple
+import random
 
 class Node:
     """
@@ -8,7 +10,7 @@ class Node:
     - name: Unique identifier for the node.
     """
 
-    def __init__(self, value=None, name=None):
+    def __init__(self, id: int =None)-> None:
         """
         Initializes a new node.
 
@@ -16,8 +18,7 @@ class Node:
         - value: Value or information associated with the node.
         - name: Unique identifier for the node.
         """
-        self.value = value
-        self.name = name
+        self.id: int = id
 
     def __str__(self):
         """
@@ -26,7 +27,7 @@ class Node:
         Returns:
         - A string representing the node.
         """
-        return f"Node({self.name}, {self.value})"
+        return f"Node({self.id}, {self.value})"
 
     def __repr__(self):
         """
@@ -46,23 +47,24 @@ class Graph:
               and values are lists of names of nodes connected to the key node.
     """
 
-    def __init__(self):
+    def __init__(self)-> None:
         """
         Initializes a new graph.
         """
-        self.graph = {}
+        self.nodes: dict[int, Node] = {}
+        self.edges: list[Tuple[int,int]] = []
 
-    def add_node(self, node):
+    def add_node(self, node:Node)-> None:
         """
         Adds a node to the graph.
 
         Parameters:
         - node: Node to add to the graph.
         """
-        if node.name not in self.graph:
-            self.graph[node.name] = []
+        if node.id not in self.nodes:
+            self.nodes[node.id] = node
 
-    def add_edge(self, node1, node2):
+    def add_edge(self, node1:int, node2:int)-> Tuple[int, int]:
         """
         Adds an edge between two nodes in the graph.
 
@@ -70,28 +72,30 @@ class Graph:
         - node1: First node of the edge.
         - node2: Second node of the edge.
         """
-        if node1.name in self.graph and node2.name in self.graph:
-            self.graph[node1.name].append(node2.name)
-            self.graph[node2.name].append(node1.name)
+        if node1 in self.nodes and node2 in self.nodes:
+            self.edges.append((node1, node2))
+            return (node1, node2)
         else:
             raise ValueError("Both nodes must be in the graph")
 
-    def remove_node(self, node):
+    def remove_node(self, node:int)->int:
         """
         Removes a node from the graph.
 
         Parameters:
         - node: Node to remove from the graph.
         """
-        if node.name in self.graph:
-            del self.graph[node.name]
-            for key in self.graph:
-                if node.name in self.graph[key]:
-                    self.graph[key].remove(node.name)
+        if node in self.nodes:
+            return_node = self.nodes[node]
+            del self.nodes[node]
+            for edge in self.edges:
+                if node in edge:
+                    self.edges.remove(edge)
+            return return_node
         else:
             raise ValueError("Node not in the graph")
 
-    def remove_edge(self, node1, node2):
+    def remove_edge(self, node1:int, node2:int)-> Tuple[int,int]:
         """
         Removes an edge between two nodes in the graph.
 
@@ -99,37 +103,34 @@ class Graph:
         - node1: First node of the edge.
         - node2: Second node of the edge.
         """
-        if node1.name in self.graph and node2.name in self.graph:
-            if node2.name in self.graph[node1.name]:
-                self.graph[node1.name].remove(node2.name)
-            if node1.name in self.graph[node2.name]:
-                self.graph[node2.name].remove(node1.name)
-        else:
-            raise ValueError("Both nodes must be in the graph")
+        for edge in self.add_edge:
+            if node1 in edge and node2 in edge:
+                del edge
+                break
+            else:
+                raise ValueError("Both nodes must be in the same edge")
 
-    def get_nodes(self):
+    def get_nodes(self) -> dict[int, Node]:
         """
         Returns a list of all nodes in the graph.
 
         Returns:
         - A list of nodes.
         """
-        return list(self.graph.keys())
+        return self.nodes
 
-    def get_edges(self):
+    def get_edges(self)->list[Tuple[int,int]]:
         """
         Returns a list of all edges in the graph.
 
         Returns:
         - A list of edges.
         """
-        edges = []
-        for node in self.graph:
-            for neighbor in self.graph[node]:
-                if {node, neighbor} not in edges:
-                    edges.append({node, neighbor})
-        return edges
+        return self.edges
 
+    def get_random_node(self)-> Node:
+        return random.choice(self.nodes(self))
+    
     def __str__(self):
         """
         Returns a string representation of the graph.
@@ -137,4 +138,4 @@ class Graph:
         Returns:
         - A string representing the graph.
         """
-        return str(self.graph)
+        return str(self.nodes,self.edges)

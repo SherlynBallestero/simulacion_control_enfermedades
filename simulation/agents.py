@@ -1,6 +1,6 @@
 from typing import Dict, Any, Tuple, List, Set
 import random 
-from utils.graph import Graph
+from utils.graph import Graph,Node
 class Agent:
     """Class representing an agent in the simulation."""
     def __init__(self, unique_id: int, belief_system: Dict[str, Any] = None,
@@ -68,17 +68,11 @@ class Agent:
         # Update beliefs, knowledge, mind map based on new information
         pass
 
-    def act(self,location: int, map:Graph) -> dict[str,any]:
+    def act(self, perception: list[Node]) -> dict[str,any]:
         """Define agent's actions based on beliefs, knowledge, and mind map."""
 
-        locations = []
-        for edge in map.edges:
-            if location == edge[0]:
-                locations.append(edge[1])
-            if location == edge[1]:
-                locations.append(edge[0])
-         
-        return "move", random.choice(locations)
+        adj_nodes = [adj_node.id for adj_node in perception]
+        return "move", random.choice(adj_nodes)
     
     def interact(self, other_agent: 'Agent') -> None:
         """

@@ -93,8 +93,7 @@ class Environment:
         prev_location = agent.location
         node = self.map.nodes[prev_location].agent_list.remove(agent.unique_id)
         agent.location = pos
-        self.map.nodes[pos].agent_list.append(agent.unique_id)
-        
+        self.map.nodes[pos].agent_list.append(agent.unique_id) 
                 
     def get_neighbors(self, agent: Agent, radius: int = 20) -> List[Agent]:
         """
@@ -121,7 +120,7 @@ class Environment:
         """
         for agent in self.agents:
             # Implement agent actions for each step
-            action, parameter = agent.act(agent.location,self.map)
+            action, parameter = agent.act([self.map.nodes[adj_node] for adj_node in self.map.get_neighbors(agent.location)])
             if action ==  "move":
                 self.move_agent(agent,parameter)
             pass

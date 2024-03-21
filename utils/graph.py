@@ -78,6 +78,15 @@ class Graph:
         else:
             raise ValueError("Both nodes must be in the graph")
 
+    def get_neighbors(self, node:int):
+        neighbors = []
+        for edge in self.edges:
+            if node == edge[0]:
+                neighbors.append(edge[1])
+            if node == edge[1]:
+                neighbors.append(edge[0])
+        return neighbors
+    
     def remove_node(self, node:int)->int:
         """
         Removes a node from the graph.

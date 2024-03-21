@@ -72,13 +72,13 @@ def initializing_simulation():
     
     return env
 
-# def initializing_pygame():
-#     # Pygame initialization
-#     pygame.init()
-#     screen = pygame.display.set_mode((X_LIMIT, Y_LIMIT))
-#     clock = pygame.time.Clock()
+def initializing_pygame():
+    # Pygame initialization
+    pygame.init()
+    screen = pygame.display.set_mode(len(city_graph.nodes),len(city_graph.nodes))
+    clock = pygame.time.Clock()
 
-#     return screen, clock
+    return screen, clock
 
 def simulate(env, screen = None, clock = None):
     # Main simulation loop
@@ -92,7 +92,7 @@ def simulate(env, screen = None, clock = None):
         # Update agents and epidemic model
         env.step()
 
-        # # Visualize simulation using Pygame
+        # Visualize simulation using Pygame
         # screen.fill((255, 255, 255))  # Clear screen
         # for agent in env.agents:# TODO: do not print the RegentOrgAgent
         #     pygame.draw.circle(screen, AGENT_COLOR[agent.status], (int(agent.location), int(agent.location)), 5)
@@ -111,7 +111,7 @@ def simulate(env, screen = None, clock = None):
                 
         print(infected,susceptible,removed)
     # Close Pygame window
-    # pygame.quit()
+    pygame.quit()
 
 if __name__ == '__main__':
     logger = logger_configuration()

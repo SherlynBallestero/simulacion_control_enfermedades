@@ -68,27 +68,18 @@ class Agent:
         # Update beliefs, knowledge, mind map based on new information
         pass
 
-    def act(self) -> dict[str,any]:
+    def act(self,perception) -> dict[str,any]:
         """Define agent's actions based on beliefs, knowledge, and mind map."""
 
-        directions = [(0,1),(1,0),(1,1),(-1,0),(0,-1),(-1,1),(1,-1),(-1,-1)]
-        
-        if self.status == 'infected':
-            # Comportamiento para agentes infectados
-            # Por ejemplo, buscar un lugar seguro para recuperarse
-            # return ("move", self.find_safe_location())
-            pass
-    
-        if self.status == 'susceptible':
-            # Comportamiento para agentes susceptibles
-            # Por ejemplo, buscar información sobre la enfermedad
-            # return ("move", self.find_information())  
-            pass
-                        
-        if self.status == 'restored':
-            pass
-        
-        return ("move", random.choice(directions))
+        locations = []
+        prev_location = agent.location
+        for edge in self.map.edges:
+            if prev_location == edge[0]:
+                locations.append(edge[1])
+            if prev_location == edge[1]:
+                locations.append(edge[0])
+         
+        return ("move", random.choice(locations))
     
     def interact(self, other_agent: 'Agent') -> None:
         """
@@ -100,7 +91,6 @@ class Agent:
         # Ejemplo de interacción: compartir información sobre la enfermedad
         if self.status == 'infected' and other_agent.status == 'susceptible':
             self.share_information(other_agent)
-        
 
     def move_to_next_location(self):
         if self.daily_route:
@@ -147,7 +137,10 @@ class HealthPersonalAgent(CitizenAgent):
 
 if __name__ == '__main__':
     # Example usage
-    belief_system = {'trust': 0.8, 'risk_awareness': 0.6}
+    belief_system = {'trust': 0.8, 'risk_awareness': 0.6, "schedule": [
+        (16,"Park"),(19,"Restaurant"),(20,"Bar"),
+        ]
+                     }
     knowledge_base = {'epidemics': ['definition', 'spread mechanisms']}
     mind_map = {'epidemics': {'pandemics', 'outbreaks'}}
     agent = Agent(1, belief_system, knowledge_base, mind_map)

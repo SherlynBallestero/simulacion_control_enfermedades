@@ -47,7 +47,7 @@ class Environment:
         
         for i in range(num_agents):
             agent = Agent(unique_id=i, status='infected') if i < infected_agents else Agent(unique_id=i)
-            pos = random.randint(0, len(self.map.nodes))
+            pos = random.randint(1, len(self.map.nodes))
             self.add_agent(agent, pos)
 
     def add_agent(self, agent: Agent, pos: int):
@@ -81,24 +81,19 @@ class Environment:
         self.add_building(Building("Park", (400, 400), "public"))
         self.add_building(Building("Hospital", (500, 500), "hospital"))
 
-    def move_agent(self, agent: Agent):
+    def move_agent(self, agent: Agent, parameter: int):
         """
         Move an agent to a new location.
 
         Parameters:
             agent (Agent): The agent to move.
-            new_x (float): The new x-coordinate of the agent's location.
-            new_y (float): The new y-coordinate of the agent's location.
         """
+        
         prev_location = agent.location
-        for edge in self.map.edges:
-            if prev_location == edge[0]:
-                agent.location = edge[1]
-                break
-            if prev_location == edge[1]:
-                agent.location = edge[0]
-                break
-
+        
+        agent.location = parameter
+        
+                
     def get_neighbors(self, agent: Agent, radius: int = 20) -> List[Agent]:
         """
         Get neighboring agents within a certain radius of a given agent.
@@ -118,16 +113,15 @@ class Environment:
         
         return neighbors
 
-    
     def step(self):
         """
         Perform a simulation step, where agents take actions.
         """
         for agent in self.agents:
             # Implement agent actions for each step
-            action, parameters = agent.act()
+            action, parameter = agent.act()
             if action ==  "move":
-                self.move_agent(agent)
+                self.move_agent(agent,parameter)
             pass
         self.epidemic_model.step([(agent, self.get_neighbors(agent)) for agent in self.agents])
 

@@ -1,6 +1,8 @@
 from typing import Dict, Any, Tuple, List, Set
 import random 
 from utils.graph import Graph,Node
+from agent_arquitecture import WorldInterface, BehaviorLayerBased, LocalPlanningLayer, CooperativeLayer
+
 class Agent:
     """Class representing an agent in the simulation."""
     def __init__(self, unique_id: int, belief_system: Dict[str, Any] = None,
@@ -24,6 +26,12 @@ class Agent:
         self.status = status
         self.daily_route = daily_route if daily_route is not None else []
 
+        # Inicialización de la arquitectura interrap
+        # self.world_interface = WorldInterface(self.mind_map, self.perception_module, self.action_module)
+        self.behavior_layer_based = BehaviorLayerBased(self.mind_map)
+        self.local_planning_layer = LocalPlanningLayer(self.behavior_layer_based)
+        self.cooperative_layer = CooperativeLayer(self.local_planning_layer)
+
     def update_belief(self, belief: str, value: Any) -> None:
         """
         Update a belief in the agent's belief system.
@@ -33,6 +41,8 @@ class Agent:
             value (Any): The new value of the belief.
         """
         self.belief_system[belief] = value
+        # After updating a belief, the agent might need to re-evaluate its actions or plans
+        self.react_to_belief_change(belief, value)
 
     def add_knowledge(self, topic: str, information: Any) -> None:
         """
@@ -74,17 +84,6 @@ class Agent:
         adj_nodes = [adj_node.id for adj_node in perception]
         return "move", random.choice(adj_nodes)
     
-    def interact(self, other_agent: 'Agent') -> None:
-        """
-        Define interaction logic with other agents.
-
-        Args:
-            other_agent (Agent): The other agent to interact with.
-        """
-        # Ejemplo de interacción: compartir información sobre la enfermedad
-        if self.status == 'infected' and other_agent.status == 'susceptible':
-            self.share_information(other_agent)
-
     def move_to_next_location(self):
         if self.daily_route:
             next_location = self.daily_route.pop(0)
@@ -98,23 +97,80 @@ class Agent:
         # Lógica para encontrar un lugar seguro
         pass
 
-    def find_information(self):
+    def communicate(self, other_agent: 'Agent', message: dict) -> None:
         """
-        Busca información sobre la enfermedad.
-        """
-        # Lógica para buscar información
-        pass
-    
-    def share_information(self, other_agent: 'Agent') -> None:
-        """
-        Comparte información sobre la enfermedad con otro agente.
+        Communicate with another agent by sharing information.
 
         Args:
-            other_agent (Agent): El agente con el que compartir información.
+            other_agent (Agent): The agent to communicate with.
+            message (dict): The information to share.
         """
-        # Lógica para compartir información
+        # Example: Share information about a disease outbreak
+        if 'disease_outbreak' in message:
+            other_agent.update_belief('disease_outbreak', message['disease_outbreak'])
+
+         # Ejemplo de interacción: compartir información sobre la enfermedad
+        if self.status == 'infected' and other_agent.status == 'susceptible':
+            self.share_information(other_agent)
+
+    def react_to_belief_change(self, belief: str, value: Any) -> None:
+        """
+        React to a change in a belief. This could involve updating plans, re-evaluating actions, etc.
+
+        Args:
+            belief (str): The belief that has changed.
+            value (Any): The new value of the belief.
+        """
+        if belief == 'location_safety':
+            # Si la creencia es sobre la seguridad de una ubicación,
+            # el agente podría reevaluar su plan de navegación.
+            self.reevaluate_navigation_plan(belief, value)
+        elif belief == 'disease_outbreak':
+            # Si la creencia es sobre un brote de enfermedad,
+            # el agente podría cambiar su plan para evitar áreas afectadas.
+            self.adjust_plan_for_disease_outbreak(belief, value)
+        else:
+            # Para otras creencias, el agente podría simplemente actualizar su plan existente.
+            self.update_plan(belief, value)
+
+    def reevaluate_navigation_plan(self, belief: str, value: Any) -> None:
+        """
+        Reevaluate the navigation plan based on the new belief value.
+        """
+        # Implementa la lógica para reevaluar el plan de navegación aquí
         pass
-    
+
+    def adjust_plan_for_disease_outbreak(self, belief: str, value: Any) -> None:
+        """
+        Adjust the plan to avoid areas affected by a disease outbreak.
+        """
+        # Implementa la lógica para ajustar el plan en respuesta a un brote de enfermedad aquí
+        pass
+
+    def update_plan(self, belief: str, value: Any) -> None:
+        """
+        Update the existing plan based on the new belief value.
+        """
+        # Implementa la lógica para actualizar el plan existente aquí
+        pass
+
+    # metodos para interactuar con agent_arquitecture
+    def perceive(self):
+        # Llama al método perceive del módulo de percepción
+        self.world_interface.perceive()
+
+    def act(self, action):
+        # Llama al método act del módulo de acción
+        self.world_interface.act(action)
+
+    def plan(self, goal):
+        # Llama al método plan del módulo de planificación
+        self.local_planning_layer.plan(goal)
+
+    def cooperate(self, goal):
+        # Llama al método cooperate del módulo de cooperación
+        self.cooperative_layer.cooperate(goal)
+
 class RegentOrgAgent(Agent):
     def __init__(self):
         pass

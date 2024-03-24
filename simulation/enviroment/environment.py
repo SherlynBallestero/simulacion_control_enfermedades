@@ -3,7 +3,6 @@ from simulation.epidemic import EpidemicModel
 
 from typing import List, Tuple
 import random
-import numpy as np
 from utils.graph import Node,Graph
 class Building:
     def __init__(self, name: str, location: Tuple[float, float], building_type: str = None):
@@ -42,7 +41,7 @@ class Environment:
         Parameters:
             num_agents (int): The number of agents to initialize.
         """
-        infected_agents = random.randint(0, num_agents/2)
+        infected_agents = random.randint(0, int(num_agents/2))
         
         
         for i in range(num_agents):

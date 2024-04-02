@@ -1,7 +1,7 @@
 from typing import Dict, Any, Tuple, List, Set
 import random 
 from utils.graph import Graph,Node
-from agent_arquitecture import WorldInterface, BehaviorLayerBased, LocalPlanningLayer, CooperativeLayer
+# from agent_arquitecture import WorldInterface, BehaviorLayerBased, LocalPlanningLayer, CooperativeLayer
 
 class Agent:
     """Class representing an agent in the simulation."""
@@ -28,9 +28,9 @@ class Agent:
 
         # Inicialización de la arquitectura interrap
         # self.world_interface = WorldInterface(self.mind_map, self.perception_module, self.action_module)
-        self.behavior_layer_based = BehaviorLayerBased(self.mind_map)
-        self.local_planning_layer = LocalPlanningLayer(self.behavior_layer_based)
-        self.cooperative_layer = CooperativeLayer(self.local_planning_layer)
+        # self.behavior_layer_based = BehaviorLayerBased(self.mind_map)
+        # self.local_planning_layer = LocalPlanningLayer(self.behavior_layer_based)
+        # self.cooperative_layer = CooperativeLayer(self.local_planning_layer)
 
     def update_belief(self, belief: str, value: Any) -> None:
         """
@@ -159,9 +159,9 @@ class Agent:
         # Llama al método perceive del módulo de percepción
         self.world_interface.perceive()
 
-    def act(self, action):
-        # Llama al método act del módulo de acción
-        self.world_interface.act(action)
+    # def act(self, action):
+    #     # Llama al método act del módulo de acción
+    #     self.world_interface.act(action)
 
     def plan(self, goal):
         # Llama al método plan del módulo de planificación

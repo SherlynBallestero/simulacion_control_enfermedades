@@ -34,6 +34,7 @@ def es_primo(n):
 def maximo_lista(lista):
     return max(lista)
 
+
 def suma(n,m):
     return n + m
 import logging
@@ -85,6 +86,7 @@ city_graph.add_edge(3, 4) # Conectar el supermercado con el parque
 city_graph.add_edge(3, 5) # Conectar el supermercado con la biblioteca
 city_graph.add_edge(4, 5) # Conectar el parque con la biblioteca
 city_graph.add_edge(5, 6) # Conectar la biblioteca con el restaurante
+
 
 def logger_configuration():
     #Creating logger configuration

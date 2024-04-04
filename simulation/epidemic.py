@@ -1,4 +1,4 @@
-from simulation.agents import Agent
+from simulation.agents.agents import Agent
 
 from typing import List, Tuple
 import random

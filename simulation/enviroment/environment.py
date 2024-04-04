@@ -1,9 +1,9 @@
-from simulation.agents import Agent
+from simulation.agents.agents import Agent
 from simulation.epidemic import EpidemicModel
-
 from typing import List, Tuple
 import random
-from utils.graph import Node,Graph
+from utils.graph import Node, Graph
+
 class Building:
     def __init__(self, name: str, location: Tuple[float, float], building_type: str = None):
         """
@@ -32,7 +32,6 @@ class Environment:
         self.buildings: List[Building] = []
         self.epidemic_model = epidemic_model
         self.initialize_agents(num_agents)
-        # self.initialize_spaces()
 
     def initialize_agents(self, num_agents: int):
         """
@@ -126,11 +125,5 @@ class Environment:
             pass
         self.epidemic_model.step([(agent, self.get_neighbors(agent)) for agent in self.agents])
 
-
-if __name__ == '__main__':
-    # Example usage
-    env = Environment(x_limit=100.0, y_limit=100.0, num_agents=10)
-    building1 = Building("Workplace", (50.0, 50.0))
-    building2 = Building("Park", (30.0, 70.0))
-    env.add_building(building1)
-    env.add_building(building2)
+    def create_perception(self, agent:Agent):
+        pass

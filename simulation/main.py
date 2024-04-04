@@ -39,7 +39,7 @@ def suma(n,m):
     return n + m
 import logging
 # import matplotlib.pyplot as plt
-from simulation.agents import Agent
+from simulation.agents.agents import Agent
 from simulation.enviroment.environment import Environment
 from simulation.epidemic import EpidemicModel
 from utils.graph import Graph

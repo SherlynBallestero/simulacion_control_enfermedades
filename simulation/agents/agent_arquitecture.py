@@ -1,3 +1,5 @@
+import pyswip
+
 class WorldInterface:
     def __init__(self, environment, perception,action):
         self.world_model = environment

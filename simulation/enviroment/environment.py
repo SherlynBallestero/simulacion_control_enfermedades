@@ -46,8 +46,9 @@ class Environment:
         
         for i in range(num_agents):
             agent = Agent(unique_id=i, status='infected') if i < infected_agents else Agent(unique_id=i)
-            pos = random.randint(1, len(self.map.nodes))
-            self.add_agent(agent, pos)
+            pos1 = random.randint(0, 2)
+            pos2 = random.randint(0, 2)
+            self.add_agent(agent, (pos1, pos2))
 
     def add_agent(self, agent: Agent, pos: int):
         """

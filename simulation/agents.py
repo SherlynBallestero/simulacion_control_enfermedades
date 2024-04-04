@@ -154,14 +154,9 @@ class Agent:
         # Implementa la lógica para actualizar el plan existente aquí
         pass
 
-    # metodos para interactuar con agent_arquitecture
     def perceive(self):
         # Llama al método perceive del módulo de percepción
         self.world_interface.perceive()
-
-    # def act(self, action):
-    #     # Llama al método act del módulo de acción
-    #     self.world_interface.act(action)
 
     def plan(self, goal):
         # Llama al método plan del módulo de planificación

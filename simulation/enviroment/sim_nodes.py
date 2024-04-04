@@ -204,5 +204,10 @@ class Bar(PublicPlace):
     def __str__(self):
         return f"Bar({self.id}, capacity={self.capacity}, activity={self.activity}, opening_hours={self.opening_hours}, location_type={self.location_type}, health_services_access={self.health_services_access}, ventilation_level={self.ventilation_level}, distance_to_outdoors={self.distance_to_outdoors}, distance_to_high_risk_places={self.distance_to_high_risk_places}, daily_visitor_count={self.daily_visitor_count}, access_restrictions={self.access_restrictions}, number_of_tables={self.number_of_tables}, type_of_music={self.type_of_music}, number_of_bartenders={self.number_of_bartenders})"
     
-
+class Cafe(PublicPlace):
+    def __init__(self, id, capacity, activity, opening_hours, location_type, health_services_access, ventilation_level, distance_to_outdoors, distance_to_high_risk_places, daily_visitor_count, access_restrictions, number_of_tables, type_of_coffee):
+        super().__init__(id=id, capacity=capacity, activity=activity, opening_hours=opening_hours, location_type=location_type, health_services_access=health_services_access, ventilation_level=ventilation_level, distance_to_outdoors=distance_to_outdoors, distance_to_high_risk_places=distance_to_high_risk_places, daily_visitor_count=daily_visitor_count, access_restrictions=access_restrictions)
+        self.access_restrictions = access_restrictions
+        self.number_of_tables = number_of_tables
+        self.type_of_coffee = type_of_coffee
        

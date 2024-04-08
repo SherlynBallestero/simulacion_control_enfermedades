@@ -21,9 +21,6 @@ TRANSMISSION_RATE = 0.001
 RECOVERY_RATE = 0.01
 NUM_STEPS = 280
 
-# Crear un grafo vacío
-city_graph = Graph()
-
 # Crear nodos para diferentes lugares públicos
 # Crear un grafo vacío
 city_graph = Graph()

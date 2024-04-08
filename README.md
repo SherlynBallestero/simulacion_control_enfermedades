@@ -20,7 +20,7 @@ Las personas que viven en la ciudad serán modeladas utilizando agentes con comp
 
 Además, el sistema ofrece la posibilidad de analizar y evaluar estrategias de control de enfermedades propuestas por el usuario. Esto se logra mediante la generación de información estadística que refleja cómo estas estrategias podrían afectar la propagación de la enfermedad en la ciudad. El objetivo de esta funcionalidad es permitir una evaluación crítica y comparativa de diferentes enfoques de control, facilitando así la identificación de las mejores prácticas para manejar la epidemia.
 
-### Dependiendo del tiempo:
+### Dependiendo del tiempo
 
 - Integración de Datos Reales: realizar simulacion utilizando parámetros sacados de epidemias reales para comprobar la precisión
 - Incorporación de Modelos de Comportamiento Humano Avanzados: Mejorar los modelos de comportamiento humano para que sean más realistas y reflejen mejor las rutinas y decisiones de las personas durante una epidemia.

@@ -154,10 +154,11 @@ if __name__ == '__main__':
     
     prolog.asserta('capacity_place(place2, 200)')
     
-    query = f"behavior_pattern(place2, FunctionName)"
+    query = f"behavior_pattern(go_to_work, Args, FunctionName)"
     action = []
     for result in prolog.query(query):
         action.append(result['FunctionName'])
+        action.append(result['Args'])
         
     
     prolog.retractall('capacity_place(_ , _)')

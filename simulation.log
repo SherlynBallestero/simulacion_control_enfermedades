@@ -1,9 +1,10 @@
-2024-04-09 00:44:26,872 - INFO - === Simulation Execution Started ===
-2024-04-09 00:44:26,874 - INFO - === Initializing City ===
-2024-04-09 00:44:26,874 - INFO - === Initializing Epidemic Model ===
-2024-04-09 00:44:26,874 - INFO - === Initializing Environment ===
-2024-04-09 00:44:26,875 - INFO - === Initializing Agents ===
-2024-04-09 00:44:26,881 - INFO - === Starting Simulation Loop With 100 Steps ===
-2024-04-09 00:44:26,881 - INFO - 
+2024-04-09 03:32:07,288 - INFO - === Simulation Execution Started ===
+2024-04-09 03:32:07,289 - INFO - === Initializing City ===
+2024-04-09 03:32:07,289 - INFO - === Initializing Epidemic Model ===
+2024-04-09 03:32:07,289 - INFO - === Initializing Environment ===
+2024-04-09 03:32:07,289 - INFO - === Initializing Agents ===
+2024-04-09 03:32:07,301 - INFO - === Starting Simulation Loop With 100 Steps ===
+2024-04-09 03:32:07,301 - INFO - 
 	agent_num: 20,
-	infected_agents: 2
+	infected_agents: 9
+2024-04-09 03:32:08,269 - DEBUG - Agent 11 is moving to [1, 1]

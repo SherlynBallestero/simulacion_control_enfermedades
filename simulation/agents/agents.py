@@ -1,7 +1,7 @@
 from typing import Dict, Any, Tuple, List, Set, Hashable
 from utils.graph import Graph
 from simulation.enviroment.sim_nodes import CitizenPerceptionNode as CPNode
-from simulation.agents.agent_arquitecture import BehaviorLayerBased, LocalPlanningLayer, CooperativeLayer
+from simulation.agents.agent_arquitecture import BehaviorLayer, LocalPlanningLayer, CooperativeLayer
 
 class Agent:
     """Class representing an agent in the simulation."""
@@ -9,7 +9,7 @@ class Agent:
                  unique_id: int,
                  mind_map: Graph,
                  status: str = 'susceptible',
-                 bb_component: BehaviorLayerBased = None,
+                 bb_component: BehaviorLayer = None,
                  lp_component: LocalPlanningLayer = None,
                  c_component: CooperativeLayer = None,
                  wi_component: 'WorldInterface' = None,
@@ -42,3 +42,6 @@ class Agent:
     def step(self):
         perception = self.wi.percieve(self)
         self.process_perception(perception)
+        action, arguments = self.bbc.react()
+        self.wi.act(self, action, arguments)
+        pass

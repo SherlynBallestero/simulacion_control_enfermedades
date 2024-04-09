@@ -138,6 +138,7 @@ class WorldInterface:
         Parameters:
             agent (Agent): The agent to move.
         """
+        pos = tuple(pos)
         # Getting the previous location
         prev_location = agent.location
 

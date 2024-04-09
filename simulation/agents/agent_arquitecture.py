@@ -19,24 +19,23 @@ class BehaviorLayer:
         self.prolog = Prolog()
         self.prolog.consult('patterns_of_behaviour.pl')
 
-    def react(self, situation):
+    def react(self):
         # Obtiene el estado actual del agente
-        current_state = self.world_model.perceive()
+        # current_state = self.world_model.perceive()
         
         # Consulta el motor Prolog para obtener la acción apropiada
-        query = f"behavior_pattern({current_state}, FunctionName)"
-        # actions = []
+        self.prolog.asserta('capacity_place(place2, [1,1], 200)')
+    
+        query = f"behavior_pattern(place2, Args, FunctionName)"
+        action = []
         for result in self.prolog.query(query):
-            # action.append(result['FunctionName'])
-            action = result['FunctionName']
-            break
-        else:
-            action = "default_action"
+            action.append(result['FunctionName'])
+            action.append(result['Args'])
             
         # if not actions:
         #     action = self.chose_action(actions)
         
-        return action
+        return action[0], action[1]
     
     # def chose_action(self, actions):
     #     return random.randint(actions)

@@ -27,7 +27,7 @@ class Node:
         Returns:
         - A string representing the node.
         """
-        return f"Node({self.id}, {self.value})"
+        return f"Node({self.id})"
 
     def __repr__(self):
         """

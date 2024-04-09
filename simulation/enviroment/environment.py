@@ -1,39 +1,28 @@
 from simulation.agents.agents import Agent
 from simulation.epidemic import EpidemicModel
-from typing import List, Tuple
+from simulation.enviroment.sim_nodes import CitizenPerceptionNode as CPNode
+from typing import Tuple
 import random
-from utils.graph import Node, Graph
+from utils.graph import Graph
+import logging
 
-class Building:
-    def __init__(self, name: str, location: Tuple[float, float], building_type: str = None):
-        """
-        Initialize a building.
-
-        Parameters:
-            name (str): The name of the building.
-            location (Tuple[float, float]): The location of the building as a (x, y) tuple.
-        """
-        self.building_type = building_type # Ejemplo: 'home', 'workplace', 'school', 'public'
-        self.name = name
-        self.location = location
+logger = logging.getLogger(__name__)
 
 class Environment:
-    def __init__(self,num_agents: int, epidemic_model: EpidemicModel,map: Graph = None):
+    def __init__(self,num_agents: int, epidemic_model: EpidemicModel, map: Graph):
         """
         Initialize the environment.
 
         Parameters:
             num_agents (int): The number of agents to initialize in the environment.
         """
-        if map:
-            self.map = map
-            
+        self.map = map    
         self.agents: List[Agent] = []
-        self.buildings: List[Building] = []
         self.epidemic_model = epidemic_model
-        self.initialize_agents(num_agents)
+        logger.info('=== Initializing Agents ===')
+        self.initialize_citizen_agents(num_agents)
 
-    def initialize_agents(self, num_agents: int):
+    def initialize_citizen_agents(self, num_agents: int):
         """
         Initialize agents within the environment.
 
@@ -42,12 +31,12 @@ class Environment:
         """
         infected_agents = random.randint(0, int(num_agents/2))
         
-        
         for i in range(num_agents):
-            agent = Agent(unique_id=i, status='infected') if i < infected_agents else Agent(unique_id=i)
-            pos1 = random.randint(0, 2)
-            pos2 = random.randint(0, 2)
-            self.add_agent(agent, (pos1, pos2))
+            mind_map = self.generate_citizen_mind_map()
+            agents_wi  = WorldInterface(self.map, mind_map)
+            agent = Agent(unique_id=i, status='infected', mind_map = mind_map, wi_component = agents_wi) if i < infected_agents else Agent(unique_id=i, mind_map = mind_map, wi_component = agents_wi)
+            location = random.choice(list(self.map.nodes.keys()))
+            self.add_agent(agent, location)
 
     def add_agent(self, agent: Agent, pos: int):
         """
@@ -58,28 +47,86 @@ class Environment:
             x (int): The x-coordinate of the agent's location.
             y (int): The y-coordinate of the agent's location.
         """
-        agent.location = pos
+        agent.location = pos #TODO: change this so the agent position is a knolege\believe
         self.map.nodes[pos].agent_list.append(agent.unique_id)
         self.agents.append(agent)
 
-    def add_building(self, building: Building):
+    def generate_citizen_mind_map(self):
+        mind_map = Graph()
+
+        for node_id in self.map.nodes.keys():
+            old_node = self.map.nodes[node_id]
+            new_node = CPNode(old_node.id)
+            mind_map.add_node(new_node)
+
+        mind_map.edges = self.map.edges.copy()
+        
+        return mind_map
+
+    def get_neighbors(self, agent: Agent):
         """
-        Add a building to the environment.
+        Get the neighbors of an agent.
 
         Parameters:
-            building (Building): The building to add.
-        """
-        self.buildings.append(building)
+            agent (Agent): The agent to get neighbors for.
 
-    def initialize_spaces(self):
+        Returns:
+            List[int]: A list of neighboring agent IDs.
         """
-        Add spaces to the environment.
+        agents_node = self.map.nodes[agent.location]
+        return [agent_id for agent_id in agents_node.agent_list if agent_id != agent.unique_id]
+
+    def step(self):
         """
-        self.add_building(Building("Home", (100, 100), "home"))
-        self.add_building(Building("Workplace", (200, 200), "workplace"))
-        self.add_building(Building("School", (300, 300), "school"))
-        self.add_building(Building("Park", (400, 400), "public"))
-        self.add_building(Building("Hospital", (500, 500), "hospital"))
+        Perform a simulation step, where agents take actions.
+        """
+        for agent in random.sample(self.agents, len(self.agents)):
+            agent.step()
+        # self.epidemic_model.step([(agent, self.get_neighbors(agent)) for agent in self.agents])
+
+
+class WorldInterface:
+    def __init__(self, map: Graph, agent_mind_map: Graph) -> None:
+        self.map = map
+        self.agent_mind_map = agent_mind_map
+
+    def act(self, agent: Agent, action: str, parameters: list):
+        if action == 'move':
+            logger.debug(f'Agent {agent.unique_id} is moving to {parameters[0]}')
+            self.move_agent(agent, *parameters)
+        else:
+            logger.error(f'Action {action} not recognized')
+
+    def comunicate(self, emiter, reciever, message):
+        raise NotImplementedError
+
+    def recieve_comunication(self, agent, message):
+        raise NotImplementedError
+
+    def percieve(self, agent: Agent):
+        def density_classifier(node_population, node_capacity):
+            node_density = node_population/node_capacity
+            if node_density < 0.5:
+                return 'low'
+            elif node_density < 0.8:
+                return 'medium'
+            elif node_density <= 1.0:
+                return 'high'
+            else:
+                return 'very_high'
+        
+        new_perception = {}
+
+        current_node = self.map.nodes[agent.location]
+        current_node_perception = CPNode(current_node.id, density_classifier(len(current_node.agent_list), current_node.capacity))
+        new_perception[current_node.id] = current_node_perception
+
+        for neighbor_key in self.map.get_neighbors(agent.location):
+            neighbor_node = self.map.nodes[neighbor_key]
+            node_density = density_classifier(len(neighbor_node.agent_list), neighbor_node.capacity)
+            new_perception[neighbor_key] = CPNode(neighbor_key, node_density)
+
+        return new_perception
 
     def move_agent(self, agent: Agent, pos: int):
         """
@@ -88,42 +135,20 @@ class Environment:
         Parameters:
             agent (Agent): The agent to move.
         """
-        
+        # Getting the previous location
         prev_location = agent.location
-        node = self.map.nodes[prev_location].agent_list.remove(agent.unique_id)
+
+        # Getting the current location neighbors
+        prev_neighbors = self.map.get_neighbors(prev_location)
+
+        # Checking if the new location is a neighbor of the previous location
+        if pos not in prev_neighbors:
+            logger.error(f'Agent {agent.unique_id} cannot move to {pos} from {prev_location}')
+            return
+        
+        # Removing the agent from the previous location
+        self.map.nodes[prev_location].agent_list.remove(agent.unique_id)
+
+        # Adding the agent to the new location
         agent.location = pos
         self.map.nodes[pos].agent_list.append(agent.unique_id) 
-                
-    def get_neighbors(self, agent: Agent, radius: int = 20) -> List[Agent]:
-        """
-        Get neighboring agents within a certain radius of a given agent.
-
-        Parameters:
-            agent (Agent): The agent to find neighbors for.
-            radius (float): The radius within which to search for neighbors. Default is 1.0.
-
-        Returns:
-            List[Agent]: A list of neighboring agents.
-        """
-        neighbors = []
-        
-        for _agent in self.agents:
-            if agent.location == _agent.location:
-                neighbors.append(_agent)
-        
-        return neighbors
-
-    def step(self):
-        """
-        Perform a simulation step, where agents take actions.
-        """
-        for agent in self.agents:
-            # Implement agent actions for each step
-            action, parameter = agent.act([self.map.nodes[adj_node] for adj_node in self.map.get_neighbors(agent.location)])
-            if action ==  "move":
-                self.move_agent(agent,parameter)
-            pass
-        self.epidemic_model.step([(agent, self.get_neighbors(agent)) for agent in self.agents])
-
-    def create_perception(self, agent:Agent):
-        pass

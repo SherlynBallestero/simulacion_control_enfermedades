@@ -1,7 +1,7 @@
 from simulation.agents.agents import Agent
 from simulation.epidemic import EpidemicModel
 from simulation.enviroment.sim_nodes import CitizenPerceptionNode as CPNode
-from typing import Tuple
+from typing import Tuple, List
 import random
 from utils.graph import Graph
 import logging

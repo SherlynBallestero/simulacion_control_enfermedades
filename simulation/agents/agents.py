@@ -12,7 +12,8 @@ class Agent:
                  bb_component: BehaviorLayerBased = None,
                  lp_component: LocalPlanningLayer = None,
                  c_component: CooperativeLayer = None,
-                 wi_component: 'WorldInterface' = None
+                 wi_component: 'WorldInterface' = None,
+                 knowledge_base: Dict[Hashable, Any] = None
                  ):
         """
         """
@@ -22,7 +23,7 @@ class Agent:
 
         # Hierarchical Knowlege Base
         # self.belief_system = belief_system if belief_system is not None else {}
-        # self.knowledge_base = knowledge_base if knowledge_base is not None else {}
+        self.knowledge_base = knowledge_base if knowledge_base is not None else {}
         self.mind_map = mind_map if mind_map is not None else {}
 
         # Agent Control Unit

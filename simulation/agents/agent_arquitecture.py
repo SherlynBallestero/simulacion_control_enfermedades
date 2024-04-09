@@ -13,7 +13,7 @@ class WorldModel:
     def act(self, action):
         # Implement action logic here
         pass
-class BehaviorLayerBased:
+class BehaviorLayer:
     def __init__(self, world_model, knowledge):
         self.world_model = world_model
         self.prolog = Prolog()

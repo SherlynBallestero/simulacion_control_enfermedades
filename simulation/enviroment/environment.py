@@ -1,4 +1,5 @@
 from simulation.agents.agents import Agent
+from simulation.agents.agent_arquitecture import BehaviorLayer
 from simulation.epidemic import EpidemicModel
 from simulation.enviroment.sim_nodes import CitizenPerceptionNode as CPNode
 from typing import Tuple, List
@@ -35,6 +36,8 @@ class Environment:
             mind_map = self.generate_citizen_mind_map()
             agents_wi  = WorldInterface(self.map, mind_map)
             agent = Agent(unique_id=i, status='infected', mind_map = mind_map, wi_component = agents_wi) if i < infected_agents else Agent(unique_id=i, mind_map = mind_map, wi_component = agents_wi)
+            agents_bbc = BehaviorLayer(agent.mind_map, agent.knowledge_base)
+            agent.bbc = agents_bbc
             location = random.choice(list(self.map.nodes.keys()))
             self.add_agent(agent, location)
 

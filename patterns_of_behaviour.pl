@@ -21,7 +21,5 @@ behavior_pattern(CurrentNode, Id, move):-
     Capacity > 100,
     Id = [Id1].
 
-    
-
 :-dynamic capacity_place/3.
 

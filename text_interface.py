@@ -1,11 +1,11 @@
 import streamlit as st
 import gpt4all as gpt
 from gpt4all import GPT4All
-from simulation.main import function, factorial, contar_palabras, filtrar_lista, calcular_media, es_primo, maximo_lista, suma
+# from simulation.main import function, factorial, contar_palabras, filtrar_lista, calcular_media, es_primo, maximo_lista, suma
 import io
 import sys
 
-model = GPT4All("/home/chony/Documentos/GPT4All/mistral-7b-instruct-v0.1.Q4_0.gguf")
+model = GPT4All("/home/chony/LLM/Mistral-7B-Instruct-v0.1-GGUF/mistral-7b-instruct-v0.1.Q4_K_S.gguf")
 
 st.title("EpiDoc")
 

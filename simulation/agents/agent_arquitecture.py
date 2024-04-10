@@ -59,7 +59,7 @@ class CooperativeLayer:
 
 def main():
     world_interface = WorldModel()
-    behavior_layer_based = BehaviorLayerBased(world_interface)
+    behavior_layer_based = BehaviorLayer(world_interface)
     local_planning_layer = LocalPlanningLayer(behavior_layer_based)
     cooperative_layer = CooperativeLayer(local_planning_layer)
 

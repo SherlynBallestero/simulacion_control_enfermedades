@@ -8,27 +8,27 @@ prolog.consult('bbc.pl')
 
 # Function to add a new citizen's health status
 def add_citizen(name, health_status):
-    prolog.assertz(f"{health_status}({name})")
+    prolog.asserta(f"{health_status}({name})")
 
 # Function to query a citizen's behavior
 def query_behavior(name):
     return list(prolog.query(f"behavior({name}, Behavior)"))
 
 # Example usage
-add_citizen("Alice", "healthy")
-add_citizen("Bob", "infected")
+add_citizen("alice", "healthy")
+# add_citizen("bob", "infected")
 
 # Query behaviors
-print(query_behavior("Alice"))
-print(query_behavior("Bob"))
+print(query_behavior("alice"))
+print(query_behavior("bob"))
 
 # Dynamically update the knowledge base
 # For example, to update Alice's status to infected
-prolog.retract(f"healthy(Alice)")
-prolog.assertz(f"infected(Alice)")
+prolog.retract(f"healthy(alice)")
+prolog.assertz(f"infected(alice)")
 
 # Query behaviors after update
-print(query_behavior("Alice"))
+print(query_behavior("alice"))
 # import pyswip
 
 # # Initialize the Prolog engine

@@ -1,6 +1,6 @@
 from simulation.agents.agents import Agent
 from simulation.agents.agent_arquitecture import BehaviorLayer
-from simulation.epidemic import EpidemicModel
+from simulation.epidemic.epidemic_model import EpidemicModel
 from simulation.enviroment.sim_nodes import CitizenPerceptionNode as CPNode
 from typing import Tuple, List
 import random
@@ -20,7 +20,7 @@ class Environment:
         self.map = map    
         self.agents: List[Agent] = []
         self.epidemic_model = epidemic_model
-        logger.info('=== Initializing Agents ===')
+        logger.debug('=== Initializing Agents ===')
         self.initialize_citizen_agents(num_agents)
 
     def initialize_citizen_agents(self, num_agents: int):
@@ -31,7 +31,12 @@ class Environment:
             num_agents (int): The number of agents to initialize.
         """
         infected_agents = random.randint(0, int(num_agents/2))
-        
+        #TODO Adding the required agent components:
+        # - Wi
+        # - BBC
+        # - PBC
+        # - CC
+        # - Knowlege Base
         for i in range(num_agents):
             mind_map = self.generate_citizen_mind_map()
             agents_wi  = WorldInterface(self.map, mind_map)
@@ -85,7 +90,7 @@ class Environment:
         """
         for agent in random.sample(self.agents, len(self.agents)):
             agent.step()
-        # self.epidemic_model.step([(agent, self.get_neighbors(agent)) for agent in self.agents])
+        self.epidemic_model.step([(agent, self.get_neighbors(agent)) for agent in self.agents])
 
 
 class WorldInterface:

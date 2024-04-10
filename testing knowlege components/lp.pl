@@ -15,8 +15,8 @@
 % status(susceptible).
 % status(infected).
 % status(recovered).
-
-
+healthy(none).
+infected(pepe).
 
 % Behavior patterns for healthy citizens
 healthy_citizen_behavior(social_distancing).

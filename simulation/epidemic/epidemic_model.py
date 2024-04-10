@@ -1,11 +1,14 @@
 from simulation.agents.agents import Agent
+from utils.automaton import State
+from utils.graph import Graph
+from pyswip import Prolog
 
 from typing import List, Tuple
 import random
 import logging
 
 class EpidemicModel:
-    def __init__(self, transmission_rate: float, recovery_rate: float):
+    def __init__(self, transmission_rate: float, dissease_progression: str = 'chony_virus_progression.pl'):
         """
         Initialize the epidemic model.
 
@@ -13,10 +16,10 @@ class EpidemicModel:
             transmission_rate (float): The rate at which the disease is transmitted between agents.
             recovery_rate (float): The rate at which infected agents recover from the disease.
         """
-        self.transmission_rate = transmission_rate
-        self.recovery_rate = recovery_rate
+        self.progression: Graph = Prolog(dissease_progression)
+        self.transmission_rate: float = transmission_rate
 
-    def spread_disease(self, agent: Agent, other_agent: Agent):
+    def spread_disease(self, agent: Agent, other_agent: Agent, contact_factor: float):
         """
         Spread the disease from one infected agent to another susceptible agent.
 
@@ -27,17 +30,6 @@ class EpidemicModel:
         if agent.status == 'infected' and other_agent.status == 'susceptible':
             if random.random() < self.transmission_rate:
                 other_agent.status = 'infected'
-
-    def recover(self, agent: Agent):
-        """
-        Simulate agent's recovery from the disease.
-
-        Parameters:
-            agent (Agent): The agent to simulate recovery for.
-        """
-        if agent.status == 'infected':
-            if random.random() < self.recovery_rate:
-                agent.status = 'recovered'
 
     def step(self, agents: List[Tuple[Agent, List[Agent]]]):
         """

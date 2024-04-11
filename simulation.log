@@ -1,1 +1,23 @@
-2024-04-10 13:29:36,138 - INFO - === Simulation Execution Started ===
+2024-04-10 19:58:09,498 - INFO - === Simulation Execution Started ===
+2024-04-10 19:58:10,016 - INFO - === Starting Simulation Loop With 4464 Steps ===
+2024-04-10 19:58:10,025 - INFO - === Step: 0 ===
+2024-04-10 19:58:10,026 - INFO - Starting cond:
+	agent_num: 20,
+	infected_agents: 8
+2024-04-10 19:58:10,032 - ERROR - Agent 11 cannot move to (1, 1) from 1
+2024-04-10 19:58:10,063 - ERROR - Agent 0 cannot move to (1, 1) from 3
+2024-04-10 19:58:10,091 - ERROR - Agent 4 cannot move to (1, 1) from (0, 0)
+2024-04-10 19:58:10,098 - ERROR - Agent 7 cannot move to (1, 1) from (0, 0)
+2024-04-10 19:58:10,113 - ERROR - Agent 19 cannot move to (1, 1) from (0, 0)
+2024-04-10 19:58:10,130 - ERROR - Agent 15 cannot move to (1, 1) from (0, 0)
+2024-04-10 19:58:10,147 - ERROR - Agent 2 cannot move to (1, 1) from 0
+2024-04-10 19:58:10,161 - ERROR - Agent 5 cannot move to (1, 1) from 1
+2024-04-10 19:58:10,172 - ERROR - Agent 14 cannot move to (1, 1) from 0
+2024-04-10 19:58:10,181 - ERROR - Agent 3 cannot move to (1, 1) from 0
+2024-04-10 19:58:10,194 - ERROR - Agent 13 cannot move to (1, 1) from 0
+2024-04-10 19:58:10,209 - ERROR - Agent 10 cannot move to (1, 1) from (0, 0)
+2024-04-10 19:58:10,239 - ERROR - Agent 17 cannot move to (1, 1) from 0
+2024-04-10 19:58:10,268 - ERROR - Agent 12 cannot move to (1, 1) from 3
+2024-04-10 19:58:10,314 - ERROR - Agent 8 cannot move to (1, 1) from 0
+2024-04-10 19:58:10,335 - ERROR - Agent 6 cannot move to (1, 1) from (1, 1)
+2024-04-10 19:58:10,347 - ERROR - Agent 16 cannot move to (1, 1) from (1, 1)

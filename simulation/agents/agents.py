@@ -1,6 +1,7 @@
+import random
 from typing import Dict, Any, Tuple, List, Set, Hashable
 from utils.graph import Graph
-from simulation.enviroment.sim_nodes import CitizenPerceptionNode as CPNode
+from simulation.utils.sim_nodes import CitizenPerceptionNode as CPNode
 from simulation.agents.agent_arquitecture import BehaviorLayer, LocalPlanningLayer, CooperativeLayer
 
 class Agent:
@@ -20,11 +21,13 @@ class Agent:
         # Agent Caracteristics
         self.unique_id = unique_id
         self.status = status
+        self.age_group = random.choice(['young', 'adult', 'old'])
 
         # Hierarchical Knowlege Base
         # self.belief_system = belief_system if belief_system is not None else {}
         self.knowledge_base = knowledge_base if knowledge_base is not None else {}
         self.mind_map = mind_map if mind_map is not None else {}
+        self.symptoms = []
 
         # Agent Control Unit
         self.bbc = bb_component

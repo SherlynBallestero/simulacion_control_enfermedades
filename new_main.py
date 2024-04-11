@@ -37,7 +37,7 @@ if __name__ == '__main__':
     logger.debug("=== Initializing City ===")
     map = TEST_CITY_1
     logger.debug("=== Initializing Epidemic Model ===")
-    epidemic_model = EpidemicModel(0.5, 0.5)
+    epidemic_model = EpidemicModel(0.5)
     logger.debug("=== Initializing Environment ===")
     env = Environment(20, epidemic_model, map)
     logger.info(f'=== Starting Simulation Loop With {sim_steps} Steps ===')

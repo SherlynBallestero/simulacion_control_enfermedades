@@ -1,7 +1,7 @@
 from simulation.agents.agents import Agent
 from simulation.agents.agent_arquitecture import BehaviorLayer
 from simulation.epidemic.epidemic_model import EpidemicModel
-from simulation.enviroment.sim_nodes import CitizenPerceptionNode as CPNode
+from simulation.utils.sim_nodes import CitizenPerceptionNode as CPNode
 from typing import Tuple, List
 import random
 from utils.graph import Graph
@@ -82,7 +82,7 @@ class Environment:
             List[int]: A list of neighboring agent IDs.
         """
         agents_node = self.map.nodes[agent.location]
-        return [agent_id for agent_id in agents_node.agent_list if agent_id != agent.unique_id]
+        return [self.agents[agent_id] for agent_id in agents_node.agent_list if agent_id != agent.unique_id]
 
     def step(self):
         """
@@ -90,7 +90,7 @@ class Environment:
         """
         for agent in random.sample(self.agents, len(self.agents)):
             agent.step()
-        self.epidemic_model.step([(agent, self.get_neighbors(agent)) for agent in self.agents])
+        self.epidemic_model.step([(agent, self.get_neighbors(agent), self.map.nodes[agent.location].contact_rate) for agent in self.agents])
 
 
 class WorldInterface:

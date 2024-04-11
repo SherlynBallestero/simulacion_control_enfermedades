@@ -5,26 +5,20 @@
 % - terminal
 % - recovered
 % symptoms(ID, Symptom-list)
-% infected_agent(ID, AgeGroup)
 % symptoms(none, []).
 % stage(none, none).
 % age_group(none, none).
-
-symptoms(1, []).
-stage(1, symptomatic).
-age_group(1, old).
-
 
 possible_symptoms_symptomatic([normal_fever, normal_cough, normal_short_breath, back_ache, stomach_ache, lazyness, sleepiness]).
 possible_symptoms_critical([critical_fever, critical_cough, critical_short_breath, gastritis]).
 possible_symptoms_terminal([candela, que_ostine]).
 
-advance_dissease(terminal, AgeGroup, Symptoms, NextStage):-
+advance_dissease(terminal, _ , _ , NextStage):-
     random(X),
     (X < 0.5 -> NextStage = dead;
     NextStage = terminal).
 
-advance_dissease(critical, AgeGroup, Symptoms, NextStage):-
+advance_dissease(critical, _ , Symptoms, NextStage):-
     length(Symptoms, Length),
     random(X),
     possible_symptoms_critical(Possible_Symptoms),
@@ -42,7 +36,7 @@ advance_dissease(critical, AgeGroup, Symptoms, NextStage):-
         NextStage = recovered)
     ).
 
-advance_dissease(symptomatic, AgeGroup, Symptoms, NextStage):-
+advance_dissease(symptomatic, _ , Symptoms, NextStage):-
     length(Symptoms, Length),
     random(X),
     possible_symptoms_symptomatic(Possible_Symptoms),
@@ -73,7 +67,7 @@ step(ID, NextStage):-
     random(X),
     (
     (CurrentStage == asymptomatic, X < 0.8) -> advance_dissease_asymptomatic(CurrentStage, AgeGroup, NextStage);
-    (member(CurrentStage, [symptomatic, critical]), X < 0.8) -> advance_dissease(CurrentStage, AgeGroup, Symptoms, NextStage);
+    (member(CurrentStage, [symptomatic, critical, terminal]), X < 0.8) -> advance_dissease(CurrentStage, AgeGroup, Symptoms, NextStage);
     NextStage = CurrentStage
     ).
 

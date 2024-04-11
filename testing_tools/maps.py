@@ -1,5 +1,5 @@
 from utils.graph import Graph
-from simulation.enviroment.sim_nodes import BlockNode, Workspace, PublicPlace
+from simulation.utils.sim_nodes import BlockNode, Workspace, PublicPlace
 
 TEST_CITY_1 = Graph()
 

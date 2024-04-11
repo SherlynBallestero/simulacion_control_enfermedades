@@ -1,5 +1,5 @@
 from utils.graph import Node
-from typing import Hashable, Tuple
+from typing import Hashable, Tuple, Callable
 
 class PerceptionNode(Node):
     def __init__(self, id: Hashable = None) -> None:
@@ -14,7 +14,7 @@ class CitizenPerceptionNode(PerceptionNode):
 
 
 class SimNode(Node):
-    def __init__(self, capacity: int, id: Hashable):
+    def __init__(self, capacity: int, id: Hashable, contact_rate: Callable = None):
         """
         Class representing the base node of the simulation
 
@@ -25,12 +25,20 @@ class SimNode(Node):
         super().__init__(id)
         self.capacity = capacity
         self.agent_list = []
-        self.transmition_modifier = 1
-        self.contact_rate = 0
 
     def __str__(self):
         agents = '\n\t'.join(self.agent_list)
         return f'{self._node_name}({self.id})):\n\tcapacity:{self.capacity}\n\tagents:{agents}'
+
+    @property
+    def contact_rate(self):
+        poblation_rate = len(self.agent_list) / self.capacity
+        if poblation_rate < 0.5:
+            return 0.1
+        elif poblation_rate < 0.8:
+            return 0.5
+        else:
+            return 0.8
 
 
 class BlockNode(SimNode):

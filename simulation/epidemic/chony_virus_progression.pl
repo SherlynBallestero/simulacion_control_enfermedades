@@ -26,12 +26,14 @@ advance_dissease(critical, _ , Symptoms, NextStage):-
     Length < 2 -> 
         (random_member(Symptom, Possible_Symptoms),
         append(Symptoms, [Symptom], NewSymptoms),
+        Symptoms = NewSymptoms,
         NextStage = critical);
     Length >= 2 -> 
         (X < 0.5 -> NextStage = terminal;
         random_member(Symptom, Possible_Symptoms),
         not(member(Symptom, Symptoms)),
         append(Symptoms, [Symptom], NewSymptoms),
+        Symptoms = NewSymptoms,
         NextStage = critical;
         NextStage = recovered)
     ).
@@ -44,12 +46,14 @@ advance_dissease(symptomatic, _ , Symptoms, NextStage):-
     Length < 2 -> 
         (random_member(Symptom, Possible_Symptoms),
         append(Symptoms, [Symptom], NewSymptoms),
+        Symptoms = NewSymptoms,
         NextStage = symptomatic);
     Length >= 2 ->
         (X < 0.5 -> NextStage = critical;
         random_member(Symptom, Possible_Symptoms),
         not(member(Symptom, Symptoms)),
         append(Symptoms, [Symptom], NewSymptoms),
+        Symptoms = NewSymptoms,
         NextStage = symptomatic;
         NextStage = recovered)
     ).

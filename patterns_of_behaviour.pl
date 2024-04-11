@@ -12,7 +12,7 @@ action(go_to_work).
 %     behavior_pattern(CurrentNode, Capacity1, Action).
 
 behavior_move(move, Args1, move):-
-    work(Go_to_work, Args), Args1 is Args .
+    work(move, Args), Args1 is Args .
     
 
 behavior_pattern(CurrentNode, Id, move):-

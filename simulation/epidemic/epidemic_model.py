@@ -38,8 +38,11 @@ class EpidemicModel:
     def _step_dissease_query(self, agent: Agent):
         next_stage = list(self.dissease_k.query(f'step({agent.unique_id}, S)'))
         current_symptoms = list(self._query_symptoms(agent.unique_id))
-        return next_stage, current_symptoms
-    
+        try:
+            return next_stage[0], current_symptoms[0]
+        except:
+            return None, None
+        
     def step_dissease(self, agent: Agent):
         agent_stage = self._query_stage(agent.unique_id)
         current_agent_knowlege = {}
@@ -58,8 +61,11 @@ class EpidemicModel:
         }
 
         next_stage, current_symptoms = self._step_dissease_query(agent)
-        agent.status = next_stage['S']
-        agent.symptoms = current_symptoms['S']        
+        try:
+            agent.status = next_stage['S']
+            agent.symptoms = current_symptoms['S']
+        except:
+            pass
 
     def spread_disease(self, agent: Agent, other_agent: Agent):
         """

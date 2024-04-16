@@ -131,19 +131,17 @@ count_terminal_symptoms(Person, Count) :-
 
 % Main function to simulate the progression of the disease
 step(Person, NextStage, NewSymptoms, RemovedSymptoms) :-
-    % Determine if the infection will get worse, better or remain the same
+    % Get the necessary information for the current agent
     vaccination_status(Person, VaccinationStatus),
     stage(Person, CurrentStage),
-    vaccination_status(Person, VaccinationStatus),
     age_group(Person, AgeGroup),
     symptoms(Person, CurrentSymptoms),
+
+    % Determine if the infection will get worse, better or remain the same
     step_type(AgeGroup, VaccinationStatus, StepType),
     
     % Determine if there are any new symptoms to add
-    % findall(NewSymptom, (available_symptoms(Person, NewSymptom), \+member(NewSymptom, CurrentSymptoms)), NewSymptoms),
-
-    % Determine if there are any symptoms to remove
-    % findall(RemovedSymptom, (member(RemovedSymptom, CurrentSymptoms), \+symptom_evolution(Person, RemovedSymptom)), RemovedSymptoms).
+    available_symptoms(CurrentStage, CurrentSymptoms, PossibleSymptoms),
     
     % Changing the stage of the person if possible
     (
@@ -154,6 +152,9 @@ step(Person, NextStage, NewSymptoms, RemovedSymptoms) :-
 
 % Calculating if a person gets better, worse or stays the same:
 step_type(AgeGroup, VaccinationStatus, StepType):-
+    once(step_type_gen(AgeGroup, VaccinationStatus, StepType)).
+
+step_type_gen(AgeGroup, VaccinationStatus, StepType):-
     (
         (VaccinationStatus, vaccination_effect(gets_better, VaccinationEffectBetter));
         VaccinationEffectBetter = 1.0
@@ -181,39 +182,29 @@ step_type(AgeGroup, VaccinationStatus, StepType):-
 
 % Symptom Evolution
 available_symptoms(Stage, Symptoms, StageSymptoms) :-
-    StageSymptoms = [],
-    %TODO: This is wrong
-    (member(Stage, [symptomatic, critical, terminal]), 
+    once(available_symptoms_gen(Stage, Symptoms, StageSymptoms)).
+%TODO: This method is returning several results.
+available_symptoms_gen(Stage, Symptoms, StageSymptoms) :-
+    ((member(Stage, [symptomatic, critical, terminal]),
         possible_symptoms_symptomatic(SympSymptoms), 
-        get_new_evol(Symptoms, SympSymptoms, ValidSymptoms), 
-        append(StageSymptoms, ValidSymptoms, StageSymptoms)),
-    (member(Stage, [critical, terminal]), 
+        get_new_evol(Symptoms, SympSymptoms, ValidSymptoms1)); ValidSymptoms1 = []),
+    ((member(Stage, [critical, terminal]), 
         possible_symptoms_critical(CritSymptoms), 
-        get_new_evol(Symptoms, CritSymptoms, ValidSymptoms), 
-        append(StageSymptoms, ValidSymptoms, StageSymptoms)),
-    (member(Stage, [terminal]), 
+        get_new_evol(Symptoms, CritSymptoms, ValidSymptoms2)); ValidSymptoms2 = []),
+    ((member(Stage, [terminal]), 
         possible_symptoms_terminal(TerSymptoms), 
-        get_new_evol(Symptoms, TerSymptoms, ValidSymptoms), 
-        append(StageSymptoms, ValidSymptoms, StageSymptoms)).
+        get_new_evol(Symptoms, TerSymptoms, ValidSymptoms3)); ValidSymptoms3 = []),
+    append(ValidSymptoms1, ValidSymptoms2, ValidSymptoms12),
+    append(ValidSymptoms12, ValidSymptoms3, StageSymptoms).
 
 get_new_evol(Symptoms, StageSymptoms, SymptomList) :-
     findall(NewSymptom, (
         (member(NewSymptom, StageSymptoms), \+ member(NewSymptom, Symptoms)),
     \+ (symptom_progression(OldSymptom, NewSymptom), \+ member(OldSymptom, Symptoms))
     ), NewSymptoms),
-    %TODO: This is wrong:
     SymptomList = NewSymptoms.
 
-% Some test cases 
-findall(A, (member(A, [normal_fever, normal_cough, normal_short_breath]), \+ member(A, [normal_fever, normal_cough])), A).
-append_new_evol([normal_fever, normal_cough], [normal_fever, normal_cough, normal_short_breath], A).
 % Testing utility
-
-test_append_new_evol :-
-    Symptoms = [normal_fever, normal_cough],
-    StageSymptoms = [normal_fever, normal_cough, normal_short_breath],
-    append_new_evol(Symptoms, StageSymptoms, SymptomList),
-    SymptomList = [normal_fever, normal_cough, normal_short_breath, critical_fever, critical_cough, critical_short_breath].
 
 adding_test_agents(1) :-
     retractall(stage(1, _)),

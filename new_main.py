@@ -5,6 +5,8 @@ import logging
 from testing_tools.maps import TEST_CITY_1
 from simulation.enviroment.environment import Environment
 from simulation.epidemic.epidemic_model import EpidemicModel
+
+
 # Create and configure logger
 logging.basicConfig(filename="simulation.log",
                     format='%(asctime)s - %(levelname)s - %(message)s',
@@ -25,7 +27,7 @@ def simulate(env, steps_num):
     for step in range(steps_num):
         logger.info(f'=== Step: {step} ===')
         logger.info(f'Starting cond:\n\tagent_num: {len(env.agents)},\n\tinfected_agents: {len([agent for agent in env.agents if agent.status == "infected"])}')
-        env.step()
+        env.step(step)
         logger.info(f'Ending cond:\n\tagent_num: {len(env.agents)},\n\tinfected_agents: {len([agent for agent in env.agents if agent.status == "infected"])}')
 
 if __name__ == '__main__':

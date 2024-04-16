@@ -84,13 +84,14 @@ class Environment:
         agents_node = self.map.nodes[agent.location]
         return [self.agents[agent_id] for agent_id in agents_node.agent_list if agent_id != agent.unique_id]
 
-    def step(self):
+    def step(self, step_num):
         """
         Perform a simulation step, where agents take actions.
         """
         for agent in random.sample(self.agents, len(self.agents)):
-            agent.step()
-        self.epidemic_model.step([(agent, self.get_neighbors(agent), self.map.nodes[agent.location].contact_rate) for agent in self.agents])
+            agent.step(step_num)
+            pass
+        # self.epidemic_model.step([(agent, self.get_neighbors(agent), self.map.nodes[agent.location].contact_rate) for agent in self.agents])
         pass
 
 
@@ -102,7 +103,7 @@ class WorldInterface:
     def act(self, agent: Agent, action: str, parameters: list):
         if action == 'move':
             logger.debug(f'Agent {agent.unique_id} is moving to {parameters[0]}')
-            self.move_agent(agent, *parameters)
+            self.move_agent(agent, parameters)
         else:
             logger.error(f'Action {action} not recognized')
 
@@ -112,7 +113,7 @@ class WorldInterface:
     def recieve_comunication(self, agent, message):
         raise NotImplementedError
 
-    def percieve(self, agent: Agent):
+    def percieve(self, agent: Agent, step_num):
         def density_classifier(node_population, node_capacity):
             node_density = node_population/node_capacity
             if node_density < 0.5:

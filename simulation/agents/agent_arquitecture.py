@@ -1,18 +1,20 @@
 from pyswip import Prolog
 import random
-class WorldModel:
-    def __init__(self, environment, perception,action):
-        self.world_model = environment
-        self.perception_module = perception
-        self.action_module = action
 
-    def perceive(self):
-        # Implement perception logic here
-        pass
-
-    def act(self, action):
-        # Implement action logic here
-        pass
+class Knowledge:
+    def __init__(self):
+        self.prolog = Prolog()
+        self.prolog.consult('hierarchical_agent_KB.pl')
+        
+    def add_date_k(self, date):
+        list(self.prolog.query(f'add_date({date[0]},{date[1]},{date[2]},{date[3]})'))
+        
+    def add_symptom_k(self, s):
+        list(self.prolog.query(f'add_symptom({s})'))
+    
+    def add_hospital_k(self, h):
+        list(self.prolog.query(f'add_hospital({h})'))
+        
 class BehaviorLayer:
     def __init__(self, world_model, knowledge):
         self.world_model = world_model
@@ -28,7 +30,7 @@ class BehaviorLayer:
             
         # if not actions:
         #     action = self.chose_action(actions)
-        
+       
         try:
             return action[0], action[1]
         except:
@@ -38,30 +40,20 @@ class BehaviorLayer:
 class LocalPlanningLayer:
     def __init__(self, behavior_layer_based):
         self.behavior_layer_based = behavior_layer_based
+        self.prolog = Prolog()
+        self.prolog.consult('hierarchical_agent_KB.pl')
         self.plans = {} # Dictionary of plans
 
-    def plan(self, goal):
-        # Implement planning logic here
-        pass
+    def plan(self, queryString):
+        query = f"{queryString}"
+        self.prolog.query(query)
 
 class CooperativeLayer:
     def __init__(self, local_planning_layer):
         self.local_planning_layer = local_planning_layer
+        self.prolog = Prolog()
+        self.prolog.consult('hierarchical_agent_KB.pl')
 
-    def cooperate(self, goal):
-        # Implement cooperative planning logic here
-        pass
-
-def main():
-    world_interface = WorldModel()
-    behavior_layer_based = BehaviorLayer(world_interface)
-    local_planning_layer = LocalPlanningLayer(behavior_layer_based)
-    cooperative_layer = CooperativeLayer(local_planning_layer)
-
-    # Example of use
-    situation = "example_situation"
-    goal = "example_goal"
-    cooperative_layer.cooperate(goal)
-
-if __name__ == "__main__":
-    main()
+    def cooperate(self, queryString):
+        query = f"{queryString}"
+        self.prolog.query(query)

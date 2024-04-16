@@ -6,24 +6,38 @@
 
 objetives([]).
 
-home([2,3]).
-work_place([1,2]).
-open_place([1,2], true).
-open_hours_place([1,2],8,23).
+% home([2,3]).
+% work_place([1,2]).
+% open_place([1,2], true).
+% open_hours_place([1,2],8,23).
 hospitals([1,2]).
 
-sintomas_enfermedad([tos, catarro, fiebre, dolor_de_cabeza]).
+% dissease_symptoms([tos, catarro, fiebre, dolor_de_cabeza]).
 my_symptoms([tos]).
-is_medical_personal(false).
+% is_medical_personal(false).
 
-mascarilla(true).
-use_mask([1,2], true).
+% mask_knowledge(true).
+% use_mask([1,2], true).
 use_personal_mask(false).
 
+% Local Plans
 usar_equipos_proteccion(false).
 quedarse_en_casa(false).
 mantener_distanciamiento(false).
 necesidad_aislamiento(false).
+
+add_home(Node):-
+    assert(home(Node)).
+
+add_work_place(Node):-
+    assert(work_place(Node)).
+
+add_open_place(Node, Bool):-
+    retract(open_place(Node,_)),
+    assert(open_place(Node, Bool)).
+
+add_open_hours_place(Node, Inicial, Final):-
+    assert(open_hours_place(Node,Inicial,Final)).
 
 add_date(Week_day_k, Month_day_k, Hour_k, Min_k):-
     retract(week_day(_)),
@@ -47,12 +61,26 @@ add_hospital(Hospital):-
     retract(hospitals(_)),
     asserta(hospitals(Hospitals_list_result)).
     
+add_dissease_symptoms(S):-
+    assert(dissease_symptoms(S)).
+
+add_if_is_medical_personal(Bool):-
+    assert(is_medical_personal(Bool)).
+
+add_mask_knowledge(Bool):-
+    retract(mask_knowledge(_)),
+    assert(mask_knowledge(Bool)).
+
+add_place_to_use_mask(Place, Bool):
+    retract(use_mask(Place,_)),
+    assert(use_mask(Place, Bool)).
+
 
 %---------------------------- Paterns of Behaviour -----------------------------------------------
 
 wear_mask(Node, use_mask):-
     use_mask(Node,true),
-    mascarilla(true),
+    mask_knowledge(true),
     retract(use_personal_mask(_)),
     assert(use_personal_mask(true)).
 
@@ -62,7 +90,7 @@ buscar_atencion_medica(FunctionName, Args):-
 
 detectar_sintomas(FunctionName, Args) :-
     my_symptoms( Sintomas),
-    sintomas_enfermedad(SintomasEnfermedad),
+    dissease_symptoms(SintomasEnfermedad),
     intersection(Sintomas, SintomasEnfermedad, SintomasComunes),
     SintomasComunes \= [],
     buscar_atencion_medica(FunctionName, Args).
@@ -73,7 +101,7 @@ go_to_work(move, X):-
     work_place(X),
     open_place(X, true),
     hour(H),
-    open_hours_place(X,I,F),
+    open_hours_place(X,I,_),
     H == I.
 
 go_home_after_work(move, Y):-
@@ -81,16 +109,16 @@ go_home_after_work(move, Y):-
     work_place(X),
     open_place(X, true),
     hour(H),
-    open_hours_place(X,I,F),
+    open_hours_place(X,_,F),
     H == F.
 
 usar_mascarilla():-
-    retract(mascarilla(_)),
-    asserta(mascarilla(true)).
+    retract(mask_knowledge(_)),
+    asserta(mask_knowledge(true)).
 
 quitar_mascarilla():-
-    retract(mascarilla(_)),
-    asserta(mascarilla(false)).
+    retract(mask_knowledge(_)),
+    asserta(mask_knowledge(false)).
 
 establecer_necesidad_aislamiento():-
     retract(necesidad_aislamiento(_)),
@@ -128,10 +156,10 @@ implementar_medidas_aislamiento() :-
 
 %---------------------------- Cooperation Knowledge -----------------------------------------------
 
-contactos_riesgo_detectados( [Contactos]).
-enviar_info(Info, Agente).
+contactos_riesgo_detectados( [_]).
+enviar_info(_, _).
 
-informar_contactos(Info, []).
+informar_contactos(_, []).
 informar_contactos(Info, [A|[Contactos]]):-
     enviar_info(Info, A),
     informar_contactos(Info, Contactos).
@@ -152,7 +180,7 @@ intersection([H|T], L, R) :-
     intersection(T, L, R).
 
 :-dynamic(mantener_distanciamiento/1).
-:-dynamic(mascarilla/1).
+:-dynamic(mask_knowledge/1).
 :-dynamic(necesidad_aislamiento/1).
 :-dynamic(usar_equipos_proteccion/1).
 :-dynamic(quedarse_en_casa/1).

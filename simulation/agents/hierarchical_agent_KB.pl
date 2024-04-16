@@ -1,34 +1,12 @@
 
 %---------------------------- Paterns of Behaviour -----------------------------------------------
 
-mascarilla(Agente, false).
-mascarilla(Agente, true).
-
 sintomas_enfermedad([tos, catarro, fiebre, dolor_de_cabeza]).
 mis_sintomas([tos]).
 hospitals([1,2]).
 
+comunicar_informacion( OtroAgente, Informacion).
 sintomas_presentes(Agente, [Sintomas]).
-mantener_distanciamiento(Agente).
-necesidad_comunicacion(Agente, OtroAgente, Informacion).
-enviar_mensaje(Agente, OtroAgente, Informacion).
-cambio_politicas_detectado(Agente, Cambio).
-ajustar_comportamiento(Agente, Cambio).
-recibir_notificacion(Agente, Notificacion).
-ajustar_comportamiento(Agente, Notificacion).
-necesidad_recurso(Agente, Recurso).
-enviar_solicitud(Agente, Recurso).
-contactos_riesgo_detectados(Agente, Contactos).
-informar_contactos(Agente, Contactos).
-necesidad_aislamiento(Agente).
-usar_equipos_proteccion(Agente).
-quedarse_en_casa(Agente).
-
-usar_mascarilla(Agente):-
-    mascarilla(Agente, true).
-
-quitar_mascarilla(Agente):-
-    mascarilla(Agente, false).
 
 buscar_atencion_medica(Agente, move, Id):-
     hospitals(Id).
@@ -40,77 +18,73 @@ detectar_sintomas(Agente, Sintomas, X) :-
     SintomasComunes \= [],
     buscar_atencion_medica(Agente, X, Id).
 
-implementar_medidas_prevencion(Agente) :-
-    usar_mascarilla(Agente),
-    mantener_distanciamiento(Agente).
-
-comunicar_informacion(Agente, OtroAgente, Informacion) :-
-    necesidad_comunicacion(Agente, OtroAgente, Informacion),
-    enviar_mensaje(Agente, OtroAgente, Informacion).
-
-ajustar_politicas_salud(Agente) :-
-    cambio_politicas_detectado(Agente, Cambio),
-    ajustar_comportamiento(Agente, Cambio).
-
-responder_notificacion_autoridades(Agente, Notificacion) :-
-    recibir_notificacion(Agente, Notificacion),
-    ajustar_comportamiento(Agente, Notificacion).
-
-solicitar_recursos_salud(Agente, Recurso) :-
-    necesidad_recurso(Agente, Recurso),
-    enviar_solicitud(Agente, Recurso).
-
-seguimiento_contactos_riesgo(Agente) :-
-    contactos_riesgo_detectados(Agente, Contactos),
-    informar_contactos(Agente, Contactos).
-
-implementar_medidas_aislamiento(Agente) :-
-    necesidad_aislamiento(Agente),
-    usar_equipos_proteccion(Agente),
-    quedarse_en_casa(Agente).
-
-
 %---------------------------- Local Plans --------------------------------------------------------
 
-healthy(none).
-quarantined(none).
+mascarilla(false).
+necesidad_aislamiento(false),
+usar_equipos_proteccion(false),
+quedarse_en_casa(false).
+mantener_distanciamiento(false).
 
-% Behavior patterns for healthy citizens
-healthy_citizen_behavior(social_distancing).
-healthy_citizen_behavior(wearing_mask).
+usar_mascarilla():-
+    retract(mascarilla(_)),
+    asserta(mascarilla(true)).
 
-% Behavior patterns for infected citizens
-infected_citizen_behavior(isolation).
-infected_citizen_behavior(seeking_medical_help).
+quitar_mascarilla():-
+    retract(mascarilla(_)),
+    asserta(mascarilla(false)).
 
-% Behavior patterns for citizens in quarantine
-quarantined_citizen_behavior(stay_home).
-quarantined_citizen_behavior(wearing_mask).
+establecer_necesidad_aislamiento():-
+    retract(necesidad_aislamiento(_)),
+    asserta(necesidad_aislamiento(true)).
 
-% Rule to determine behavior based on health status
-behavior(Citizen, Behavior) :-
-    healthy(Citizen),
-    healthy_citizen_behavior(Behavior).
+quitar_necesidad_aislamiento():-
+    retract(necesidad_aislamiento(_)),
+    asserta(necesidad_aislamiento(false)).
 
-behavior(Citizen, Behavior) :-
-    infected(Citizen),
-    infected_citizen_behavior(Behavior).
+usar_equipos_proteccion():-
+    retract(usar_equipos_proteccion(_)),
+    asserta(usar_equipos_proteccion(true)).
 
-behavior(Citizen, Behavior) :-
-    quarantined(Citizen),
-    quarantined_citizen_behavior(Behavior).
+establecer_quedarse_en_casa():-
+    retract(quedarse_en_casa(_)),
+    asserta(quedarse_en_casa(true)).
 
+salir_de_casa():-
+    retract(quedarse_en_casa(_)),
+    asserta(quedarse_en_casa(false)).
 
+establecer_distanciamiento():-
+    retract(mantener_distanciamiento(_)).
+    asserta(mantener_distanciamiento(true)).
 
-:-dynamic(infected/1).
+eliminar_distanciamiento():-
+    retract(mantener_distanciamiento(_)).
+    asserta(mantener_distanciamiento(false)).
 
-
+implementar_medidas_aislamiento() :-
+    establecer_necesidad_aislamiento(),
+    usar_equipos_proteccion(),
+    establecer_quedarse_en_casa().
 
 
 
 %---------------------------- Cooperation Knowledge -----------------------------------------------
 
 
+contactos_riesgo_detectados( Contactos).
+informar_contactos(Contactos).
+
+enviar_info(Info, Agente).
+
+informar_contactos(Info, []).
+informar_contactos(Info, [A|[Contactos]]):-
+    enviar_info(Info, A),
+    informar_contactos(Info, Contactos).
+
+seguimiento_contactos_riesgo() :-
+    contactos_riesgo_detectados(Contactos),
+    informar_contactos(Contactos).
 
 
 %--------------------------- Medotos auxiliares -----------------------------------------

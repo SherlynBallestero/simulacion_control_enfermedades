@@ -17,22 +17,15 @@ class BehaviorLayer:
     def __init__(self, world_model, knowledge):
         self.world_model = world_model
         self.prolog = Prolog()
-        self.prolog.consult('patterns_of_behaviour.pl')
+        self.prolog.consult('hierarchical_agent_KB.pl')
 
-    def react(self):
-        # Obtiene el estado actual del agente
-        # current_state = self.world_model.perceive()
-        
-        # Consulta el motor Prolog para obtener la acción apropiada
-        self.prolog.asserta('capacity_place(place2, [1,1], 200)')
-    
-        query = f"behavior_pattern(place2, Args, FunctionName)"
+    def react(self, queryString):
+        query = f"{queryString}"
         action = []
         for result in self.prolog.query(query):
             action.append(result['FunctionName'])
             action.append(result['Args'])
             
-        self.prolog.retract('capacity_place(place2, [1,1], 200)')
         # if not actions:
         #     action = self.chose_action(actions)
         

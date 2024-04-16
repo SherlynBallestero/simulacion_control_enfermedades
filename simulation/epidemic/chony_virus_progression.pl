@@ -182,22 +182,31 @@ step_type(AgeGroup, VaccinationStatus, StepType):-
 % Symptom Evolution
 available_symptoms(Stage, Symptoms, StageSymptoms) :-
     StageSymptoms = [],
-    % From this line down is wrong.
-    (member(Stage, [symptomatic, critical, terminal]); (possible_symptoms_symptomatic(SympSymptoms), append_new_evol(Symptoms, SympSymptoms, StageSymptoms))),
-    (member(Stage, [critical, terminal]); (possible_symptoms_critical(CritSymptoms), append_new_evol(Symptoms, CritSymptoms, StageSymptoms))),
-    (member(Stage, [terminal]); (possible_symptoms_terminal(TerSymptoms), append_new_evol(Symptoms, TerSymptoms, StageSymptoms))).
+    %TODO: This is wrong
+    (member(Stage, [symptomatic, critical, terminal]), 
+        possible_symptoms_symptomatic(SympSymptoms), 
+        get_new_evol(Symptoms, SympSymptoms, ValidSymptoms), 
+        append(StageSymptoms, ValidSymptoms, StageSymptoms)),
+    (member(Stage, [critical, terminal]), 
+        possible_symptoms_critical(CritSymptoms), 
+        get_new_evol(Symptoms, CritSymptoms, ValidSymptoms), 
+        append(StageSymptoms, ValidSymptoms, StageSymptoms)),
+    (member(Stage, [terminal]), 
+        possible_symptoms_terminal(TerSymptoms), 
+        get_new_evol(Symptoms, TerSymptoms, ValidSymptoms), 
+        append(StageSymptoms, ValidSymptoms, StageSymptoms)).
 
-append_new_evol(Symptoms, StageSymptoms, SymptomList) :-
-    % This is wrong
+get_new_evol(Symptoms, StageSymptoms, SymptomList) :-
     findall(NewSymptom, (
-        member(NewSymptom, StageSymptoms),
-        \+ (symptom_progression(OldSymptom, NewSymptom), \+ member(OldSymptom, Symptoms))
+        (member(NewSymptom, StageSymptoms), \+ member(NewSymptom, Symptoms)),
+    \+ (symptom_progression(OldSymptom, NewSymptom), \+ member(OldSymptom, Symptoms))
     ), NewSymptoms),
-    append(Symptoms, NewSymptoms, SymptomList).
-    
+    %TODO: This is wrong:
+    SymptomList = NewSymptoms.
 
 % Some test cases 
-
+findall(A, (member(A, [normal_fever, normal_cough, normal_short_breath]), \+ member(A, [normal_fever, normal_cough])), A).
+append_new_evol([normal_fever, normal_cough], [normal_fever, normal_cough, normal_short_breath], A).
 % Testing utility
 
 test_append_new_evol :-

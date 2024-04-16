@@ -19,9 +19,9 @@ class EpidemicModel:
         """
         self.dissease_k = Prolog()
         self.dissease_k.consult(dissease_description)
-        self.transmission_rate: float = self.dissease_k.query('base_transmission_rate(R)')[0]['R']
-        self.infection_stages: List[str] = self.dissease_k.query('infection_stages(Stages)')[0]['Stages']
-        self.mask_effectiveness: float = self.dissease_k.query('mask_effectiveness(E)')[0]['E']
+        self.transmission_rate: float = list(self.dissease_k.query('base_transmition_rate(R)'))[0]['R']
+        self.infection_stages: List[str] = [atom.value for atom in list(self.dissease_k.query('infection_stages(Stages)'))[0]['Stages']]
+        self.mask_effectiveness: float = list(self.dissease_k.query('mask_effectiveness(E)'))[0]['E']
         self.transmission_mask: float = self.transmission_rate * self.mask_effectiveness
 
     def _query_stage(self, agent_id: int):
@@ -32,43 +32,33 @@ class EpidemicModel:
         return list(self.dissease_k.query(f'age_group({agent_id}, A)'))[0]['A']
 
     def _query_symptoms(self, agent_id: int):
-        return list(self.dissease_k.query(f'symptoms({agent_id}, S)'))[0]['S']
+        return [atom.value for atom in list(self.dissease_k.query(f'symptoms({agent_id}, S)'))[0]['S']]
 
     def _step_dissease_query(self, agent: Agent):
-        next_stage = list(self.dissease_k.query(f'step({agent.unique_id}, S)'))
-        current_symptoms = list(self._query_symptoms(agent.unique_id))
-        return next_stage, current_symptoms
+        next_stage = list(self.dissease_k.query(f'step({agent.unique_id}, S, Sy, St)'))[0]
+        return next_stage['S']
     
     def step_dissease(self, agent: Agent):
-        agent_stage = self._query_stage(agent.unique_id)
-        current_agent_knowlege = {}
-
-        if not agent_stage:
-            self._add_agent_k(agent)
-            current_agent_knowlege['stage'] = self._query_stage(agent.unique_id)
-            current_agent_knowlege['age_group'] = self._query_age_group(agent.unique_id)
-            current_agent_knowlege['symptoms'] = self._query_symptoms(agent.unique_id)
-            return
-        
-        current_agent_knowlege = {
-            'symptoms': self._query_symptoms(agent.unique_id),
-            'age_group': self._query_age_group(agent.unique_id),
-            'stage': self._query_stage(agent.unique_id)
-        }
-
-        next_stage, current_symptoms = self._step_dissease_query(agent)
-        agent.status = next_stage['S']
-        agent.symptoms = current_symptoms['S']        
-
+        state = self._step_dissease_query(agent)
+        if state in ['recovered', 'dead']:
+            agent.status = state
+        else:
+            self._update_agent(agent)
+        pass
 
     def _infect_citizen(self, agent: Agent):
         """
         Infect an agent with the disease.
         """
-        self.dissease_k.assertz(f'stage({agent.unique_id}, { " asymptomatic" })')
-        self.dissease_k.assertz(f'age_group({agent.unique_id}, {agent.age_group})')
-        self.dissease_k.assertz(f'symptoms({agent.unique_id}, [])')
-        self.dissease_k.assertz(f'vaccinated({agent.unique_id}, {agent.vaccinated})')
+        query = f'add_agent({agent.unique_id}, {str(agent.vaccinated).lower()}, {agent.age_group})'
+        list(self.dissease_k.query(query))
+        self._update_agent(agent)
+
+    def _update_agent(self, agent: Agent):
+        agent.status = self._query_stage(agent.unique_id)
+        # print(agent.status)
+        # print(agent.symptoms)
+        agent.symptoms = self._query_symptoms(agent.unique_id)
 
     def spread_disease(self, agent: Agent):
         """
@@ -78,7 +68,7 @@ class EpidemicModel:
             agent (Agent): The infected agent.
             other_agent (Agent): The susceptible agent.
         """
-        if random.random() < self.transmission_rate:
+        if random.random() < self.transmission_rate and agent.status not in ['dead', 'recovered']:
             self._infect_citizen(agent)
 
     def step(self, nodes: List[Tuple[List[Agent], float]]):

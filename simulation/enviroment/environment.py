@@ -92,7 +92,7 @@ class Environment:
         """
         for agent in random.sample(self.agents, len(self.agents)):
             agent.step()
-        self.epidemic_model.step([(node.agent_list, node.contact_rate) for node in self.map.nodes.values() if node.agent_list])
+        self.epidemic_model.step([([self.agents[agent_id] for agent_id in node.agent_list], node.contact_rate) for node in self.map.nodes.values() if node.agent_list])
 
 
 class WorldInterface:

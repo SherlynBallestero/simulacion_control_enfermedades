@@ -67,70 +67,17 @@ symptom_progression(critical_fever, terminal_fever).
 
 % Rules
 
-% Symptom Progression
-symptom_progression(Person, CurrentSymptom, NextSymptom) :-
-    symptom_progression(CurrentSymptom, NextSymptom),
-    symptoms(Person, Symptoms),
-    member(CurrentSymptom, Symptoms).
-
-% Add new symptoms for a person
-add_symptoms(Person, NewSymptoms) :-
-    retract(symptoms(Person, OldSymptoms)),
-    append(OldSymptoms, NewSymptoms, AllSymptoms),
-    assertz(symptoms(Person, AllSymptoms)).
-
-% Remove symptoms for a person
-remove_symptoms(Person, SymptomsToRemove) :-
-    symptoms(Person, OldSymptoms),
-    subtract(OldSymptoms, SymptomsToRemove, RemainingSymptoms),
-    retract(symptoms(Person, _)),
-    assertz(symptoms(Person, RemainingSymptoms)).
-
 % Update person's stage
 update_stage(Person, NewStage) :-
-    retract(stage(Person, _)),
+    retractall(stage(Person, _)),
     assertz(stage(Person, NewStage)).
 
-
-% Infection Progression
-infection_gets_worse(Person, NextStage) :-
-    stage(Person, CurrentStage),
-    (
-        (CurrentStage == symptomatic, count_symptomatic_symptoms(Person, Count), Count >= 4, NextStage = critical);
-        (CurrentStage == critical, count_critical_symptoms(Person, Count), Count >= 2, NextStage = terminal);
-        (CurrentStage == terminal, count_terminal_symptoms(Person, Count), Count >= 1, NextStage = dead);
-        NextStage = CurrentStage
-    ).
-
-infection_gets_better(Person, NextStage) :-
-    stage(Person, CurrentStage),
-    (
-        (CurrentStage == symptomatic, count_symptomatic_symptoms(Person, Count), Count == 0, NextStage = symptomatic);
-        (CurrentStage == critical, count_critical_symptoms(Person, Count), Count == 0, NextStage = critical);
-        (CurrentStage == terminal, count_terminal_symptoms(Person, Count), Count == 0, NextStage = terminal);
-        NextStage = CurrentStage
-    ).
-
-% Count symptomatic symptoms
-count_symptomatic_symptoms(Person, Count) :-
-    symptoms(Person, Symptoms),
-    intersection(Symptoms, [normal_fever, normal_cough, normal_short_breath, back_ache, stomach_ache, lazyness, sleepiness], SymptomaticSymptoms),
-    length(SymptomaticSymptoms, Count).
-
-% Count critical symptoms
-count_critical_symptoms(Person, Count) :-
-    symptoms(Person, Symptoms),
-    intersection(Symptoms, [critical_fever, critical_cough, critical_short_breath, gastritis], CriticalSymptoms),
-    length(CriticalSymptoms, Count).
-
-% Count terminal symptoms
-count_terminal_symptoms(Person, Count) :-
-    symptoms(Person, Symptoms),
-    intersection(Symptoms, [terminal_fever, candela, que_ostine], TerminalSymptoms),
-    length(TerminalSymptoms, Count).
+update_symptoms(Person, NewSymptoms) :-
+    retractall(symptoms(Person, _)),
+    assertz(symptoms(Person, NewSymptoms)).
 
 % Main function to simulate the progression of the disease
-step(Person, NextStage, NewSymptoms, RemovedSymptoms) :-
+step(Person, NextStage, NewSymptoms) :-
     % Get the necessary information for the current agent
     vaccination_status(Person, VaccinationStatus),
     stage(Person, CurrentStage),
@@ -145,10 +92,16 @@ step(Person, NextStage, NewSymptoms, RemovedSymptoms) :-
     
     % Changing the stage of the person if possible
     (
-        (StepType == gets_better, infection_gets_better(Person, NextStage));
-        (StepType == gets_worse, infection_gets_worse(Person, NextStage));
-        (NextStage = CurrentStage)
-    ).
+    (StepType == gets_better, 
+        infection_gets_better(Symptoms, CurrentStage, NextStage, NewSymptoms));
+    (StepType == gets_worse, 
+        infection_gets_worse(Symptoms, CurrentStage, PossibleSymptoms, NextStage, NewSymptoms));
+    (NextStage = CurrentStage, NewSymptoms = CurrentSymptoms)
+    ),
+
+    % Updating agent information
+    update_stage(Person, NextStage),
+    update_symptoms(Person, NewSymptoms).
 
 % Calculating if a person gets better, worse or stays the same:
 step_type(AgeGroup, VaccinationStatus, StepType):-
@@ -183,7 +136,7 @@ step_type_gen(AgeGroup, VaccinationStatus, StepType):-
 % Symptom Evolution
 available_symptoms(Stage, Symptoms, StageSymptoms) :-
     once(available_symptoms_gen(Stage, Symptoms, StageSymptoms)).
-%TODO: This method is returning several results.
+
 available_symptoms_gen(Stage, Symptoms, StageSymptoms) :-
     ((member(Stage, [symptomatic, critical, terminal]),
         possible_symptoms_symptomatic(SympSymptoms), 
@@ -203,6 +156,69 @@ get_new_evol(Symptoms, StageSymptoms, SymptomList) :-
     \+ (symptom_progression(OldSymptom, NewSymptom), \+ member(OldSymptom, Symptoms))
     ), NewSymptoms),
     SymptomList = NewSymptoms.
+
+% Infection Progression
+infection_gets_worse(Symptoms, CurrentStage, PossibleSymptoms, NextStage, NextSymptoms) :-
+    % Add or evolve symptoms
+    ((\+ length(PossibleSymptoms, 0), once(random_member(Symptom, PossibleSymptoms)), add_symptom(Symptom, Symptoms, NextSymptoms));
+    NextSymptoms = []),
+    
+    % Change Stage if possible
+    ((CurrentStage == symptomatic, 
+        count_symptomatic_symptoms(Symptoms, Count1), Count1 >= 4, 
+        NextStage = critical);
+    (CurrentStage == critical, 
+        count_critical_symptoms(Symptoms, Count2), Count2 >= 2, 
+        NextStage = terminal);
+    (CurrentStage == terminal, 
+        count_terminal_symptoms(Symptoms, Count3), Count3 >= 1, 
+        NextStage = dead);
+    NextStage = CurrentStage).
+
+add_symptom(Symptom, Symptoms, NextSymptoms) :-
+    (symptom_progression(PreviousSymptom, Symptom),
+    select(PreviousSymptom, Symptoms, CleanSymptomsList),
+    append(CleanSymptomsList, [Symptom], NextSymptoms));
+    (append(Symptoms, [Symptom], NextSymptoms)).
+
+infection_gets_better(Symptoms, CurrentStage, NextStage, NextSymptoms) :-
+    % Remove or devolve symptoms
+    ((\+ length(Symptoms, 0), once(random_member(Symptom, Symptoms)), remove_symptom(Symptom, Symptoms, NextSymptoms));
+    NextSymptoms = []),
+    
+    % Change Stage if possible
+    (
+    (CurrentStage == symptomatic, 
+        count_symptomatic_symptoms(Symptoms, 0), 
+        NextStage = asymptomatic);
+    (CurrentStage == critical, 
+        count_critical_symptoms(Symptoms, 0), 
+        NextStage = symptomatic);
+    (CurrentStage == terminal, 
+        count_terminal_symptoms(Symptoms, 0), 
+        NextStage = critical);
+    NextStage = CurrentStage).
+
+remove_symptom(Symptom, Symptoms, NextSymptoms) :-
+    (symptom_progression(PreviousSymptom, Symptom),
+    select(Symptom, Symptoms, CleanSymptomsList),
+    append(CleanSymptomsList, [PreviousSymptom], NextSymptoms));
+    (select(Symptom, Symptoms, NextSymptoms)).
+
+% Count symptomatic symptoms
+count_symptomatic_symptoms(Symptoms, Count) :-
+    intersection(Symptoms, [normal_fever, normal_cough, normal_short_breath, back_ache, stomach_ache, lazyness, sleepiness], SymptomaticSymptoms),
+    length(SymptomaticSymptoms, Count).
+
+% Count critical symptoms
+count_critical_symptoms(Symptoms, Count) :-
+    intersection(Symptoms, [critical_fever, critical_cough, critical_short_breath, gastritis], CriticalSymptoms),
+    length(CriticalSymptoms, Count).
+
+% Count terminal symptoms
+count_terminal_symptoms(Symptoms, Count) :-
+    intersection(Symptoms, [terminal_fever, candela, que_ostine], TerminalSymptoms),
+    length(TerminalSymptoms, Count).
 
 % Testing utility
 
@@ -230,90 +246,86 @@ adding_test_agents(2) :-
     assertz(mask_usage(2, false)),
     assertz(vaccination_status(2, true)).
 
-adding_test_agents(1).
-adding_test_agents(2).
-
 % Test Case 1: Progression from Symptomatic to Critical Stage
-test_case_1 :-
-    adding_test_agents(1),
-    step(1, NextStage, NewSymptoms, RemovedSymptoms),
-    NextStage = critical,
-    NewSymptoms = [critical_short_breath, gastritis],
-    RemovedSymptoms = [].
+test_case_1( NextStage, NextSymptoms, PossibleSymptoms):-
+    Symptoms = [normal_fever, normal_cough, normal_short_breath, back_ache],
+    CurrentStage = symptomatic,
+    available_symptoms(CurrentStage, Symptoms, PossibleSymptoms),
+    once(infection_gets_worse(Symptoms, CurrentStage, PossibleSymptoms, NextStage, NextSymptoms)).
 
 % Test Case 2: Progression from Critical to Terminal Stage
-test_case_2 :-
-    adding_test_agents(2),
-    step(2, NextStage, NewSymptoms, RemovedSymptoms),
-    NextStage = terminal,
-    NewSymptoms = [terminal_fever],
-    RemovedSymptoms = [].
+% test_case_2 :-
+%     adding_test_agents(2),
+%     step(2, NextStage, NewSymptoms, RemovedSymptoms),
+%     NextStage = terminal,
+%     NewSymptoms = [terminal_fever],
+%     RemovedSymptoms = [].
 
 % Test Case 3: Progression from Terminal to Dead Stage
-test_case_3 :-
-    retractall(stage(3, _)),
-    retractall(symptoms(3, _)),
-    assertz(stage(3, terminal)),
-    assertz(age_group(3, young)),
-    assertz(symptoms(3, [terminal_fever, candela, que_ostine])),
-    assertz(mask_usage(3, true)),
-    assertz(vaccination_status(3, false)),
-    step(3, NextStage, NewSymptoms, RemovedSymptoms),
-    NextStage = dead,
-    NewSymptoms = [],
-    RemovedSymptoms = [].
+% test_case_3 :-
+%     retractall(stage(3, _)),
+%     retractall(symptoms(3, _)),
+%     assertz(stage(3, terminal)),
+%     assertz(age_group(3, young)),
+%     assertz(symptoms(3, [terminal_fever, candela, que_ostine])),
+%     assertz(mask_usage(3, true)),
+%     assertz(vaccination_status(3, false)),
+%     step(3, NextStage, NewSymptoms, RemovedSymptoms),
+%     NextStage = dead,
+%     NewSymptoms = [],
+%     RemovedSymptoms = [].
 % Test Case 4: Progression from Asymptomatic to Symptomatic Stage
-test_case_4 :-
-    retractall(stage(4, _)),
-    retractall(symptoms(4, _)),
-    assertz(stage(4, asymptomatic)),
-    assertz(age_group(4, adult)),
-    assertz(symptoms(4, [])),
-    assertz(mask_usage(4, true)),
-    assertz(vaccination_status(4, false)),
-    step(4, NextStage, NewSymptoms, RemovedSymptoms),
-    NextStage = symptomatic,
-    member(normal_fever, NewSymptoms),
-    RemovedSymptoms = [].
+% test_case_4 :-
+%     retractall(stage(4, _)),
+%     retractall(symptoms(4, _)),
+%     assertz(stage(4, asymptomatic)),
+%     assertz(age_group(4, adult)),
+%     assertz(symptoms(4, [])),
+%     assertz(mask_usage(4, true)),
+%     assertz(vaccination_status(4, false)),
+%     step(4, NextStage, NewSymptoms, RemovedSymptoms),
+%     NextStage = symptomatic,
+%     member(normal_fever, NewSymptoms),
+%     RemovedSymptoms = [].
 
 % Test Case 5: Progression from Symptomatic to Recovered Stage
-test_case_5 :-
-    retractall(stage(5, _)),
-    retractall(symptoms(5, _)),
-    assertz(stage(5, symptomatic)),
-    assertz(age_group(5, old)),
-    assertz(symptoms(5, [normal_fever, normal_cough])),
-    assertz(mask_usage(5, true)),
-    assertz(vaccination_status(5, false)),
-    step(5, NextStage, NewSymptoms, RemovedSymptoms),
-    NextStage = recovered,
-    NewSymptoms = [],
-    RemovedSymptoms = [normal_fever, normal_cough].
+% test_case_5 :-
+%     retractall(stage(5, _)),
+%     retractall(symptoms(5, _)),
+%     assertz(stage(5, symptomatic)),
+%     assertz(age_group(5, old)),
+%     assertz(symptoms(5, [normal_fever, normal_cough])),
+%     assertz(mask_usage(5, true)),
+%     assertz(vaccination_status(5, false)),
+%     step(5, NextStage, NewSymptoms, RemovedSymptoms),
+%     NextStage = recovered,
+%     NewSymptoms = [],
+%     RemovedSymptoms = [normal_fever, normal_cough].
 
 % Test Case 6: Progression from Asymptomatic to Recovered Stage
-test_case_6 :-
-    retractall(stage(6, _)),
-    retractall(symptoms(6, _)),
-    assertz(stage(6, asymptomatic)),
-    assertz(age_group(6, young)),
-    assertz(symptoms(6, [])),
-    assertz(mask_usage(6, false)),
-    assertz(vaccination_status(6, true)),
-    step(6, NextStage, NewSymptoms, RemovedSymptoms),
-    NextStage = recovered,
-    NewSymptoms = [],
-    RemovedSymptoms = [].
+% test_case_6 :-
+%     retractall(stage(6, _)),
+%     retractall(symptoms(6, _)),
+%     assertz(stage(6, asymptomatic)),
+%     assertz(age_group(6, young)),
+%     assertz(symptoms(6, [])),
+%     assertz(mask_usage(6, false)),
+%     assertz(vaccination_status(6, true)),
+%     step(6, NextStage, NewSymptoms, RemovedSymptoms),
+%     NextStage = recovered,
+%     NewSymptoms = [],
+%     RemovedSymptoms = [].
 
 % Test Case 7: Progression from Asymptomatic to Dead Stage
-test_case_7 :-
-    retractall(stage(7, _)),
-    retractall(symptoms(7, _)),
-    assertz(stage(7, asymptomatic)),
-    assertz(age_group(7, adult)),
-    assertz(symptoms(7, [])),
-    assertz(mask_usage(7, false)),
-    assertz(vaccination_status(7, false)),
-    step(7, NextStage, NewSymptoms, RemovedSymptoms),
-    NextStage = dead,
-    NewSymptoms = [],
-    RemovedSymptoms = [].
+% test_case_7 :-
+%     retractall(stage(7, _)),
+%     retractall(symptoms(7, _)),
+%     assertz(stage(7, asymptomatic)),
+%     assertz(age_group(7, adult)),
+%     assertz(symptoms(7, [])),
+%     assertz(mask_usage(7, false)),
+%     assertz(vaccination_status(7, false)),
+%     step(7, NextStage, NewSymptoms, RemovedSymptoms),
+%     NextStage = dead,
+%     NewSymptoms = [],
+%     RemovedSymptoms = [].

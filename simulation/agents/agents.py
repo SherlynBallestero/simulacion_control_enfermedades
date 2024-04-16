@@ -22,6 +22,8 @@ class Agent:
         self.unique_id = unique_id
         self.status = status
         self.age_group = random.choice(['young', 'adult', 'old'])
+        self.masked = False
+        self.vaccinated = False
 
         # Hierarchical Knowlege Base
         # self.belief_system = belief_system if belief_system is not None else {}
@@ -43,8 +45,8 @@ class Agent:
             old_perception.information_source = new_perception.information_source
 
     def step(self):
+        return
         perception = self.wi.percieve(self)
         self.process_perception(perception)
         action, arguments = self.bbc.react()
         self.wi.act(self, action, arguments)
-        pass

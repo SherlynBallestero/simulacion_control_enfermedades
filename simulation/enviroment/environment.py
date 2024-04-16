@@ -40,7 +40,9 @@ class Environment:
         for i in range(num_agents):
             mind_map = self.generate_citizen_mind_map()
             agents_wi  = WorldInterface(self.map, mind_map)
-            agent = Agent(unique_id=i, status='infected', mind_map = mind_map, wi_component = agents_wi) if i < infected_agents else Agent(unique_id=i, mind_map = mind_map, wi_component = agents_wi)
+            agent = Agent(unique_id=i, mind_map=mind_map, wi_component=agents_wi)
+            if i < infected_agents:
+                self.epidemic_model._infect_citizen(agent)
             agents_bbc = BehaviorLayer(agent.mind_map, agent.knowledge_base)
             agent.bbc = agents_bbc
             location = random.choice(list(self.map.nodes.keys()))
@@ -90,9 +92,7 @@ class Environment:
         """
         for agent in random.sample(self.agents, len(self.agents)):
             agent.step(step_num)
-            pass
-        # self.epidemic_model.step([(agent, self.get_neighbors(agent), self.map.nodes[agent.location].contact_rate) for agent in self.agents])
-        pass
+        self.epidemic_model.step([([self.agents[agent_id] for agent_id in node.agent_list], node.contact_rate) for node in self.map.nodes.values() if node.agent_list])
 
 
 class WorldInterface:

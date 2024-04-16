@@ -5,7 +5,6 @@ from pyswip import Prolog
 
 from typing import List, Tuple
 import random
-import logging
 
 class EpidemicModel:
     def __init__(self, transmission_rate: float, dissease_progression: str = './simulation/epidemic/chony_virus_progression.pl'):
@@ -24,6 +23,7 @@ class EpidemicModel:
         self.dissease_k.assertz(f'stage({agent.unique_id}, { " asymptomatic" })')
         self.dissease_k.assertz(f'age_group({agent.unique_id}, {agent.age_group})')
         self.dissease_k.assertz(f'symptoms({agent.unique_id}, [])')
+        pass
 
     def _query_stage(self, agent_id: int):
         stage = list(self.dissease_k.query(f'stage({agent_id}, S)'))
@@ -42,7 +42,7 @@ class EpidemicModel:
             return next_stage[0], current_symptoms[0]
         except:
             return None, None
-        
+
     def step_dissease(self, agent: Agent):
         agent_stage = self._query_stage(agent.unique_id)
         current_agent_knowlege = {}
@@ -53,7 +53,7 @@ class EpidemicModel:
             current_agent_knowlege['age_group'] = self._query_age_group(agent.unique_id)
             current_agent_knowlege['symptoms'] = self._query_symptoms(agent.unique_id)
             return
-        
+
         current_agent_knowlege = {
             'symptoms': self._query_symptoms(agent.unique_id),
             'age_group': self._query_age_group(agent.unique_id),
@@ -78,7 +78,6 @@ class EpidemicModel:
         if other_agent.status == 'susceptible':
             if random.random() < self.transmission_rate:
                 self._add_agent_k(other_agent)
-
 
     def step(self, agents: List[Tuple[Agent, List[Agent], float]]):
         """

@@ -91,6 +91,7 @@ class Environment:
         for agent in random.sample(self.agents, len(self.agents)):
             agent.step()
         self.epidemic_model.step([(agent, self.get_neighbors(agent), self.map.nodes[agent.location].contact_rate) for agent in self.agents])
+        pass
 
 
 class WorldInterface:

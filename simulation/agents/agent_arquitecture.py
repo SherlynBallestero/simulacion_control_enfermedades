@@ -32,13 +32,15 @@ class BehaviorLayer:
             action.append(result['FunctionName'])
             action.append(result['Args'])
             
+        self.prolog.retract('capacity_place(place2, [1,1], 200)')
         # if not actions:
         #     action = self.chose_action(actions)
         
-        return action[0], action[1]
+        try:
+            return action[0], action[1]
+        except:
+            return None, None
     
-    # def chose_action(self, actions):
-    #     return random.randint(actions)
 
 class LocalPlanningLayer:
     def __init__(self, behavior_layer_based):

@@ -1,7 +1,8 @@
 from simulation.agents.agents import Agent
-from simulation.agents.agent_arquitecture import BehaviorLayer
+from simulation.agents.agent_arquitecture import BehaviorLayer, LocalPlanningLayer, Knowledge
 from simulation.epidemic.epidemic_model import EpidemicModel
 from simulation.utils.sim_nodes import CitizenPerceptionNode as CPNode
+from simulation.enviroment.map import Terrain
 from typing import Tuple, List
 import random
 from utils.graph import Graph
@@ -10,7 +11,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 class Environment:
-    def __init__(self,num_agents: int, epidemic_model: EpidemicModel, map: Graph):
+    def __init__(self,num_agents: int, epidemic_model: EpidemicModel, map: Terrain):
         """
         Initialize the environment.
 
@@ -32,20 +33,42 @@ class Environment:
         """
         infected_agents = random.randint(0, int(num_agents/2))
         #TODO Adding the required agent components:
-        # - Wi
-        # - BBC
-        # - PBC
         # - CC
-        # - Knowlege Base
         for i in range(num_agents):
             mind_map = self.generate_citizen_mind_map()
-            agents_wi  = WorldInterface(self.map, mind_map)
-            agent = Agent(unique_id=i, mind_map=mind_map, wi_component=agents_wi)
+            
+            kb = Knowledge()
+            
+            house_id = random.choice(self.map.houses)
+            
+            kb.add_home(house_id)
+            is_medic = random.choice([True, False])
+            if is_medic:
+                work_id = random.choice(self.map.hospitals)
+                kb.add_work_place(work_id)
+                kb.add_is_medical_personnel(True)
+            else:
+                work_id = random.choice(self.map.works)
+                kb.add_work_place(work_id)
+                kb.add_is_medical_personnel(True)
+            
+            agents_wi  = WorldInterface(self.map, mind_map, kb)
+            agents_bbc = BehaviorLayer(mind_map, kb)
+            agents_pbc = LocalPlanningLayer(mind_map, kb)
+            
+            agent = Agent(
+                unique_id=i, 
+                mind_map=mind_map, 
+                wi_component=agents_wi,
+                bb_component=agents_bbc,
+                lp_component=agents_pbc,
+                knowledge_base=kb
+                )
+            
             if i < infected_agents:
                 self.epidemic_model._infect_citizen(agent)
-            agents_bbc = BehaviorLayer(agent.mind_map, agent.knowledge_base)
-            agent.bbc = agents_bbc
-            location = random.choice(list(self.map.nodes.keys()))
+
+            location = random.choice(list(self.map.keys()))
             self.add_agent(agent, location)
 
     def add_agent(self, agent: Agent, pos: int):
@@ -58,18 +81,17 @@ class Environment:
             y (int): The y-coordinate of the agent's location.
         """
         agent.location = pos #TODO: change this so the agent position is a knolege\believe
-        self.map.nodes[pos].agent_list.append(agent.unique_id)
+        self.map[pos].agent_list.append(agent.unique_id)
         self.agents.append(agent)
 
     def generate_citizen_mind_map(self):
         mind_map = Graph()
-
-        for node_id in self.map.nodes.keys():
-            old_node = self.map.nodes[node_id]
-            new_node = CPNode(old_node.id)
+        for node_id in self.map.keys():
+            old_node = self.map[node_id]
+            new_node = CPNode(old_node.addr, old_node.id)
             mind_map.add_node(new_node)
 
-        mind_map.edges = self.map.edges.copy()
+        mind_map.edges = self.map.graph.edges.copy()
         
         return mind_map
 
@@ -92,13 +114,14 @@ class Environment:
         """
         for agent in random.sample(self.agents, len(self.agents)):
             agent.step(step_num)
-        self.epidemic_model.step([([self.agents[agent_id] for agent_id in node.agent_list], node.contact_rate) for node in self.map.nodes.values() if node.agent_list])
+        # self.epidemic_model.step([([self.agents[agent_id] for agent_id in node.agent_list], node.contact_rate) for node in self.map.graph.nodes.values() if node.agent_list])
 
 
 class WorldInterface:
-    def __init__(self, map: Graph, agent_mind_map: Graph) -> None:
+    def __init__(self, map: Graph, agent_mind_map: Graph, knowledge_base: Knowledge) -> None:
         self.map = map
         self.agent_mind_map = agent_mind_map
+        self.agent_kb = knowledge_base
 
     def act(self, agent: Agent, action: str, parameters: list):
         if action == 'move':
@@ -127,14 +150,14 @@ class WorldInterface:
         
         new_perception = {}
 
-        current_node = self.map.nodes[agent.location]
-        current_node_perception = CPNode(current_node.id, density_classifier(len(current_node.agent_list), current_node.capacity))
-        new_perception[current_node.id] = current_node_perception
+        current_node = self.map[agent.location]
+        current_node_perception = CPNode(current_node.addr, current_node.id, density_classifier(len(current_node.agent_list), current_node.capacity))
+        new_perception[current_node.addr] = current_node_perception
 
-        for neighbor_key in self.map.get_neighbors(agent.location):
-            neighbor_node = self.map.nodes[neighbor_key]
+        for neighbor_key in self.map.graph.get_neighbors(agent.location):
+            neighbor_node = self.map[neighbor_key]
             node_density = density_classifier(len(neighbor_node.agent_list), neighbor_node.capacity)
-            new_perception[neighbor_key] = CPNode(neighbor_key, node_density)
+            new_perception[neighbor_node.addr] = CPNode(neighbor_node.addr, neighbor_key, node_density)
 
         return new_perception
 

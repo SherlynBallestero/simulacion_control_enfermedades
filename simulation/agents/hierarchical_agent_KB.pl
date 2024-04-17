@@ -1,53 +1,60 @@
 %---------------------------- Knowledge -----------------------------------------------
-% week_day(week_day_k).
-% month_day(month_day_k).
-% hour(23).
-% min(min_k).
 
-objetives([]).
+% week_day(WeekDay).
+% month_day(MonthDay).
+% hour(Hour).
+% min(Min).
+% home(Id).
+% work_place(Id).
+% open_place(Id, Bool).
+% open_hours_place(ID, OH, CH).
+% dissease_symptoms(SymptomList).
+% my_symptoms(SymptomList).
+% is_medical_personal(Bool).
+% mask_necesity(Bool).
+% mask_requirement(PlaceID, Bool).
+% goal(Goal1).
+% goal(Goal2).
+% public_space(Id, Adress).
+% space_capacity_state(Id, CapacityState).
+% hospital(Id, Adress).
+% hospital_overrun(Id, OverrunBool).
+% public_transportation_working(Id, Bool).
+% public_transportation_schedule(Id, AddrList).
 
-% home([2,3]).
-% work_place([1,2]).
-% open_place([1,2], true).
-% open_hours_place([1,2],8,23).
-hospitals([1,2]).
+my_symptoms([]).
 
-% dissease_symptoms([tos, catarro, fiebre, dolor_de_cabeza]).
-my_symptoms([tos]).
-% is_medical_personal(false).
-
-% mask_knowledge(true).
-% use_mask([1,2], true).
 use_personal_mask(false).
 
-% Local Plans
-usar_equipos_proteccion(false).
-quedarse_en_casa(false).
-mantener_distanciamiento(false).
-necesidad_aislamiento(false).
+add_public_space(Id, Address):-
+    retractall(public_space(Id, _)),
+    assert(public_space(Id, Address)).
 
 add_home(Node):-
+    retractall(home(_)),
     assert(home(Node)).
 
 add_work_place(Node):-
+    retractall(work_place(_)),
     assert(work_place(Node)).
 
 add_open_place(Node, Bool):-
     retract(open_place(Node,_)),
     assert(open_place(Node, Bool)).
 
-add_open_hours_place(Node, Inicial, Final):-
-    assert(open_hours_place(Node,Inicial,Final)).
+add_open_hours_place(Node, Initial, Final):-
+    retractall(open_hours_place(Node, Initial, Final)),
+    assert(open_hours_place(Node,Initial,Final)).
 
-add_date(Week_day_k, Month_day_k, Hour_k, Min_k):-
+add_date(WeekDayK, MonthDayK, HourK, MinK):-
     retract(week_day(_)),
     retract(month_day(_)),
     retract(min(_)),
     retractall(hour(_)),
-    asserta(week_day(Week_day_k)),
-    asserta(month_day(Month_day_k)),
-    assert(hour(Hour_k)),
-    asserta(min(Min_k)).
+    asserta(week_day(WeekDayK)),
+    asserta(month_day(MonthDayK)),
+    assert(hour(HourK)),
+    asserta(min(MinK)).
 
 add_symptom(Symptom):-
     my_symptoms(S),
@@ -55,32 +62,31 @@ add_symptom(Symptom):-
     retract(my_symptoms(_)),
     asserta(my_symptoms(Symptom_list_result)).
     
-add_hospital(Hospital):-
-    hospitals(H),
-    Hospitals_list_result = [Hospital| H],
-    retract(hospitals(_)),
-    asserta(hospitals(Hospitals_list_result)).
+add_hospital(HospitalId, Address):-
+    retract(hospital(HospitalId, _)),
+    asserta(hospital(HospitalId, Address)).
     
 add_dissease_symptoms(S):-
     assert(dissease_symptoms(S)).
 
 add_if_is_medical_personal(Bool):-
+    assert(is_medical_personal(_)),
     assert(is_medical_personal(Bool)).
 
-add_mask_knowledge(Bool):-
+add_mask_necesity(Bool):-
     retract(mask_knowledge(_)),
     assert(mask_knowledge(Bool)).
 
-add_place_to_use_mask(Place, Bool):
-    retract(use_mask(Place,_)),
-    assert(use_mask(Place, Bool)).
+add_place_to_use_mask(Place, Bool):-
+    retract(mask_requirement(Place,_)),
+    assert(mask_requirement(Place, Bool)).
 
 
 %---------------------------- Paterns of Behaviour -----------------------------------------------
 
 wear_mask(Node, use_mask):-
-    use_mask(Node,true),
-    mask_knowledge(true),
+    mask_requirement(Node,true),
+    mask_necesity(true),
     retract(use_personal_mask(_)),
     assert(use_personal_mask(true)).
 
@@ -89,13 +95,21 @@ buscar_atencion_medica(FunctionName, Args):-
     hospitals(Args).
 
 detectar_sintomas(FunctionName, Args) :-
-    my_symptoms( Sintomas),
+    my_symptoms(Sintomas),
     dissease_symptoms(SintomasEnfermedad),
     intersection(Sintomas, SintomasEnfermedad, SintomasComunes),
     SintomasComunes \= [],
     buscar_atencion_medica(FunctionName, Args).
 
 %---------------------------- Local Plans --------------------------------------------------------
+
+% Facts
+usar_equipos_proteccion(false).
+quedarse_en_casa(false).
+mantener_distanciamiento(false).
+necesidad_aislamiento(false).
+
+% Rules
 
 go_to_work(move, X):-
     work_place(X),

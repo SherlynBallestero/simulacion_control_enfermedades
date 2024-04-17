@@ -79,6 +79,12 @@ class Graph:
             raise ValueError("Both nodes must be in the graph")
 
     def get_neighbors(self, node:int):
+        """
+        get the neighbors.
+
+        Parameters:
+        - node: Node to remove from the graph.
+        """
         neighbors = []
         for edge in self.edges:
             if node == edge[0]:

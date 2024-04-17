@@ -1,41 +1,51 @@
-from utils.graph import Graph
+# from utils.graph import Graph
 from simulation.utils.sim_nodes import BlockNode, Workspace, PublicPlace
+from simulation.enviroment.map import Terrain
+import random
 
-TEST_CITY_1 = Graph()
 
-block_1 = BlockNode(100, (0,0))
-block_2 = BlockNode(100, (0,1))
-block_3 = BlockNode(100, (1,0))
-block_4 = BlockNode(100, (1,1))
+TEST_CITY_1 = Terrain()
 
-workspace_1 = Workspace(10, 0)
-workspace_2 = Workspace(10, 1)
-
-public_1 = PublicPlace(5, 2)
-public_2 = PublicPlace(5, 3)
-
-TEST_CITY_1.add_node(block_1)
-TEST_CITY_1.add_node(block_2)
-TEST_CITY_1.add_node(block_3)
-TEST_CITY_1.add_node(block_4)
-TEST_CITY_1.add_node(workspace_1)
-TEST_CITY_1.add_node(workspace_2)
-TEST_CITY_1.add_node(public_1)
-TEST_CITY_1.add_node(public_2)
-
+for x in range(10):
+    for y in range(10):
+        TEST_CITY_1.add_block((x, y), 100)
+        
 cost_edge = 1
-for i in range(2):
-    for j in range(2):
-        if i < 1:
-            TEST_CITY_1.add_edge((i, j),(i+1, j), cost_edge) # Conectar nodos en la misma columna
-        if j < 1:
-            TEST_CITY_1.add_edge((i, j), (i, j+1), cost_edge) # Conectar nodos en la misma fila
+for i in range(10):
+    for j in range(10):
+        if i < 9:
+            node1 = TEST_CITY_1[(i,j)]
+            node2 = TEST_CITY_1[(i+1, j)]
+            TEST_CITY_1.add_edge(node1[0].id, node2[0].id) # Conectar nodos en la misma columna
+        if j < 9:
+            node1 = TEST_CITY_1[(i,j)]
+            node2 = TEST_CITY_1[(i, j+1)]
+            TEST_CITY_1.add_edge(node1[0].id, node2[0].id) # Conectar nodos en la misma fila
             
         cost_edge+=1
 
-TEST_CITY_1.add_edge((0, 0), 0, 0)
-TEST_CITY_1.add_edge((1, 0), 1, 0)
-TEST_CITY_1.add_edge((1, 1), 2, 0)
-TEST_CITY_1.add_edge((1, 0), 3, 0)
+for _ in range(50):
+    house_addr = random.choice(list(TEST_CITY_1.nodes_by_addrs.keys()))
+    TEST_CITY_1.add_house(house_addr, random.randint(1, 5))
+
+TEST_CITY_1.add_bus_stop((1,0), 30)
+TEST_CITY_1.add_hospital((2,3), 50)
+TEST_CITY_1.add_recreational((3,1),20)
+TEST_CITY_1.add_work((4,8),10)
+
+TEST_CITY_1.add_bus_stop((0,1), 25) 
+TEST_CITY_1.add_hospital((3,2), 40) 
+TEST_CITY_1.add_recreational((4,0), 15) 
+TEST_CITY_1.add_work((2,4), 12)
+
+TEST_CITY_1.add_bus_stop((1,1), 35) 
+TEST_CITY_1.add_hospital((2,2), 55) 
+TEST_CITY_1.add_recreational((3,0), 25) 
+TEST_CITY_1.add_work((4,9), 15) 
+
+TEST_CITY_1.add_bus_stop((0,2), 20)
+TEST_CITY_1.add_hospital((3,3), 45)
+TEST_CITY_1.add_recreational((4,1), 10)
+TEST_CITY_1.add_work((2,5), 15)
 
 

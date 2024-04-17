@@ -5,9 +5,9 @@ class Knowledge:
     def __init__(self):
         self.prolog = Prolog()
         self.prolog.consult('./simulation/agents/hierarchical_agent_KB.pl')
-        
+
     def add_node_k(self, node):
-        list(self.prolog.query())
+        list(self.prolog.query(f'add_map_node({node.id}, {node.addr}, {node.capacity_status}, {node.node_type})'))
         
     def add_date_k(self, date):
         list(self.prolog.query(f'add_date({date[0]},{date[1]},{date[2]},{date[3]})'))
@@ -34,7 +34,7 @@ class Knowledge:
         list(self.prolog.query(f'add_dissease_symptoms({symptom_list})'))
     
     def add_is_medical_personnel(self, medical_personnel):
-        list(self.prolog.query(f'add_if_is_medical_personal({medical_personnel})'))
+        list(self.prolog.query(f'add_if_is_medical_personal({str(medical_personnel).lower()})'))
     
     def add_mask_necessity(self, mask_necessity):
         list(self.prolog.query(f'add_mask_necessity({mask_necessity})'))
@@ -49,10 +49,23 @@ class BehaviorLayer:
     def __init__(self, world_model, knowledge: Knowledge):
         self.world_model = world_model
         self.knowlege = knowledge
-        # self._add_map_to_k()
+        self._add_map_to_k()
 
-    def add_map_to_k(self):
-        pass
+    def _add_map_to_k(self):
+        k = self.knowlege
+        for node in self.world_model.nodes.values():
+            if node.node_type == 'hospital':
+                k.add_node_k(node)
+            elif node.node_type == 'block':
+                k.add_node_k(node)
+            elif node.node_type == 'public_space':
+                k.add_node_k(node)
+            elif node.node_type == 'work_space':
+                k.add_node_k(node)
+            elif node.node_type == 'bus_stop':
+                k.add_node_k(node)
+            else:
+                pass
 
     def react(self, queryString):
         query = f"{queryString}"

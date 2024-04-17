@@ -25,6 +25,15 @@
 my_symptoms([]).
 
 use_personal_mask(false).
+% hospitl, block, public_space, work_space, buss
+add_map_node(Id, Address, CapacityStatus, NodeType):-
+    (NodeType = hospital, add_hospital(Id, Address), retractall(place_status(Id, _)), assert(place_status(Id, CapacityStatus)));
+    (NodeType = public_space, add_public_space(Id, Address), retractall(place_status(Id, _)), assert(place_status(Id, CapacityStatus)));
+    (NodeType = block, add_public_space(Id, Address), retractall(place_status(Id, _)), assert(place_status(Id, CapacityStatus))).
+
+add_block_info(Id, Address):-
+    retractall(block(Id, _)),
+    assert(block(Id, Address)).
 
 add_public_space(Id, Address):-
     retractall(public_space(Id, _)),

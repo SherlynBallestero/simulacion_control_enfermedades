@@ -2,6 +2,7 @@ from simulation.agents.agents import Agent
 from simulation.agents.agent_arquitecture import BehaviorLayer, LocalPlanningLayer, Knowledge
 from simulation.epidemic.epidemic_model import EpidemicModel
 from simulation.utils.sim_nodes import CitizenPerceptionNode as CPNode
+from simulation.utils.sim_nodes import BlockNode, Hospital, HouseNode, PublicPlace, BusStop, Workspace
 from simulation.enviroment.map import Terrain
 from typing import Tuple, List
 import random
@@ -42,7 +43,7 @@ class Environment:
             house_id = random.choice(self.map.houses)
             
             kb.add_home(house_id)
-            is_medic = random.choice([True, False])
+            is_medic = random.choice([True, False])#TODO: change this to include a specific number of medics
             if is_medic:
                 work_id = random.choice(self.map.hospitals)
                 kb.add_work_place(work_id)
@@ -50,7 +51,7 @@ class Environment:
             else:
                 work_id = random.choice(self.map.works)
                 kb.add_work_place(work_id)
-                kb.add_is_medical_personnel(True)
+                kb.add_is_medical_personnel(False)
             
             agents_wi  = WorldInterface(self.map, mind_map, kb)
             agents_bbc = BehaviorLayer(mind_map, kb)
@@ -88,7 +89,22 @@ class Environment:
         mind_map = Graph()
         for node_id in self.map.keys():
             old_node = self.map[node_id]
-            new_node = CPNode(old_node.addr, old_node.id)
+            if isinstance(old_node, BlockNode):
+                node_type = 'block'
+            elif isinstance(old_node, Hospital):
+                node_type = 'hospital'
+            elif isinstance(old_node, Workspace):
+                node_type = 'work_space'
+            elif isinstance(old_node, BusStop):
+                node_type = 'bus_stop'
+            elif isinstance(old_node, PublicPlace):
+                node_type = 'public_space'
+            elif isinstance(old_node, HouseNode):
+                node_type = 'house'
+            else:
+                raise ValueError(f'node of type unknown{type(old_node)}')
+            
+            new_node = CPNode(old_node.addr, old_node.id, node_type)
             mind_map.add_node(new_node)
 
         mind_map.edges = self.map.graph.edges.copy()

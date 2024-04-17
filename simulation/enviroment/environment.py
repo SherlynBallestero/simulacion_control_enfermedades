@@ -47,21 +47,6 @@ class Environment:
             mind_map = self.generate_citizen_mind_map()
             kb = self._initialize_places_for_agents()
             
-            kb = Knowledge()
-            
-            house_id = random.choice(self.map.houses)
-            
-            kb.add_home(house_id)
-            is_medic = random.choice([True, False])#TODO: change this to include a specific number of medics
-            if is_medic:
-                work_id = random.choice(self.map.hospitals)
-                kb.add_work_place(work_id)
-                kb.add_is_medical_personnel(True)
-            else:
-                work_id = random.choice(self.map.works)
-                kb.add_work_place(work_id)
-                kb.add_is_medical_personnel(False)
-            
             agents_wi  = WorldInterface(self.map, mind_map, kb)
             agents_bbc = BehaviorLayer(mind_map, kb)
             agents_pbc = LocalPlanningLayer(mind_map, kb)
@@ -195,16 +180,19 @@ class WorldInterface:
             parameters = parametersList
             
         if action == 'move':
-            logger.debug(f'Agent {agent.unique_id} is moving to {parameters[0]}')
+            logger.info(f'Agent {agent.unique_id} is moving to {parameters[0]}')
             self.move_agent(agent, parameters)
             
-        if action == 'use_mask':
+        elif action == 'use_mask':
+            logger.info(f'Agent {agent.unique_id} is using mask')
             agent.masked = True 
             
-        if action == 'remove_mask':
+        elif action == 'remove_mask':
+            logger.info(f'Agent {agent.unique_id} is removing mask')
             agent.masked = False 
         
-        if action == 'vaccinate':
+        elif action == 'vaccinate':
+            logger.info(f'Agent {agent.unique_id} is vaccinated')
             agent.vaccinated = True
             
             pass

@@ -21,12 +21,20 @@
 % hospital_overrun(Id, OverrunBool).
 % public_transportation_working(Id, Bool).
 % public_transportation_schedule(Id, AddrList).
-% hospital_acepting_patients(Id, Bool)
+% hospital_acepting_patients(Id, Bool).
+% sleeping(false)
 
 goal(move, 1).
-
+hour(22).
 my_symptoms([tos]).
-use_personal_mask(true).
+use_personal_mask(false).
+open_hours_place(_,7, 16).
+mask_requirement(_,false).
+mask_necessity(false).
+public_transportation_working(_, true).
+public_transportation_schedule(2, [1,6,4,7,5,8,78,9,37]).
+hospital_acepting_patients(_, true).
+disease_symptoms([tos]).
 
 
 % hospitl, block, public_space, work_space, buss
@@ -41,6 +49,7 @@ add_block_info(Id, Address):-
 
 add_public_space(Id, Address):-
     retractall(public_space(Id, _)),
+    assert(open_place(Id, true)),
     assert(public_space(Id, Address)).
 
 add_home(Node):-
@@ -49,11 +58,13 @@ add_home(Node):-
 
 add_work_place(Node):-
     retractall(work_place(_)),
+    assert(open_place(Node, true)),
     assert(work_place(Node)).
 
 add_open_place(Node, Bool):-
     retract(open_place(Node,_)),
     assert(open_place(Node, Bool)).
+
 
 add_open_hours_place(Node, Initial, Final):-
     retractall(open_hours_place(Node, Initial, Final)),
@@ -100,22 +111,41 @@ add_place_to_use_mask(Place, Bool):-
 move(move, Node):-
     open_place(Node, true).
 
+sleep():-
+    hour(Hour),
+    Hour == 22,
+    retractall(sleeping(_)),
+    assert(sleeping(true)).
+
+sleep_now():-
+    retractall(sleeping(_)),
+    assert(sleeping(true)).
+
+wake_up():-
+    hour(Hour),
+    Hour == 7,
+    retractall(sleeping(_)),
+    assert(sleeping(false)).
+
 take_bus(NodeIdDest, move, Id):-
     public_transportation_working(Id, true),
     public_transportation_schedule(Id, AddrList),
     member(NodeIdDest, AddrList).
 
+walk(move, Node):-
+    move(move, Node).
+
 wear_mask(use_mask, Node):-
     mask_requirement(Node,true),
     mask_necessity(true),
-    retract(use_personal_mask(false)),
+    retractall(use_personal_mask(false)),
     not(use_personal_mask(true)),
     assert(use_personal_mask(true)).
 
 remove_mask(remove_mask, Node):-
     mask_requirement(Node,false),
     mask_necessity(false),
-    retract(use_personal_mask(_)),
+    retractall(use_personal_mask(_)),
     not(use_personal_mask(false)),
     assert(use_personal_mask(false)).
     
@@ -131,18 +161,14 @@ detect_symptoms(FunctionName, Args) :-
     CommonSymptoms \= [],
     search_medical_attention(FunctionName, Args).
 
-mask_necessity(false).
-mask_requirement(1,false).
-public_transportation_working(2, false).
-public_transportation_schedule(2, [1,6]).
-hospital(1, _).
-hospital_acepting_patients(1, true).
-disease_symptoms([tos]).
 
 step( Action, Arguments):-
     (wear_mask(Action, Arguments); remove_mask(Action, Arguments));
-    (goal(move, NodeIdDest),take_bus(NodeIdDest, Action, Arguments));
-    detect_symptoms(Action, Arguments).
+    (goal(move, NodeIdDest),take_bus(NodeIdDest, Action, Arguments), retractall(goal(move, NodeIdDest)));
+    (goal(go_home_after_work, F),hour(H), H == F, go_home_after_work(Action, Arguments), retractall(goal(go_home_after_work, F)));
+    detect_symptoms(Action, Arguments);
+    (wake_up(); sleep()).
+    
     
 %---------------------------- Local Plans --------------------------------------------------------
 
@@ -168,6 +194,25 @@ go_home_after_work(move, Y):-
     hour(H),
     open_hours_place(X,_,F),
     H == F.
+
+% work_place(1).
+% home(3).
+% open_place(1,true).
+% open_hours_place(_,3,3).
+
+
+work_rutine():-
+    go_to_work(Action, NodeWork),
+    (take_bus(NodeWork, Action, _); walk(Action, NodeWork)),
+    open_hours_place(NodeWork,_,F),
+    asserta(goal(go_home_after_work, F)).
+
+
+% schedule_manager():-
+%     hour(H),
+%     min(M),
+%     schedule(NewGoal, H, M),
+%     assert(goal(NewGoal)).
 
 use_mask_k():-
     retract(mask_knowledge(_)),
@@ -210,7 +255,6 @@ implement_isolation_measures() :-
     establish_use_protection_equipment(),
     establish_stay_at_home().
 
-
 %---------------------------- Cooperation Knowledge -----------------------------------------------
 
 risk_contacts_detected( [_]).
@@ -247,3 +291,6 @@ intersection([H|T], L, R) :-
 :-dynamic(month_day/1).
 :-dynamic(min/1).
 :-dynamic(use_personal_mask/1).
+:-dynamic(home/1).
+:-dynamic(work_place/1).
+:-dynamic(goal/2).

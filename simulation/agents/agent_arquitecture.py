@@ -1,7 +1,6 @@
 from pyswip import Prolog
 from typing import Tuple
 import random
-
 class Knowledge:
     """
     Class representing the knowledge base of an agent.
@@ -153,6 +152,7 @@ class BehaviorLayer:
         """
         self.world_model = world_model
         self.knowledge = knowledge
+        self.add_map_to_k()
 
     def add_map_to_k(self):
         """
@@ -169,6 +169,8 @@ class BehaviorLayer:
             elif node.node_type == 'work_space':
                 k.add_node_k(node)
             elif node.node_type == 'bus_stop':
+                k.add_node_k(node)
+            elif node.node_type == 'hospital':
                 k.add_node_k(node)
             else:
                 pass
@@ -209,8 +211,8 @@ class LocalPlanningLayer:
             knowledge (Knowledge): The knowledge base of the agent.
         """
         self.behavior_layer_based = behavior_layer_based
-        self.prolog = knowledge
-        self.plans = {} # Dictionary of plans
+        self.knowledge = knowledge
+        self.plans = {} 
 
     def plan(self, queryString):
         """
@@ -220,7 +222,9 @@ class LocalPlanningLayer:
             queryString (str): The query string.
         """
         query = f"{queryString}"
-        self.prolog.query(query)
+        list(self.knowledge.query(query))
+        
+        
 
 class CooperativeLayer:
     """
@@ -239,7 +243,7 @@ class CooperativeLayer:
             knowledge (Knowledge): The knowledge base of the agent.
         """
         self.local_planning_layer = local_planning_layer
-        self.prolog = knowledge
+        self.knowledge = knowledge
 
     def cooperate(self, queryString):
         """
@@ -249,4 +253,4 @@ class CooperativeLayer:
             queryString (str): The query string.
         """
         query = f"{queryString}"
-        self.prolog.query(query)
+        self.knowledge.query(query)

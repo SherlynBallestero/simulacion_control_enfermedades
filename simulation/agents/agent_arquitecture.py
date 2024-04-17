@@ -133,7 +133,7 @@ class Knowledge:
         Returns:
             list: The results of the query.
         """
-        return []
+        return list(self.prolog.query(queryString))
         
 class BehaviorLayer:
     """
@@ -184,13 +184,10 @@ class BehaviorLayer:
             tuple: The action and arguments to perform.
         """
         query = f"{queryString}"
-        action = []
-        for result in self.knowledge.query(query):
-            action.append(result['FunctionName'])
-            action.append(result['Args'])
-            
+        action = list(self.knowledge.query(query))[0]
+        
         try:
-            return action[0], action[1]
+            return action['Action'], action['Arguments']
         except:
             return None, None
     

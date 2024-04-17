@@ -52,7 +52,7 @@ class Agent:
     def step(self, step_num):
         perception = self.wi.percieve(self, step_num)
         self.process_perception(perception, step_num)
-        action, arguments = self.bbc.react("detectar_sintomas(FunctionName, Args)")
+        action, arguments = self.bbc.react("step(Action, Arguments)")
         self.wi.act(self, action, arguments)
         
     def format_day(self, step_num):

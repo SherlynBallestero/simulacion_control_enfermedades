@@ -189,6 +189,11 @@ class WorldInterface:
             action (str): The action to perform.
             parameters (list): The parameters for the action.
         """
+        if isinstance(parameters, int):
+            parametersList = []
+            parametersList.append(parameters)
+            parameters = parametersList
+            
         if action == 'move':
             logger.debug(f'Agent {agent.unique_id} is moving to {parameters[0]}')
             self.move_agent(agent, parameters)
@@ -273,7 +278,7 @@ class WorldInterface:
         pos = tuple(pos)
         prev_location = agent.location
 
-        prev_neighbors = self.map.get_neighbors(prev_location)
+        prev_neighbors = self.map.graph.get_neighbors(prev_location)
 
         if pos not in prev_neighbors:
             logger.error(f'Agent {agent.unique_id} cannot move to {pos} from {prev_location}')

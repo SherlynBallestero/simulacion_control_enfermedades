@@ -21,10 +21,14 @@
 % hospital_overrun(Id, OverrunBool).
 % public_transportation_working(Id, Bool).
 % public_transportation_schedule(Id, AddrList).
+% hospital_acepting_patients(Id, Bool)
 
-my_symptoms([]).
+goal(move, 1).
 
-use_personal_mask(false).
+my_symptoms([tos]).
+use_personal_mask(true).
+
+
 % hospitl, block, public_space, work_space, buss
 add_map_node(Id, Address, CapacityStatus, NodeType):-
     (NodeType = hospital, add_hospital(Id, Address), retractall(place_status(Id, _)), assert(place_status(Id, CapacityStatus)));
@@ -93,21 +97,32 @@ add_place_to_use_mask(Place, Bool):-
 
 %---------------------------- Patterns of Behaviour -----------------------------------------------
 
-wear_mask(Node, use_mask):-
+move(move, Node):-
+    open_place(Node, true).
+
+take_bus(NodeIdDest, move, Id):-
+    public_transportation_working(Id, true),
+    public_transportation_schedule(Id, AddrList),
+    member(NodeIdDest, AddrList).
+
+wear_mask(use_mask, Node):-
     mask_requirement(Node,true),
     mask_necessity(true),
-    retract(use_personal_mask(_)),
+    retract(use_personal_mask(false)),
+    not(use_personal_mask(true)),
     assert(use_personal_mask(true)).
 
-remove_mask(Node, remove_mask):-
+remove_mask(remove_mask, Node):-
     mask_requirement(Node,false),
     mask_necessity(false),
     retract(use_personal_mask(_)),
+    not(use_personal_mask(false)),
     assert(use_personal_mask(false)).
     
-search_medical_attention(FunctionName, Args):-
+search_medical_attention(FunctionName, Id):-
     FunctionName = move,
-    hospital(Args, _).
+    hospital(Id, _),
+    hospital_acepting_patients(Id, true).
 
 detect_symptoms(FunctionName, Args) :-
     my_symptoms(Symptoms),
@@ -116,6 +131,19 @@ detect_symptoms(FunctionName, Args) :-
     CommonSymptoms \= [],
     search_medical_attention(FunctionName, Args).
 
+mask_necessity(false).
+mask_requirement(1,false).
+public_transportation_working(2, false).
+public_transportation_schedule(2, [1,6]).
+hospital(1, _).
+hospital_acepting_patients(1, true).
+disease_symptoms([tos]).
+
+step( Action, Arguments):-
+    (wear_mask(Action, Arguments); remove_mask(Action, Arguments));
+    (goal(move, NodeIdDest),take_bus(NodeIdDest, Action, Arguments));
+    detect_symptoms(Action, Arguments).
+    
 %---------------------------- Local Plans --------------------------------------------------------
 
 % Facts

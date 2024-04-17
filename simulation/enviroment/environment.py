@@ -1,8 +1,8 @@
 from simulation.agents.agents import Agent
 from simulation.agents.agent_arquitecture import BehaviorLayer, LocalPlanningLayer, Knowledge
 from simulation.epidemic.epidemic_model import EpidemicModel
-from simulation.utils.sim_nodes import CitizenPerceptionNode as CPNode
-from simulation.utils.sim_nodes import BlockNode, Hospital, HouseNode, PublicPlace, BusStop, Workspace
+from simulation.enviroment.sim_nodes import CitizenPerceptionNode as CPNode
+from simulation.enviroment.sim_nodes import BlockNode, Hospital, HouseNode, PublicPlace, BusStop, Workspace
 from simulation.enviroment.map import Terrain
 from typing import Tuple, List
 import random

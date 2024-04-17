@@ -149,7 +149,7 @@ class WorldInterface:
         self.agent_mind_map = agent_mind_map
         self.agent_kb = knowledge_base
 
-    def act(self, agent: Agent, action: str, parameters: list) -> None:
+    def act(self, agent: Agent, action: str, parameters: list = None) -> None:
         """
         Perform an action for an agent.
 
@@ -161,6 +161,17 @@ class WorldInterface:
         if action == 'move':
             logger.debug(f'Agent {agent.unique_id} is moving to {parameters[0]}')
             self.move_agent(agent, parameters)
+            
+        if action == 'use_mask':
+            agent.masked = True 
+            
+        if action == 'remove_mask':
+            agent.masked = False 
+        
+        if action == 'vaccinate':
+            agent.vaccinated = True
+            
+            pass
         else:
             logger.error(f'Action {action} not recognized')
 

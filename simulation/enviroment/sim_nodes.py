@@ -24,10 +24,11 @@ class CitizenPerceptionNode(PerceptionNode):
         capacity_status (str, optional): The status of the node's capacity. Defaults to 'unknown'.
         information_source (str, optional): The source of information for the node. Defaults to 'perception'.
     """
-    def __init__(self, addr: Tuple[int, int], id: Hashable, capacity_status: str = 'unknown', information_source: str = 'perception') -> None:
+    def __init__(self, addr:Tuple[int, int], id: Hashable, node_type:str, capacity_status: str = 'unknown', information_source: str = 'perception') -> None:
         super().__init__(addr, id)
         self.capacity_status = capacity_status
         self.information_source = information_source
+        self.node_type = node_type
 
 class SimNode(Node):
     """

@@ -2,7 +2,7 @@
 For executing the simulation without the chat interface
 '''
 import logging
-from testing_tools.maps import TEST_CITY_1
+from simulation.enviroment.maps import TEST_CITY_1
 from simulation.enviroment.environment import Environment
 from simulation.epidemic.epidemic_model import EpidemicModel
 

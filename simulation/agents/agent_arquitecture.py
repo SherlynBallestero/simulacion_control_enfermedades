@@ -49,7 +49,7 @@ class BehaviorLayer:
     def __init__(self, world_model, knowledge: Knowledge):
         self.world_model = world_model
         self.knowlege = knowledge
-        self._add_map_to_k()
+        # self._add_map_to_k()
 
     def add_map_to_k(self):
         pass

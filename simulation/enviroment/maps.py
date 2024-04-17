@@ -1,8 +1,7 @@
 # from utils.graph import Graph
-from simulation.utils.sim_nodes import BlockNode, Workspace, PublicPlace
+from simulation.enviroment.sim_nodes import BlockNode, Workspace, PublicPlace
 from simulation.enviroment.map import Terrain
 import random
-
 
 TEST_CITY_1 = Terrain()
 

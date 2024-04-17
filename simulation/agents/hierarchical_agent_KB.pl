@@ -8,16 +8,16 @@
 % work_place(Id).
 % open_place(Id, Bool).
 % open_hours_place(ID, OH, CH).
-% dissease_symptoms(SymptomList).
+% disease_symptoms(SymptomList).
 % my_symptoms(SymptomList).
 % is_medical_personal(Bool).
-% mask_necesity(Bool).
+% mask_necessity(Bool).
 % mask_requirement(PlaceID, Bool).
 % goal(Goal1).
 % goal(Goal2).
-% public_space(Id, Adress).
+% public_space(Id, Address).
 % space_capacity_state(Id, CapacityState).
-% hospital(Id, Adress).
+% hospital(Id, Address).
 % hospital_overrun(Id, OverrunBool).
 % public_transportation_working(Id, Bool).
 % public_transportation_schedule(Id, AddrList).
@@ -66,14 +66,14 @@ add_hospital(HospitalId, Address):-
     retract(hospital(HospitalId, _)),
     asserta(hospital(HospitalId, Address)).
     
-add_dissease_symptoms(S):-
-    assert(dissease_symptoms(S)).
+add_disease_symptoms(S):-
+    assert(disease_symptoms(S)).
 
 add_if_is_medical_personal(Bool):-
     assert(is_medical_personal(_)),
     assert(is_medical_personal(Bool)).
 
-add_mask_necesity(Bool):-
+add_mask_necessity(Bool):-
     retract(mask_knowledge(_)),
     assert(mask_knowledge(Bool)).
 
@@ -82,32 +82,32 @@ add_place_to_use_mask(Place, Bool):-
     assert(mask_requirement(Place, Bool)).
 
 
-%---------------------------- Paterns of Behaviour -----------------------------------------------
+%---------------------------- Patterns of Behaviour -----------------------------------------------
 
 wear_mask(Node, use_mask):-
     mask_requirement(Node,true),
-    mask_necesity(true),
+    mask_necessity(true),
     retract(use_personal_mask(_)),
     assert(use_personal_mask(true)).
 
-buscar_atencion_medica(FunctionName, Args):-
+search_medical_attention(FunctionName, Args):-
     FunctionName = move,
     hospitals(Args).
 
-detectar_sintomas(FunctionName, Args) :-
-    my_symptoms(Sintomas),
-    dissease_symptoms(SintomasEnfermedad),
-    intersection(Sintomas, SintomasEnfermedad, SintomasComunes),
-    SintomasComunes \= [],
-    buscar_atencion_medica(FunctionName, Args).
+detect_symptoms(FunctionName, Args) :-
+    my_symptoms(Symptoms),
+    disease_symptoms(DiseaseSymptoms),
+    intersection(Symptoms, DiseaseSymptoms, CommonSymptoms),
+    CommonSymptoms \= [],
+    search_medical_attention(FunctionName, Args).
 
 %---------------------------- Local Plans --------------------------------------------------------
 
 % Facts
-usar_equipos_proteccion(false).
-quedarse_en_casa(false).
-mantener_distanciamiento(false).
-necesidad_aislamiento(false).
+use_protection_equipment(false).
+stay_at_home(false).
+maintain_distancing(false).
+need_isolation(false).
 
 % Rules
 
@@ -126,64 +126,64 @@ go_home_after_work(move, Y):-
     open_hours_place(X,_,F),
     H == F.
 
-usar_mascarilla():-
+use_mask():-
     retract(mask_knowledge(_)),
     asserta(mask_knowledge(true)).
 
-quitar_mascarilla():-
+remove_mask():-
     retract(mask_knowledge(_)),
     asserta(mask_knowledge(false)).
 
-establecer_necesidad_aislamiento():-
-    retract(necesidad_aislamiento(_)),
-    asserta(necesidad_aislamiento(true)).
+establish_need_isolation():-
+    retract(need_isolation(_)),
+    asserta(need_isolation(true)).
 
-quitar_necesidad_aislamiento():-
-    retract(necesidad_aislamiento(_)),
-    asserta(necesidad_aislamiento(false)).
+remove_need_isolation():-
+    retract(need_isolation(_)),
+    asserta(need_isolation(false)).
 
-establecer_usar_equipos_proteccion():-
-    retract(usar_equipos_proteccion(_)),
-    asserta(usar_equipos_proteccion(true)).
+establish_use_protection_equipment():-
+    retract(use_protection_equipment(_)),
+    asserta(use_protection_equipment(true)).
 
-establecer_quedarse_en_casa():-
-    retract(quedarse_en_casa(_)),
-    asserta(quedarse_en_casa(true)).
+establish_stay_at_home():-
+    retract(stay_at_home(_)),
+    asserta(stay_at_home(true)).
 
-salir_de_casa():-
-    retract(quedarse_en_casa(_)),
-    asserta(quedarse_en_casa(false)).
+leave_home():-
+    retract(stay_at_home(_)),
+    asserta(stay_at_home(false)).
 
-establecer_distanciamiento():-
-    retract(mantener_distanciamiento(_)),
-    asserta(mantener_distanciamiento(true)).
+establish_distancing():-
+    retract(maintain_distancing(_)),
+    asserta(maintain_distancing(true)).
 
-eliminar_distanciamiento():-
-    retract(mantener_distanciamiento(_)),
-    asserta(mantener_distanciamiento(false)).
+remove_distancing():-
+    retract(maintain_distancing(_)),
+    asserta(maintain_distancing(false)).
 
-implementar_medidas_aislamiento() :-
-    establecer_necesidad_aislamiento(),
-    establecer_usar_equipos_proteccion(),
-    establecer_quedarse_en_casa().
+implement_isolation_measures() :-
+    establish_need_isolation(),
+    establish_use_protection_equipment(),
+    establish_stay_at_home().
 
 
 %---------------------------- Cooperation Knowledge -----------------------------------------------
 
-contactos_riesgo_detectados( [_]).
-enviar_info(_, _).
+risk_contacts_detected( [_]).
+send_info(_, _).
 
-informar_contactos(_, []).
-informar_contactos(Info, [A|[Contactos]]):-
-    enviar_info(Info, A),
-    informar_contactos(Info, Contactos).
+inform_contacts(_, []).
+inform_contacts(Info, [A|[Contacts]]):-
+    send_info(Info, A),
+    inform_contacts(Info, Contacts).
 
-seguimiento_contactos_riesgo() :-
-    contactos_riesgo_detectados(Contactos),
-    informar_contactos(agente_enfermo, Contactos).
+track_risk_contacts() :-
+    risk_contacts_detected(Contacts),
+    inform_contacts(infected_agent, Contacts).
 
 
-%--------------------------- Medotos auxiliares -----------------------------------------
+%--------------------------- Auxiliary Methods -----------------------------------------
 
 intersection([], _, []).
 intersection([H|T], L, [H|R]) :-
@@ -193,11 +193,11 @@ intersection([H|T], L, R) :-
     \+ member(H, L),
     intersection(T, L, R).
 
-:-dynamic(mantener_distanciamiento/1).
+:-dynamic(maintain_distancing/1).
 :-dynamic(mask_knowledge/1).
-:-dynamic(necesidad_aislamiento/1).
-:-dynamic(usar_equipos_proteccion/1).
-:-dynamic(quedarse_en_casa/1).
+:-dynamic(need_isolation/1).
+:-dynamic(use_protection_equipment/1).
+:-dynamic(stay_at_home/1).
 :-dynamic(my_symptoms/1).
 :-dynamic(hour/1).
 :-dynamic(week_day/1).

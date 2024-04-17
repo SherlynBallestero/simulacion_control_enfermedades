@@ -1,5 +1,5 @@
 import heapq
-from utils.graph import Graph, Node
+from simulation.enviroment.graph import Graph, Node
 
 def heuristic(node1:Node, node2:Node):
     '''

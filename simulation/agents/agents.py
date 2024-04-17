@@ -1,7 +1,7 @@
 import random
 from typing import Dict, Any, Tuple, List, Set, Hashable
-from utils.graph import Graph
-from simulation.utils.sim_nodes import CitizenPerceptionNode as CPNode
+from simulation.enviroment.graph import Graph
+from simulation.enviroment.sim_nodes import CitizenPerceptionNode as CPNode
 from simulation.agents.agent_arquitecture import BehaviorLayer, LocalPlanningLayer, CooperativeLayer, Knowledge
 class Agent:
     """Class representing an agent in the simulation."""

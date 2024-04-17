@@ -15,15 +15,9 @@ class Knowledge:
         """
         self.prolog = Prolog()
         self.prolog.consult('./simulation/agents/hierarchical_agent_KB.pl')
-        
-    def add_node_k(self, node):
-        """
-        Add a node to the knowledge base.
 
-        Args:
-            node: The node to add.
-        """
-        list(self.prolog.query())
+    def add_node_k(self, node):
+        list(self.prolog.query(f'add_map_node({node.id}, {node.addr}, {node.capacity_status}, {node.node_type})'))
         
     def add_date_k(self, date):
         """
@@ -108,7 +102,7 @@ class Knowledge:
         Args:
             medical_personnel (bool): Whether the agent is medical personnel.
         """
-        list(self.prolog.query(f'add_if_is_medical_personal({medical_personnel})'))
+        list(self.prolog.query(f'add_if_is_medical_personal({str(medical_personnel).lower()})'))
     
     def add_mask_necessity(self, mask_necessity: bool):
         """
@@ -164,7 +158,20 @@ class BehaviorLayer:
         """
         Add the world model to the knowledge base.
         """
-        pass
+        k = self.knowledge
+        for node in self.world_model.nodes.values():
+            if node.node_type == 'hospital':
+                k.add_node_k(node)
+            elif node.node_type == 'block':
+                k.add_node_k(node)
+            elif node.node_type == 'public_space':
+                k.add_node_k(node)
+            elif node.node_type == 'work_space':
+                k.add_node_k(node)
+            elif node.node_type == 'bus_stop':
+                k.add_node_k(node)
+            else:
+                pass
 
     def react(self, queryString):
         """

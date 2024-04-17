@@ -44,7 +44,6 @@ class Environment:
         infected_agents = random.randint(0, int(num_agents/2))
         for i in range(num_agents):
             mind_map = self.generate_citizen_mind_map()
-            
             kb = self._initialize_places_for_agents()
             
             agents_wi = WorldInterface(self.map, mind_map, kb)

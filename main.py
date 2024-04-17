@@ -6,21 +6,12 @@ from simulation.enviroment.maps import TEST_CITY_1
 from simulation.enviroment.environment import Environment
 from simulation.epidemic.epidemic_model import EpidemicModel
 
-
 # Create and configure logger
 logging.basicConfig(filename="simulation.log",
                     format='%(asctime)s - %(levelname)s - %(message)s',
                     filemode='w')
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
-
-
-# def initializing_simulation():
-#     # Initialize environment and epidemic model
-#     epidemic_model = EpidemicModel(TRANSMISSION_RATE, RECOVERY_RATE)
-#     env = Environment(X_LIMIT, Y_LIMIT, NUM_AGENTS, epidemic_model)
-    
-#     return env
 
 def simulate(env, steps_num):
     # Main simulation loop

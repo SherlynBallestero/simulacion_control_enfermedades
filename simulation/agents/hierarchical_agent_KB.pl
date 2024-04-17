@@ -99,9 +99,15 @@ wear_mask(Node, use_mask):-
     retract(use_personal_mask(_)),
     assert(use_personal_mask(true)).
 
+remove_mask(Node, remove_mask):-
+    mask_requirement(Node,false),
+    mask_necessity(false),
+    retract(use_personal_mask(_)),
+    assert(use_personal_mask(false)).
+    
 search_medical_attention(FunctionName, Args):-
     FunctionName = move,
-    hospitals(Args).
+    hospital(Args, _).
 
 detect_symptoms(FunctionName, Args) :-
     my_symptoms(Symptoms),
@@ -135,11 +141,11 @@ go_home_after_work(move, Y):-
     open_hours_place(X,_,F),
     H == F.
 
-use_mask():-
+use_mask_k():-
     retract(mask_knowledge(_)),
     asserta(mask_knowledge(true)).
 
-remove_mask():-
+remove_mask_k():-
     retract(mask_knowledge(_)),
     asserta(mask_knowledge(false)).
 

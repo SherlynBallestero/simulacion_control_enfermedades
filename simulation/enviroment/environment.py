@@ -146,7 +146,7 @@ class Environment:
         else:
             work_id = random.choice(self.map.works)
             kb.add_work_place(work_id)
-            kb.add_is_medical_personnel(True)
+            kb.add_is_medical_personnel(False)
             
         return kb
         

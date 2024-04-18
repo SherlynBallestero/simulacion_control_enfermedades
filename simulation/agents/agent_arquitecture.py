@@ -186,9 +186,14 @@ class BehaviorLayer:
             tuple: The action and arguments to perform.
         """
         query = f"{queryString}"
-        action = list(self.knowledge.query(query))[0]
+        action1 = []
         
+        for x in self.knowledge.query(query):
+            action1.append(x['Action'])
+            action1.append(x['Arguments'])
+            
         try:
+            action = list(self.knowledge.query(query))[0]
             return action['Action'], action['Arguments']
         except:
             return None, None

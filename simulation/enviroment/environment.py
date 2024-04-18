@@ -250,13 +250,27 @@ class WorldInterface:
         new_perception = {}
 
         current_node = self.map[agent.location]
-        current_node_perception = CPNode(current_node.addr, current_node.id, density_classifier(len(current_node.agent_list), current_node.capacity))
-        new_perception[current_node.addr] = current_node_perception
+        if isinstance(current_node, BlockNode):
+            node_type = 'block'
+        elif isinstance(current_node, Hospital):
+            node_type = 'hospital'
+        elif isinstance(current_node, Workspace):
+            node_type = 'work_space'
+        elif isinstance(current_node, BusStop):
+            node_type = 'bus_stop'
+        elif isinstance(current_node, PublicPlace):
+            node_type = 'public_space'
+        elif isinstance(current_node, HouseNode):
+            node_type = 'house'
+        else:
+            raise ValueError(f'node of type unknown{type(current_node)}')
+        current_node_perception = CPNode(current_node.addr, current_node.id, node_type, density_classifier(len(current_node.agent_list), current_node.capacity))
+        if node_type in ['hospital', 'works_space', 'bus_stop', 'public_space']:
+            current_node_perception.oppening_hours = current_node.opening_hours
+            current_node_perception.closing_hours = current_node.closing_hours
+            current_node_perception.is_open = current_node_perception.is_open
 
-        for neighbor_key in self.map.graph.get_neighbors(agent.location):
-            neighbor_node = self.map[neighbor_key]
-            node_density = density_classifier(len(neighbor_node.agent_list), neighbor_node.capacity)
-            new_perception[neighbor_node.addr] = CPNode(neighbor_node.addr, neighbor_key, node_density)
+        new_perception[current_node.addr] = current_node_perception
 
         return new_perception
 

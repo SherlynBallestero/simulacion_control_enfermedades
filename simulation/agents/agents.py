@@ -40,14 +40,16 @@ class Agent:
   
 
     def process_perception(self, world_perception: Dict[Hashable, CPNode], step_num):
+        k = self.knowledge_base
         format_day = self.format_day(step_num)
-        self.knowledge_base.add_date_k(format_day)
+        k.add_date_k(format_day)
         
         for node in world_perception.values():
             old_perception = self.mind_map.nodes[node.id]
             new_perception = world_perception[node.addr]
             old_perception.capacity_status = new_perception.capacity_status
             old_perception.information_source = new_perception.information_source
+            k.add_node_k(new_perception)
 
     def step(self, step_num):
         perception = self.wi.percieve(self, step_num)
@@ -66,7 +68,7 @@ class Agent:
             
         if step_num % 144 == 0 and step_num != 0 :
             self.day = self.day + 1
-             
+        
         min = (step_num % 6) * 10
         week_day = days_of_the_week[self.day % 7]
         month_day = self.day % 31

@@ -18,6 +18,8 @@ class Knowledge:
 
     def add_node_k(self, node):
         list(self.prolog.query(f'add_map_node({node.id}, {node.addr}, {node.capacity_status}, {node.node_type})'))
+        if node.node_type in ['hospital', 'works_space', 'bus_stop', 'public_space']:
+            list(self.prolog.query(f'add_map_node({node.id}, {node.oppening_hours}, {node.closing_hours}'))
         
     def add_date_k(self, date):
         """

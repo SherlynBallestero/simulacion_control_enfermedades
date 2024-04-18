@@ -67,7 +67,7 @@ class Agent:
             
         if step_num % 144 == 0 and step_num != 0 :
             self.day = self.day + 1
-             
+        
         min = (step_num % 6) * 10
         week_day = days_of_the_week[self.day % 7]
         month_day = self.day % 31

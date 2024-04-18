@@ -1,6 +1,7 @@
 from pyswip import Prolog
 from typing import Tuple
 import random
+
 class Knowledge:
     """
     Class representing the knowledge base of an agent.

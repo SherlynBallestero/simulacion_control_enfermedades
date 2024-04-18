@@ -11,7 +11,7 @@ logging.basicConfig(filename="simulation.log",
                     format='%(asctime)s - %(levelname)s - %(message)s',
                     filemode='w')
 logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
 
 def simulate(env, steps_num):
     # Main simulation loop

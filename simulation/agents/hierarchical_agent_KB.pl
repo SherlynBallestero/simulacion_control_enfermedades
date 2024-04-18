@@ -171,7 +171,7 @@ detect_symptoms(FunctionName, Args) :-
 
 
 step( Action, Arguments):-
-    % (wear_mask(Action, Arguments); remove_mask(Action, Arguments));
+    (wear_mask(Action, Arguments); remove_mask(Action, Arguments));
     (goal(move, NodeIdDest),move(_, NodeIdDest));
     % go_home_after_work(Action, Arguments);
     (goal(go_home_after_work, F),hour(H), H == F, go_home_after_work(Action, Arguments));

@@ -337,3 +337,4 @@ intersection([H|T], L, R) :-
 :-dynamic(open_place/2).
 :-dynamic(mask_necessity/1).
 :-dynamic(public_space/2).
+:-dynamic(open_hours_place/3).

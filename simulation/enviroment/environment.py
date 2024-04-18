@@ -104,6 +104,10 @@ class Environment:
                 raise ValueError(f'node of type unknown{type(old_node)}')
             
             new_node = CPNode(old_node.addr, old_node.id, node_type)
+            if node_type in ['hospital', 'works_space', 'bus_stop', 'public_space']:
+                new_node.oppening_hours = old_node.opening_hours
+                new_node.closing_hours = old_node.closing_hours
+                new_node.is_open = old_node.is_open
             mind_map.add_node(new_node)
 
         mind_map.edges = self.map.graph.edges.copy()
@@ -268,7 +272,7 @@ class WorldInterface:
         if node_type in ['hospital', 'works_space', 'bus_stop', 'public_space']:
             current_node_perception.oppening_hours = current_node.opening_hours
             current_node_perception.closing_hours = current_node.closing_hours
-            current_node_perception.is_open = current_node_perception.is_open
+            current_node_perception.is_open = current_node.is_open
 
         new_perception[current_node.addr] = current_node_perception
 

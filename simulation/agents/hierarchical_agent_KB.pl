@@ -26,22 +26,21 @@ sleeping(true).
 
 % goal(move, 1).
 % hour(16).
-position(5).
+% position(5).
 
-my_symptoms([tos]).
-use_personal_mask(false).
-open_hours_place(_,7, 16).
-open_place(_, true).
-mask_requirement(_,true).
-mask_necessity(true).
-public_transportation_working(_, true).
-public_transportation_schedule(2, [1,6,4,7,5,8,78,9,37]).
-hospital_acepting_patients(_, true).
-disease_symptoms([tos]).
-hospital(5,_).
-public_space(77, _).
-public_space(44, _).
-isolation_center(45, _).
+% my_symptoms([tos]).
+% use_personal_mask(false).
+% open_place(_, true).
+% mask_requirement(_,true).
+% mask_necessity(true).
+% public_transportation_working(_, true).
+% public_transportation_schedule(2, [1,6,4,7,5,8,78,9,37]).
+% hospital_acepting_patients(_, true).
+% disease_symptoms([tos]).
+% hospital(5,_).
+% public_space(77, _).
+% public_space(44, _).
+% isolation_center(45, _).
 % work_place(66).
 % home(55).
 
@@ -104,7 +103,7 @@ add_disease_symptoms(S):-
     assert(disease_symptoms(S)).
 
 add_if_is_medical_personal(Bool):-
-    assert(is_medical_personal(_)),
+    retractall(is_medical_personal(_)),
     assert(is_medical_personal(Bool)).
 
 add_mask_necessity(Bool):-

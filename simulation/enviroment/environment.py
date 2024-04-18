@@ -214,7 +214,7 @@ class Environment:
 
         try:
             self._log_fact_type('space_capacity_state', agent_k.query(f'space_capacity_state(A,B)'))
-        except Exception as e:
+        except Exception as e:#TODO: debg this
             logger.error(f"query 'space_capacity_state' resulted in error: {e}")
 
         try:
@@ -224,7 +224,7 @@ class Environment:
 
         try:
             self._log_fact_type('hospital_overrun', agent_k.query(f'hospital_overrun(A,B)'))
-        except Exception as e:
+        except Exception as e:#TODO: Debug this
             logger.error(f"query 'hospital_overrun' resulted in error: {e}")
 
         try:

@@ -35,7 +35,7 @@ public_transportation_working(_, true).
 public_transportation_schedule(2, [1,6,4,7,5,8,78,9,37]).
 hospital_acepting_patients(_, true).
 disease_symptoms([tos]).
-
+hospital(5,_).
 
 % hospitl, block, public_space, work_space, buss
 add_map_node(Id, Address, CapacityStatus, NodeType):-
@@ -136,17 +136,17 @@ walk(move, Node):-
     move(move, Node).
 
 wear_mask(use_mask, Node):-
+    not(use_personal_mask(true)),
     mask_requirement(Node,true),
     mask_necessity(true),
     retractall(use_personal_mask(false)),
-    not(use_personal_mask(true)),
     assert(use_personal_mask(true)).
 
 remove_mask(remove_mask, Node):-
+    not(use_personal_mask(false)),
     mask_requirement(Node,false),
     mask_necessity(false),
     retractall(use_personal_mask(_)),
-    not(use_personal_mask(false)),
     assert(use_personal_mask(false)).
     
 search_medical_attention(FunctionName, Id):-
@@ -294,3 +294,4 @@ intersection([H|T], L, R) :-
 :-dynamic(home/1).
 :-dynamic(work_place/1).
 :-dynamic(goal/2).
+:-dynamic(hospital/2).

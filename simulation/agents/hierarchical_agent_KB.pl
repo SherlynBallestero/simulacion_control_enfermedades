@@ -26,17 +26,22 @@
 
 % goal(move, 1).
 % hour(16).
+position(5).
+
 my_symptoms([tos]).
 use_personal_mask(false).
 open_hours_place(_,7, 16).
 open_place(_, true).
-mask_requirement(_,false).
-mask_necessity(false).
+mask_requirement(_,true).
+mask_necessity(true).
 public_transportation_working(_, true).
 public_transportation_schedule(2, [1,6,4,7,5,8,78,9,37]).
 hospital_acepting_patients(_, true).
 disease_symptoms([tos]).
 hospital(5,_).
+public_space(77, _).
+public_space(44, _).
+isolation_center(45, _).
 % work_place(66).
 % home(55).
 
@@ -119,17 +124,17 @@ move(move, Node):-
     (take_bus(Node, _, _); walk(_, Node)).
     
 
-sleep():-
+sleep(sleep):-
     hour(Hour),
     Hour == 22,
     retractall(sleeping(_)),
     assert(sleeping(true)).
 
-sleep_now():-
+sleep_now(sleep):-
     retractall(sleeping(_)),
     assert(sleeping(true)).
 
-wake_up():-
+wake_up(wake_up):-
     hour(Hour),
     Hour == 7,
     retractall(sleeping(_)),
@@ -175,7 +180,8 @@ step( Action, Arguments):-
     (goal(move, NodeIdDest),move(_, NodeIdDest));
     % go_home_after_work(Action, Arguments);
     (goal(go_home_after_work, F),hour(H), H == F, go_home_after_work(Action, Arguments));
-    (wake_up(); sleep()).
+    (goal(go_home, F),hour(H), H == F, go_home_after_recreation(Action, Arguments));
+    (wake_up(Action); sleep(Action)).
 
     % (goal(move, NodeIdDest),take_bus(NodeIdDest, Action, Arguments), retractall(goal(move, NodeIdDest)));
     % (goal(go_home_after_work, F),hour(H), H == F, go_home_after_work(Action, Arguments), retractall(goal(go_home_after_work, F)));
@@ -193,6 +199,9 @@ maintain_distancing(false).
 need_isolation(false).
 
 % Rules
+step_rutine():-
+    (work_rutine();non_working_day_routine());
+    quarantine_routine().
 
 go_to_work(move, X):-
     work_place(X),
@@ -210,11 +219,33 @@ go_home_after_work(move, Y):-
     H == F,
     retractall(goal(go_home_after_work, Y)).
 
+go_home_after_recreation(move, Y):-
+    home(Y),
+    position(X),
+    open_place(X, true),
+    hour(H),
+    open_hours_place(X,_,F),
+    H == F,
+    retractall(goal(go_home, Y)).
+
+
 work_rutine():-
     go_to_work(Action, NodeWork),
     (take_bus(NodeWork, Action, _); walk(Action, NodeWork)),
     open_hours_place(NodeWork,_,F),
     asserta(goal(go_home_after_work, F)).
+
+non_working_day_routine():-
+    open_place(Id, true),
+    public_space(Id, _),
+    open_hours_place(Id, _, F),
+    asserta(goal(go_home, F)).
+    
+quarantine_routine():-
+    use_mask_k(),
+    detect_symptoms(_,_),
+    isolation_center(Id,_),
+    asserta(goal(move, Id)).
 
 
 % schedule_manager():-
@@ -224,12 +255,12 @@ work_rutine():-
 %     assert(goal(NewGoal)).
 
 use_mask_k():-
-    retractall(mask_knowledge(_)),
-    asserta(mask_knowledge(true)).
+    retractall(mask_necessity(_)),
+    asserta(mask_necessity(true)).
 
 remove_mask_k():-
-    retractall(mask_knowledge(_)),
-    asserta(mask_knowledge(false)).
+    retractall(mask_necessity(_)),
+    asserta(mask_necessity(false)).
 
 establish_need_isolation():-
     retractall(need_isolation(_)),
@@ -278,7 +309,6 @@ track_risk_contacts() :-
     risk_contacts_detected(Contacts),
     inform_contacts(infected_agent, Contacts).
 
-
 %--------------------------- Auxiliary Methods -----------------------------------------
 
 intersection([], _, []).
@@ -305,3 +335,5 @@ intersection([H|T], L, R) :-
 :-dynamic(goal/2).
 :-dynamic(hospital/2).
 :-dynamic(open_place/2).
+:-dynamic(mask_necessity/1).
+:-dynamic(public_space/2).

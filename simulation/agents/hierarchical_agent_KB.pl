@@ -22,7 +22,7 @@
 % public_transportation_working(Id, Bool).
 % public_transportation_schedule(Id, AddrList).
 % hospital_acepting_patients(Id, Bool).
-% sleeping(false)
+sleeping(true).
 
 % goal(move, 1).
 % hour(16).
@@ -181,7 +181,8 @@ step( Action, Arguments):-
     % go_home_after_work(Action, Arguments);
     (goal(go_home_after_work, F),hour(H), H == F, go_home_after_work(Action, Arguments));
     (goal(go_home, F),hour(H), H == F, go_home_after_recreation(Action, Arguments));
-    (wake_up(Action); sleep(Action)).
+    (wake_up(Action); sleep(Action));
+    (sleeping(true), Action = sleeping).
 
     % (goal(move, NodeIdDest),take_bus(NodeIdDest, Action, Arguments), retractall(goal(move, NodeIdDest)));
     % (goal(go_home_after_work, F),hour(H), H == F, go_home_after_work(Action, Arguments), retractall(goal(go_home_after_work, F)));
@@ -239,6 +240,7 @@ non_working_day_routine():-
     open_place(Id, true),
     public_space(Id, _),
     open_hours_place(Id, _, F),
+    % asserta(goal(move, Id)),
     asserta(goal(go_home, F)).
     
 quarantine_routine():-
@@ -338,3 +340,4 @@ intersection([H|T], L, R) :-
 :-dynamic(mask_necessity/1).
 :-dynamic(public_space/2).
 :-dynamic(open_hours_place/3).
+:-dynamic(sleeping/1).

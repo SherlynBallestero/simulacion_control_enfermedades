@@ -199,7 +199,7 @@ class WorldInterface:
             logger.info(f'Agent {agent.unique_id} is vaccinated')
             agent.vaccinated = True
             
-        elif action == 'sleep':
+        elif action == 'sleeping':
             logger.info(f'Agent {agent.unique_id} is sleeping')
         
         elif action == 'wake_up':

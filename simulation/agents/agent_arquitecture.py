@@ -21,6 +21,7 @@ class Knowledge:
         if node.node_type in ['hospital', 'works_space', 'bus_stop', 'public_space']:
             list(self.prolog.query(f'add_open_hours_place({node.id}, {node.oppening_hours}, {node.closing_hours})'))
         
+        
     def add_date_k(self, date):
         """
         Add a date to the knowledge base.
@@ -58,14 +59,14 @@ class Knowledge:
         """
         list(self.prolog.query(f'add_home({home_id})'))
     
-    def add_work_place(self, wp_id: int):
+    def add_work_place(self, wp_id: int, address: Tuple[int,int]):
         """
         Add a workplace to the knowledge base.
 
         Args:
             wp_id (int): The identifier of the workplace.
         """
-        list(self.prolog.query(f'add_work_place({wp_id})'))
+        list(self.prolog.query(f'add_work_place({wp_id}, {list(address)})'))
     
     def add_open_place(self, id: int, open: bool):
         """

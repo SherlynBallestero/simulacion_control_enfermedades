@@ -22,7 +22,7 @@
 % public_transportation_working(Id, Bool).
 % public_transportation_schedule(Id, AddrList).
 % hospital_acepting_patients(Id, Bool).
-sleeping(true).
+% sleeping(true).
 
 % goal(move, 1).
 % hour(16).
@@ -45,13 +45,23 @@ sleeping(true).
 % home(55).
 
 % hospitl, block, public_space, work_space, buss
+% Perception and body related knowledge predicates
+initialize_k():-
+    assert(too_sick(false)).
+
+add_node_info(Id, Address, CapacityStatus, NodeType):-%TODO: see if this is necesary and if it works
+    retractall(node(Id, _, _, _)),
+    retractall(),
+    assert(node(Id, Address, CapacityStatus, NodeType)),
+    (not(NodeType), open_place(Id, true)).
+
 add_map_node(Id, Address, CapacityStatus, NodeType):-
     (NodeType = hospital, 
         add_hospital(Id, Address), retractall(place_status(Id, _)), assert(place_status(Id, CapacityStatus)));
     (NodeType = public_space, 
         add_public_space(Id, Address), retractall(place_status(Id, _)), assert(place_status(Id, CapacityStatus)));
     (NodeType = block, 
-        add_public_space(Id, Address), retractall(place_status(Id, _)), assert(place_status(Id, CapacityStatus))).
+        add_block_info(Id, Address), retractall(place_status(Id, _)), assert(place_status(Id, CapacityStatus))).
 
 add_block_info(Id, Address):-
     retractall(block(Id, _)),
@@ -67,11 +77,11 @@ add_home(Node):-
     retractall(home(_)),
     assert(home(Node)).
 
-add_work_place(Node):-
-    retractall(work_place(_)),
+add_work_place(Node, Address):-
+    retractall(work_place(_, _)),
     retractall(open_place(Node, true)),
     assert(open_place(Node, true)),
-    assert(work_place(Node)).
+    assert(work_place(Node, Address)).
 
 add_open_place(Node, Bool):-
     retractall(open_place(Node,_)),
@@ -86,10 +96,10 @@ add_date(WeekDayK, MonthDayK, HourK, MinK):-
     retractall(month_day(_)),
     retractall(min(_)),
     retractall(hour(_)),
-    asserta(week_day(WeekDayK)),
-    asserta(month_day(MonthDayK)),
+    assert(week_day(WeekDayK)),
+    assert(month_day(MonthDayK)),
     assert(hour(HourK)),
-    asserta(min(MinK)).
+    assert(min(MinK)).
 
 add_symptom(Symptom):-
     my_symptoms(S),
@@ -122,72 +132,121 @@ add_location(Node):-
     retractall(location(_)),
     assert(location(Node)).
 
+work_is_open(WorkId):-
+    week_day(WeekDay),
+    write("Day of the week:"),writeln(WeekDay),
+    not(week_day(saturday)),
+    not(week_day(sunday)),
+    hour(H),
+    write("Hour:"), writeln(H),
+    write("WorkId:"), writeln(WorkId),
+    open_hours_place(WorkId,I,F),
+    write("Opening Hour:"), writeln(I),
+    write("Closing Hour:"), writeln(F),
+    write("Is Open:"), writeln(open_place(WorkId, true)),
+    open_place(WorkId, true),
+    H >= I,
+    H =< F.
 %---------------------------- Patterns of Behaviour -----------------------------------------------
 
 check_goals():-
     (goal(move, Id), location(Id) ->
-        retractall(goal(move, Id))).
-    
-move(move, Node):-
-    retractall(goal(move, Node)),
-    open_place(Node, true),
-    (take_bus(Node, _, _); walk(_, Node)).
-    
+        retractall(goal(move, Id)));
+    (goal(wear_mask), wearing_mask(true) ->
+        retractall(goal(wear_mask)));
+    (goal(remove_mask), wearing_mask(false) ->
+        retractall(goal(remove_mask)));
+    true.
 
-sleep(sleep):-
-    hour(Hour),
-    Hour == 22,
-    retractall(sleeping(_)),
-    assert(sleeping(true)).
-
-sleep_now(sleep):-
-    retractall(sleeping(_)),
-    assert(sleeping(true)).
-
-wake_up(wake_up):-
-    hour(Hour),
-    Hour == 7,
-    retractall(sleeping(_)),
-    assert(sleeping(false)).
-
-take_bus(NodeIdDest, move, Id):-
-    public_transportation_working(Id, true),
-    public_transportation_schedule(Id, AddrList),
-    member(NodeIdDest, AddrList).
-
-
-walk(move, _).
-
-wear_mask(use_mask, Node):-
-    not(use_personal_mask(true)),
-    mask_requirement(Node,true),
-    mask_necessity(true),
-    retractall(use_personal_mask(false)),
-    assert(use_personal_mask(true)).
-
-remove_mask(remove_mask, Node):-
-    not(use_personal_mask(false)),
-    mask_requirement(Node,false),
-    mask_necessity(false),
-    retractall(use_personal_mask(_)),
-    assert(use_personal_mask(false)).
-    
-search_medical_attention(FunctionName, Id):-
-    FunctionName = move,
-    hospital(Id, _),
-    hospital_acepting_patients(Id, true).
-
-detect_symptoms(FunctionName, Args) :-
-    my_symptoms(Symptoms),
-    disease_symptoms(DiseaseSymptoms),
-    intersection(Symptoms, DiseaseSymptoms, CommonSymptoms),
-    CommonSymptoms \= [],
-    search_medical_attention(FunctionName, Args).
-
-
-step( Action, Arguments):-
+move(NodeId, Action, Arguments):-
     Action = move,
-    Arguments = 1.
+    Arguments = [NodeId].
+
+work(Action, Arguments):-
+    Action = work,
+    Arguments = [].
+
+sleep(Action, Arguments):-
+    Action = sleep,
+    Arguments = [].
+
+wear_mask(Action, Arguments):-
+    Action = wear_mask,
+    Arguments = [].
+
+remove_mask(Action, Arguments):-
+    Action = remove_mask,
+    Arguments = [].
+
+update_location(Location):-
+    retractall(location(_)),
+    retractall(goal(move, Location)),
+    assert(location(Location)).
+
+update_wearing_mask(WearingMask):-
+    retractall(wearing_mask(_)),
+    WearingMask -> retractall(goal(wear_mask)); retractall(goal(remove_mask)).
+
+% move(move, Node):-
+%     retractall(goal(move, Node)),
+%     open_place(Node, true),
+%     (take_bus(Node, _, _); walk(_, Node)).
+    
+
+% sleep(sleep):-
+%     hour(Hour),
+%     Hour == 22,
+%     retractall(sleeping(_)),
+%     assert(sleeping(true)).
+
+% sleep_now(sleep):-
+%     retractall(sleeping(_)),
+%     assert(sleeping(true)).
+
+% wake_up(wake_up):-
+%     hour(Hour),
+%     Hour == 7,
+%     retractall(sleeping(_)),
+%     assert(sleeping(false)).
+
+% take_bus(NodeIdDest, move, Id):-
+%     public_transportation_working(Id, true),
+%     public_transportation_schedule(Id, AddrList),
+%     member(NodeIdDest, AddrList).
+
+
+% walk(move, _).
+
+% wear_mask(use_mask, Node):-
+%     not(use_personal_mask(true)),
+%     mask_requirement(Node,true),
+%     mask_necessity(true),
+%     retractall(use_personal_mask(false)),
+%     assert(use_personal_mask(true)).
+
+% remove_mask(remove_mask, Node):-
+%     not(use_personal_mask(false)),
+%     mask_requirement(Node,false),
+%     mask_necessity(false),
+%     retractall(use_personal_mask(_)),
+%     assert(use_personal_mask(false)).
+    
+% search_medical_attention(FunctionName, Id):-
+%     FunctionName = move,
+%     hospital(Id, _),
+%     hospital_acepting_patients(Id, true).
+
+% detect_symptoms(FunctionName, Args) :-
+%     my_symptoms(Symptoms),
+%     disease_symptoms(DiseaseSymptoms),
+%     intersection(Symptoms, DiseaseSymptoms, CommonSymptoms),
+%     CommonSymptoms \= [],
+%     search_medical_attention(FunctionName, Args).
+
+
+% step( Action, Arguments):-
+%     Action = move,
+%     Arguments = 1.
     % check_goals(),
     % (wear_mask(Action, Arguments); remove_mask(Action, Arguments));
     % (goal(move, NodeIdDest),move(_, NodeIdDest)).
@@ -198,137 +257,123 @@ step( Action, Arguments):-
     % (sleeping(true), Action = sleeping).
     % detect_symptoms(Action, Arguments).
     
+behavioral_step(Action, Arguments):-
+    % scheduling
+    check_schedule(),
+    
+    % check archieved goals
+    check_goals(),
 
+    % (preconditions) - (actions)
+    (goal(move, NodeId), not(location(NodeId))->
+        move(NodeId, Action, Arguments));
+    (goal(sleeping), home(HomeId), location(HomeId)->
+        sleep(Action, Arguments));
+    (goal(work), work_place(WorkId, _), location(WorkId)->
+        work(Action, Arguments));
+    (goal(wear_mask), mask_necessity(true), location(NodeId), mask_requirement(NodeId, true), wearing_mask(false)->
+        wear_mask(Action, Arguments));
+    (goal(remove_mask), wearing_mask(true)->
+        remove_mask(Action, Arguments)).
+
+behavioral_feedback(Location, WearingMask):-
+    (not(location(Location))->
+        update_location(Location));
+    (not(wearing_mask(WearingMask))->
+        update_wearing_mask(WearingMask)).
+    % check archieved goals
     
 %---------------------------- Local Plans --------------------------------------------------------
 
-% Facts
-% use_protection_equipment(false).
-% stay_at_home(false).
-% maintain_distancing(false).
-% need_isolation(false).
-
 % Rules
-step_rutine():-
-    (work_rutine();non_working_day_routine());
-    quarantine_routine().
 
-go_to_work(move, X):-
-    work_place(X),
-    open_place(X, true),
+goal_move(TagetNode):-
+    retractall(goal(move, _)),
+    assert(goal(move, TagetNode)).
+
+remove_goals():-
+    retractall(goal(_)),
+    retractall(goal(_, _)).
+
+check_schedule():-
     hour(H),
-    open_hours_place(X,I,_),
-    H == I.
+    min(M),
+    (schedule(remove, GoalType, H, M) ->
+        retractall(goal(GoalType)), retractall(schedule(remove, GoalType, H, M))),
+    (schedule(add, GoalType, H, M) ->
+        assert(goal(GoalType)), retractall(schedule(add, GoalType, H, M)));
+    (schedule(add, GoalType, Param, H, M) ->
+        assert(goal(GoalType, Param)), retractall(schedule(add, GoalType, H, M)));
+    true.
 
-go_home_after_work(move, Y):-
-    home(Y),
-    work_place(X),
-    open_place(X, true),
+remove_schedule(GoalType, H, M):-
+    schedule(remove, GoalType, H, M),
+    % print("Remove Task: "),%TODO: Remove After Testing
+    % print(GoalType),
+    % print(H),
+    % print(M),
+    % print("Already Scheduled"),
+    retractall(schedule(remove, _, H, M)),
+    assert(schedule(remove, GoalType, H, M)).
+
+get_to_work(WorkId):-
+    goal_move(WorkId),
+    location(WorkId).
+
+work():-
+    not(goal(work)),
+    assert(goal(work)).
+
+go_home(HomeId):-
+    goal_move(HomeId).
+
+work_day_routine(WorkId, HomeId):-
+    get_to_work(WorkId),
+    work(),
+    go_home(HomeId).
+
+free_day_routine():-
+    true.
+
+sleep_time():-
     hour(H),
-    open_hours_place(X,_,F),
-    H == F,
-    retractall(goal(go_home_after_work, Y)).
+    H >= 20,
+    H =< 6.
 
-go_home_after_recreation(move, Y):-
-    home(Y),
-    position(X),
-    open_place(X, true),
-    hour(H),
-    open_hours_place(X,_,F),
-    H == F,
-    retractall(goal(go_home, Y)).
+planification_step():-
+    remove_goals(),
+    home(HomeId),
+    work_place(WorkId, _),
+    write("HomeId:"), writeln(HomeId),
+    write("WorkId:"), writeln(WorkId),
+    too_sick(Boolean), write("Is To Sick:"), writeln(Boolean),
+    (work_is_open(WorkId), too_sick(false) ->
+        work_day_routine(WorkId, HomeId);
+        (
+            writeln("Entering on else"), 
+            free_day_routine())).
+    % (sleep_time() ->
+    %     assert(goal(sleeping)), remove_schedule(sleeping, 6, 0)).%TODO: change this to sleep at home
 
+% Facts for testing purposes:
+% hour(16).
+% min(0).
+% week_day(monday).
+% home(55).
+% too_sick(false).
+% work_place(66).
+% open_hours_place(66, 8, 18).
+% open_place(66, true).
+% hospital(5, 77).
+% open_hours_place(5, 8, 20).
+% open_place(5, true).
+% public_space(77, 44).
 
-work_rutine():-
-    go_to_work(Action, NodeWork),
-    (take_bus(NodeWork, Action, _); walk(Action, NodeWork)),
-    open_hours_place(NodeWork,_,F),
-    asserta(goal(go_home_after_work, F)).
-
-non_working_day_routine():-
-    open_place(Id, true),
-    public_space(Id, _),
-    open_hours_place(Id, _, F),
-    % asserta(goal(move, Id)),
-    asserta(goal(go_home, F)).
-    
-quarantine_routine():-
-    use_mask_k(),
-    detect_symptoms(_,_),
-    isolation_center(Id,_),
-    asserta(goal(move, Id)).
-
-
-% schedule_manager():-
-%     hour(H),
-%     min(M),
-%     schedule(NewGoal, H, M),
-%     assert(goal(NewGoal)).
-
-use_mask_k():-
-    retractall(mask_necessity(_)),
-    asserta(mask_necessity(true)).
-
-remove_mask_k():-
-    retractall(mask_necessity(_)),
-    asserta(mask_necessity(false)).
-
-establish_need_isolation():-
-    retractall(need_isolation(_)),
-    asserta(need_isolation(true)).
-
-remove_need_isolation():-
-    retractall(need_isolation(_)),
-    asserta(need_isolation(false)).
-
-establish_use_protection_equipment():-
-    retractall(use_protection_equipment(_)),
-    asserta(use_protection_equipment(true)).
-
-establish_stay_at_home():-
-    retractall(stay_at_home(_)),
-    asserta(stay_at_home(true)).
-
-leave_home():-
-    retractall(stay_at_home(_)),
-    asserta(stay_at_home(false)).
-
-establish_distancing():-
-    retractall(maintain_distancing(_)),
-    asserta(maintain_distancing(true)).
-
-remove_distancing():-
-    retractall(maintain_distancing(_)),
-    asserta(maintain_distancing(false)).
-
-implement_isolation_measures() :-
-    establish_need_isolation(),
-    establish_use_protection_equipment(),
-    establish_stay_at_home().
 
 %---------------------------- Cooperation Knowledge -----------------------------------------------
 
-risk_contacts_detected( [_]).
-send_info(_, _).
-
-inform_contacts(_, []).
-inform_contacts(Info, [A|[Contacts]]):-
-    send_info(Info, A),
-    inform_contacts(Info, Contacts).
-
-track_risk_contacts() :-
-    risk_contacts_detected(Contacts),
-    inform_contacts(infected_agent, Contacts).
-
 %--------------------------- Auxiliary Methods -----------------------------------------
 
-intersection([], _, []).
-intersection([H|T], L, [H|R]) :-
-    member(H, L),
-    intersection(T, L, R).
-intersection([H|T], L, R) :-
-    \+ member(H, L),
-    intersection(T, L, R).
 
 :-dynamic(maintain_distancing/1).
 :-dynamic(mask_knowledge/1).
@@ -336,18 +381,26 @@ intersection([H|T], L, R) :-
 :-dynamic(use_protection_equipment/1).
 :-dynamic(stay_at_home/1).
 :-dynamic(my_symptoms/1).
-:-dynamic(hour/1).
-:-dynamic(week_day/1).
 :-dynamic(month_day/1).
-:-dynamic(min/1).
 :-dynamic(use_personal_mask/1).
-:-dynamic(home/1).
-:-dynamic(work_place/1).
-:-dynamic(goal/2).
 :-dynamic(hospital/2).
 :-dynamic(open_place/2).
-:-dynamic(mask_necessity/1).
 :-dynamic(public_space/2).
 :-dynamic(open_hours_place/3).
 :-dynamic(sleeping/1).
+
+:-dynamic(goal/2).
+:-dynamic(goal/1).
+:-dynamic(wearing_mask/1).
 :-dynamic(mask_requirement/2).
+:-dynamic(mask_necessity/1).
+:-dynamic(location/1).
+:-dynamic(home/1).
+:-dynamic(work_place/2).
+:-dynamic(week_day/1).
+:-dynamic(quarantined/1).
+:-dynamic(too_sick/1).
+:-dynamic(schedule/4).
+:-dynamic(schedule/5).
+:-dynamic(min/1).
+:-dynamic(hour/1).

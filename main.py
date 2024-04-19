@@ -16,10 +16,22 @@ logger.setLevel(logging.DEBUG)
 def simulate(env, steps_num):
     # Main simulation loop
     for step in range(steps_num):
-        logger.info(f'=== Step: {step} ===')
+        date = format_day(step)
+        print(date)
+        logger.info(f'=== Step: {date} ===')
         logger.info(f'Starting cond:\n\tagent_num: {len(env.agents)},\n\tinfected_agents: {len([agent for agent in env.agents if agent.status == "infected"])}')
         env.step(step)
         logger.info(f'Ending cond:\n\tagent_num: {len(env.agents)},\n\tinfected_agents: {len([agent for agent in env.agents if agent.status == "infected"])}')
+
+def format_day(step_num):
+    # Calculating day of the week, hour and min sim_days = 31 sim_hours = sim_days * 24 sim_steps = sim_hours * 6
+    days_of_the_week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    min = step_num % 6 * 10
+    hour = step_num // 6 % 24
+    day = step_num // 6 // 24 % 7
+    week_day = days_of_the_week[day]
+    month_day = step_num // 6 // 24
+    return week_day, month_day, hour, min
 
 if __name__ == '__main__':
     sim_days = 31
@@ -32,6 +44,6 @@ if __name__ == '__main__':
     logger.debug("=== Initializing Epidemic Model ===")
     epidemic_model = EpidemicModel()
     logger.debug("=== Initializing Environment ===")
-    env = Environment(20, epidemic_model, map)
+    env = Environment(2, epidemic_model, map)
     logger.info(f'=== Starting Simulation Loop With {sim_steps} Steps ===')
     simulate(env, sim_steps)

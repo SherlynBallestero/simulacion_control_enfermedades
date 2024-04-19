@@ -34,15 +34,11 @@ class Agent:
         self.pbc = lp_component
         self.cc = c_component
         self.wi = wi_component
-        
-        self.hour = 0
-        self.day = 0
   
 
     def process_perception(self, world_perception: Dict[Hashable, CPNode], step_num):
         k = self.knowledge_base
-        format_day = self.format_day(step_num)
-        k.add_date_k(format_day)
+        k.add_date_k(format_day(step_num))
         
         for node in world_perception.values():
             old_perception = self.mind_map.nodes[node.id]
@@ -54,24 +50,19 @@ class Agent:
     def step(self, step_num):
         perception = self.wi.percieve(self, step_num)
         self.process_perception(perception, step_num)
-        # action = self.pbc.plan("work_rutine()")
-        action, arguments = self.bbc.react("step(Action, Arguments)")
+        action, arguments = self.bbc.react("behavioral_step(Action, Arguments)")
+        if not action:
+            plan = self.pbc.plan("planification_step()")
+            action, arguments = self.bbc.react("behavioral_step(Action, Arguments)")
+
         self.wi.act(self, action, arguments)
         
-    def format_day(self, step_num):
-        # 7 dias
-        days_of_the_week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-        
-        # formato fecha (dia semana, dia mes, hora)
-        if step_num % 6 == 0 and step_num!= 0:
-            self.hour = self.hour + 1
-            
-        if step_num % 144 == 0 and step_num != 0 :
-            self.day = self.day + 1
-        
-        min = (step_num % 6) * 10
-        week_day = days_of_the_week[self.day % 7]
-        month_day = self.day % 31
-        
-        format = (week_day, month_day, self.hour, min)
-        return format
+def format_day(step_num):
+    # Calculating day of the week, hour and min sim_days = 31 sim_hours = sim_days * 24 sim_steps = sim_hours * 6
+    days_of_the_week = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]
+    min = step_num % 6 * 10
+    hour = step_num // 6 % 24
+    day = step_num // 6 // 24 % 7
+    week_day = days_of_the_week[day]
+    month_day = step_num // 6 // 24
+    return week_day, month_day, hour, min

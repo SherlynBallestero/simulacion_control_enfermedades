@@ -89,7 +89,8 @@ add_open_place(Node, Bool):-
 
 add_open_hours_place(Node, Initial, Final):-
     retractall(open_hours_place(Node, _, _)),
-    assert(open_hours_place(Node,Initial,Final)).
+    assert(open_hours_place(Node,Initial,Final)),
+    writeln(open_hours_place(Node,Initial,Final)).
 
 add_date(WeekDayK, MonthDayK, HourK, MinK):-
     retractall(week_day(_)),
@@ -140,7 +141,7 @@ work_is_open(WorkId):-
     hour(H),
     write("Hour:"), writeln(H),
     write("WorkId:"), writeln(WorkId),
-    open_hours_place(WorkId,I,F),
+    writeln(open_hours_place(WorkId,I,F)),
     write("Opening Hour:"), writeln(I),
     write("Closing Hour:"), writeln(F),
     write("Is Open:"), writeln(open_place(WorkId, true)),

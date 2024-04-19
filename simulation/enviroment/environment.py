@@ -4,6 +4,7 @@ from simulation.epidemic.epidemic_model import EpidemicModel
 from simulation.enviroment.sim_nodes import CitizenPerceptionNode as CPNode
 from simulation.enviroment.sim_nodes import BlockNode, Hospital, HouseNode, PublicPlace, BusStop, Workspace
 from simulation.enviroment.map import Terrain
+from ai.search import a_star
 from typing import Tuple, List
 import random
 from simulation.enviroment.graph import Graph
@@ -43,11 +44,11 @@ class Environment:
         
         if is_medic:
             work_id = random.choice(self.map.hospitals)
-            kb.add_work_place(work_id, self.map[work_id].addr)
+            kb.add_work_place(self.map[work_id])
             kb.add_is_medical_personnel(True)
         else:
             work_id = random.choice(self.map.works)
-            kb.add_work_place(work_id, self.map[work_id].addr)
+            kb.add_work_place(self.map[work_id])
             kb.add_is_medical_personnel(False)
         kb.query('initialize_k()')
         return kb
@@ -315,6 +316,7 @@ class WorldInterface:
             
         if action == 'move':
             logger.info(f'Agent {agent.unique_id} is moving to {parameters[0]}')
+            a = a_star(self.map, agent.location, parameters[0])
             self.move_agent(agent, parameters)
             
         elif action == 'use_mask':
@@ -416,7 +418,6 @@ class WorldInterface:
             agent (Agent): The agent to move.
             pos (int): The new location for the agent.
         """
-        pos = tuple(pos)
         prev_location = agent.location
 
         prev_neighbors = self.map.graph.get_neighbors(prev_location)

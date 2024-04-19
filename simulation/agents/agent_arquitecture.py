@@ -59,14 +59,17 @@ class Knowledge:
         """
         list(self.prolog.query(f'add_home({home_id})'))
     
-    def add_work_place(self, wp_id: int, address: Tuple[int,int]):
+    def add_work_place(self, node):
         """
         Add a workplace to the knowledge base.
 
         Args:
             wp_id (int): The identifier of the workplace.
         """
-        list(self.prolog.query(f'add_work_place({wp_id}, {list(address)})'))
+        list(self.prolog.query(f'add_work_place({node.id}, {node.addr})'))
+        list(self.prolog.query(f'add_open_hours_place({node.id}, {node.opening_hours}, {node.closing_hours})'))
+        a = list(self.prolog.query(f'open_hours_place({node.id}, B, C)'))
+        pass
     
     def add_open_place(self, id: int, open: bool):
         """

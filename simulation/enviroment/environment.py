@@ -318,12 +318,14 @@ class WorldInterface:
         if action == 'move':
             logger.info(f'Agent {agent.unique_id} is moving to {parameters[0]}')
             # a = a_star(self.map, agent.location, parameters[0])
-            if agent._last_path and agent._last_path[-1] == parameters[0] and agent._last_path[0] == agent.location:
+            if agent._last_path and agent._last_path[-1] == parameters[0]:# and agent._last_path[0] == agent.location:
                 path = agent._last_path
             else:
                 path = bfs(self.map, agent.location, parameters[0])[1:]
                 agent._last_path = path
-            self.move_agent(agent, agent._last_path.pop(0))
+            
+            if agent._last_path:
+                self.move_agent(agent, agent._last_path.pop(0))
             pass
                 
             

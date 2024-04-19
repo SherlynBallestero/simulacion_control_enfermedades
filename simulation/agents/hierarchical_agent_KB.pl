@@ -43,11 +43,14 @@
 % isolation_center(45, _).
 % work_place(66).
 % home(55).
+sleeping(true).
 
 % hospitl, block, public_space, work_space, buss
 % Perception and body related knowledge predicates
 initialize_k():-
-    assert(too_sick(false)).
+    assert(too_sick(false)),
+    assert(wearing_mask(false)).
+
 
 add_node_info(Id, Address, CapacityStatus, NodeType):-%TODO: see if this is necesary and if it works
     retractall(node(Id, _, _, _)),
@@ -139,22 +142,30 @@ work_is_open(WorkId):-
     not(week_day(sunday)),
     hour(H),
     write("Hour:"), writeln(H),
-    write("WorkId:"), writeln(WorkId),
+    % write("WorkId:"), writeln(WorkId),
     
     open_hours_place(WorkId,I,F),
-    writeln(open_hours_place(WorkId,I,F)),
+    % writeln(open_hours_place(WorkId,I,F)),
 
-    write("Opening Hour:"), writeln(I),
-    write("Closing Hour:"), writeln(F),
-    write("Is Open:"), writeln(open_place(WorkId, true)),
+    % write("Opening Hour:"), writeln(I),
+    % write("Closing Hour:"), writeln(F),
+    % write("Is Open:"), writeln(open_place(WorkId, true)),
     open_place(WorkId, true),
     H >= I,
     H =< F.
+
 %---------------------------- Patterns of Behaviour -----------------------------------------------
 
 check_goals():-
-    (goal(move, Id), location(Id) ->
-        retractall(goal(move, Id)));
+    ((location(Id), goal(move, Id)) ->
+        (
+            write('boree el moveee'),
+            retractall(goal(move, Id))
+        )
+    );
+    ((goal(work),hour(H),work_place(WorkId, _),  open_hours_place(Id,_,F),H == F) ->
+        retractall(goal(work)));
+
     (goal(wear_mask), wearing_mask(true) ->
         retractall(goal(wear_mask)));
     (goal(remove_mask), wearing_mask(false) ->
@@ -170,7 +181,7 @@ work(Action, Arguments):-
     Arguments = [].
 
 sleep(Action, Arguments):-
-    Action = sleep,
+    Action = sleeping,
     Arguments = [].
 
 wear_mask(Action, Arguments):-
@@ -182,6 +193,7 @@ remove_mask(Action, Arguments):-
     Arguments = [].
 
 update_location(Location):-
+    write('location: '), writeln(Location),
     retractall(location(_)),
     retractall(goal(move, Location)),
     assert(location(Location)).
@@ -265,20 +277,30 @@ behavioral_step(Action, Arguments):-
     
     % check archieved goals
     check_goals(),
-
+    ((goal(A),writeln(goal(A)));
+    (goal(A,B),writeln(goal(A,B)))),
     % (preconditions) - (actions)
-    (goal(move, NodeId), not(location(NodeId))->
-        move(NodeId, Action, Arguments));
+    
     (goal(sleeping), home(HomeId), location(HomeId)->
         sleep(Action, Arguments));
+
     (goal(work), work_place(WorkId, _), location(WorkId)->
-        work(Action, Arguments));
+    work(Action, Arguments));
+
+    (goal(move, NodeId), not(location(NodeId))->
+    (write('my location: '),location(L), writeln(L),
+    write('location del beahaivior: '),writeln(location(NodeId)),
+    move(NodeId, Action, Arguments)));
+
+    
+
     (goal(wear_mask), mask_necessity(true), location(NodeId), mask_requirement(NodeId, true), wearing_mask(false)->
         wear_mask(Action, Arguments));
     (goal(remove_mask), wearing_mask(true)->
         remove_mask(Action, Arguments)).
 
-behavioral_feedback(Location, WearingMask):-
+
+feedback(Location, WearingMask):-
     (not(location(Location))->
         update_location(Location));
     (not(wearing_mask(WearingMask))->
@@ -289,9 +311,6 @@ behavioral_feedback(Location, WearingMask):-
 
 % Rules
 
-goal_move(TagetNode):-
-    retractall(goal(move, _)),
-    assert(goal(move, TagetNode)).
 
 remove_goals():-
     retractall(goal(_)),
@@ -318,20 +337,29 @@ remove_schedule(GoalType, H, M):-
     retractall(schedule(remove, _, H, M)),
     assert(schedule(remove, GoalType, H, M)).
 
+goal_move(TagetNode):-
+    retractall(goal(move, _)),
+    writeln('moveeeeeeeeeeeeeeeeeeeeeeeeeeeee'),
+    assert(goal(move, TagetNode)).
+    
+
 get_to_work(WorkId):-
     goal_move(WorkId),
     location(WorkId).
 
 work():-
+    writeln('trabajoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo'),
     not(goal(work)),
     assert(goal(work)).
 
 go_home(HomeId):-
+    writeln('Homeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'),
     goal_move(HomeId).
 
 work_day_routine(WorkId, HomeId):-
     get_to_work(WorkId),
     work(),
+    write('voyy a la casaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'),
     go_home(HomeId).
 
 free_day_routine():-
@@ -347,12 +375,15 @@ planification_step():-
     home(HomeId),
     work_place(WorkId, _),
     % write("HomeId:"), writeln(HomeId),
-    write("WorkId:"), writeln(WorkId),
+    % write("WorkId:"), writeln(WorkId),
     (work_is_open(WorkId), too_sick(false) ->
+        writeln('pase la prueba d trabajo'),
         work_day_routine(WorkId, HomeId);
         (
             % writeln("Entering on else"), 
-            free_day_routine())).
+            free_day_routine())
+
+    ).
     % (sleep_time() ->
     %     assert(goal(sleeping)), remove_schedule(sleeping, 6, 0)).%TODO: change this to sleep at home
 

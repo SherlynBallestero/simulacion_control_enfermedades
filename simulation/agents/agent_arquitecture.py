@@ -21,7 +21,6 @@ class Knowledge:
         if node.node_type in ['hospital', 'works_space', 'bus_stop', 'public_space']:
             list(self.prolog.query(f'add_open_hours_place({node.id}, {node.oppening_hours}, {node.closing_hours})'))
         
-        
     def add_date_k(self, date):
         """
         Add a date to the knowledge base.
@@ -137,6 +136,9 @@ class Knowledge:
             requirement (bool): Whether a mask is required.
         """
         list(self.prolog.query(f'add_place_to_use_mask({place_id}, {requirement})'))
+    
+    def feedback(self, location, wearing_mask):
+        self.query(f'feedback({location}, {wearing_mask})')
     
     def query(self, queryString):
         """

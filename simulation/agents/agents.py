@@ -17,6 +17,7 @@ class Agent:
                  ):
        
         # Agent Caracteristics
+        self.location = -1
         self.unique_id = unique_id
         self.status = status
         self.age_group = random.choice(['young', 'adult', 'old'])
@@ -57,10 +58,11 @@ class Agent:
             action, arguments = self.bbc.react("behavioral_step(Action, Arguments)")
 
         self.wi.act(self, action, arguments)
+        self.knowledge_base.feedback(self.location, self.masked)
         
 def format_day(step_num):
     # Calculating day of the week, hour and min sim_days = 31 sim_hours = sim_days * 24 sim_steps = sim_hours * 6
-    days_of_the_week = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]
+    days_of_the_week = [ "monday", "tuesday", "wednesday", "thursday", "friday", "saturday","sunday"]
     min = step_num % 6 * 10
     hour = step_num // 6 % 24
     day = step_num // 6 // 24 % 7

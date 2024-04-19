@@ -46,9 +46,12 @@ sleeping(true).
 
 % hospitl, block, public_space, work_space, buss
 add_map_node(Id, Address, CapacityStatus, NodeType):-
-    (NodeType = hospital, add_hospital(Id, Address), retractall(place_status(Id, _)), assert(place_status(Id, CapacityStatus)));
-    (NodeType = public_space, add_public_space(Id, Address), retractall(place_status(Id, _)), assert(place_status(Id, CapacityStatus)));
-    (NodeType = block, add_public_space(Id, Address), retractall(place_status(Id, _)), assert(place_status(Id, CapacityStatus))).
+    (NodeType = hospital, 
+        add_hospital(Id, Address), retractall(place_status(Id, _)), assert(place_status(Id, CapacityStatus)));
+    (NodeType = public_space, 
+        add_public_space(Id, Address), retractall(place_status(Id, _)), assert(place_status(Id, CapacityStatus)));
+    (NodeType = block, 
+        add_public_space(Id, Address), retractall(place_status(Id, _)), assert(place_status(Id, CapacityStatus))).
 
 add_block_info(Id, Address):-
     retractall(block(Id, _)),
@@ -74,9 +77,8 @@ add_open_place(Node, Bool):-
     retractall(open_place(Node,_)),
     assert(open_place(Node, Bool)).
 
-
 add_open_hours_place(Node, Initial, Final):-
-    retractall(open_hours_place(Node, Initial, Final)),
+    retractall(open_hours_place(Node, _, _)),
     assert(open_hours_place(Node,Initial,Final)).
 
 add_date(WeekDayK, MonthDayK, HourK, MinK):-
@@ -91,6 +93,7 @@ add_date(WeekDayK, MonthDayK, HourK, MinK):-
 
 add_symptom(Symptom):-
     my_symptoms(S),
+    not(member(Symptom, S)),
     Symptom_list_result = [Symptom| S],
     retractall(my_symptoms(_)),
     asserta(my_symptoms(Symptom_list_result)).
@@ -100,6 +103,7 @@ add_hospital(HospitalId, Address):-
     asserta(hospital(HospitalId, Address)).
     
 add_disease_symptoms(S):-
+    retractall(disease_symptoms(_)),
     assert(disease_symptoms(S)).
 
 add_if_is_medical_personal(Bool):-
@@ -114,9 +118,16 @@ add_place_to_use_mask(Place, Bool):-
     retractall(mask_requirement(Place,_)),
     assert(mask_requirement(Place, Bool)).
 
+add_location(Node):-
+    retractall(location(_)),
+    assert(location(Node)).
 
 %---------------------------- Patterns of Behaviour -----------------------------------------------
 
+check_goals():-
+    (goal(move, Id), location(Id) ->
+        retractall(goal(move, Id))).
+    
 move(move, Node):-
     retractall(goal(move, Node)),
     open_place(Node, true),
@@ -175,17 +186,16 @@ detect_symptoms(FunctionName, Args) :-
 
 
 step( Action, Arguments):-
-    (wear_mask(Action, Arguments); remove_mask(Action, Arguments));
-    (goal(move, NodeIdDest),move(_, NodeIdDest));
+    Action = move,
+    Arguments = 1.
+    % check_goals(),
+    % (wear_mask(Action, Arguments); remove_mask(Action, Arguments));
+    % (goal(move, NodeIdDest),move(_, NodeIdDest)).
     % go_home_after_work(Action, Arguments);
-    (goal(go_home_after_work, F),hour(H), H == F, go_home_after_work(Action, Arguments));
-    (goal(go_home, F),hour(H), H == F, go_home_after_recreation(Action, Arguments));
-    (wake_up(Action); sleep(Action));
-    (sleeping(true), Action = sleeping).
-
-    % (goal(move, NodeIdDest),take_bus(NodeIdDest, Action, Arguments), retractall(goal(move, NodeIdDest)));
-    % (goal(go_home_after_work, F),hour(H), H == F, go_home_after_work(Action, Arguments), retractall(goal(go_home_after_work, F)));
-
+    % (goal(go_home_after_work, F),hour(H), H == F, go_home_after_work(Action, Arguments));
+    % (goal(go_home, F),hour(H), H == F, go_home_after_recreation(Action, Arguments));
+    % (wake_up(Action); sleep(Action));
+    % (sleeping(true), Action = sleeping).
     % detect_symptoms(Action, Arguments).
     
 
@@ -193,10 +203,10 @@ step( Action, Arguments):-
 %---------------------------- Local Plans --------------------------------------------------------
 
 % Facts
-use_protection_equipment(false).
-stay_at_home(false).
-maintain_distancing(false).
-need_isolation(false).
+% use_protection_equipment(false).
+% stay_at_home(false).
+% maintain_distancing(false).
+% need_isolation(false).
 
 % Rules
 step_rutine():-
@@ -340,3 +350,4 @@ intersection([H|T], L, R) :-
 :-dynamic(public_space/2).
 :-dynamic(open_hours_place/3).
 :-dynamic(sleeping/1).
+:-dynamic(mask_requirement/2).

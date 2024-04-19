@@ -96,6 +96,15 @@ class Knowledge:
             symptom_list (list): The list of symptoms.
         """
         list(self.prolog.query(f'add_dissease_symptoms({symptom_list})'))
+        
+    def add_current_location(self, location_id: int):
+        """
+        Add current location id
+
+        Args:
+            location_id (int): The id of thenode the agent is currently in
+        """
+        list(self.prolog.query(f'add_location({location_id})'))
     
     def add_is_medical_personnel(self, medical_personnel: bool):
         """

@@ -54,7 +54,7 @@ class Agent:
     def step(self, step_num):
         perception = self.wi.percieve(self, step_num)
         self.process_perception(perception, step_num)
-        action = self.pbc.plan("work_rutine()")
+        # action = self.pbc.plan("work_rutine()")
         action, arguments = self.bbc.react("step(Action, Arguments)")
         self.wi.act(self, action, arguments)
         

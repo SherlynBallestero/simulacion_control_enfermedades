@@ -75,6 +75,7 @@ class Environment:
             pos (int): The position of the agent's location.
         """
         agent.location = pos
+        agent.knowledge_base.add_current_location(pos)
         self.map[pos].agent_list.append(agent.unique_id)
         self.agents.append(agent)
 
@@ -138,6 +139,7 @@ class Environment:
             agent.step(step_num)
             logger.info(f'Step of agent {agent.unique_id}')
             self._debug_agent_k(agent.knowledge_base)
+        # self.epidemic_model.step()
 
     def _debug_agent_k(self, agent_k:Knowledge):
         logger.debug(f'Knowlege Base Facts:')
@@ -257,15 +259,18 @@ class Environment:
         except Exception as e:
             logger.error(f"query 'isolation_center' resulted in error: {e}")
 
-    
+        try:
+            self._log_fact_type('goal', agent_k.query(f'goal(A,B)'))
+        except Exception as e:
+            logger.error(f"query 'goal' resulted in error: {e}")
+
+            
     def _log_fact_type(self, fact_type, facts):
         logger.debug(f'All {fact_type} facts:')
         for fact in facts:
             for key in fact.keys():
                 logger.debug(f'{key}: {fact[key]}')
         pass
-
-
 
     def _initialize_places_for_agents(self):
         kb = Knowledge()

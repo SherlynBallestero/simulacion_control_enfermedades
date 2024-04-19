@@ -22,6 +22,7 @@ class Agent:
         self.age_group = random.choice(['young', 'adult', 'old'])
         self.masked = False
         self.vaccinated = False
+        self._last_path = []
 
         # Hierarchical Knowlege Base
         # self.belief_system = belief_system if belief_system is not None else {}

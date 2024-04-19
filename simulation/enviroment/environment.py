@@ -4,7 +4,7 @@ from simulation.epidemic.epidemic_model import EpidemicModel
 from simulation.enviroment.sim_nodes import CitizenPerceptionNode as CPNode
 from simulation.enviroment.sim_nodes import BlockNode, Hospital, HouseNode, PublicPlace, BusStop, Workspace
 from simulation.enviroment.map import Terrain
-from ai.search import a_star
+from ai.search import a_star, bfs
 from typing import Tuple, List
 import random
 from simulation.enviroment.graph import Graph
@@ -155,6 +155,7 @@ class Environment:
         """
         for agent in random.sample(self.agents, len(self.agents)):
             logger.info(f'Step of agent {agent.unique_id}')
+            a =agent.knowledge_base.query(f'open_hours_place(A, B, C)')
             agent.step(step_num)
             # self._debug_agent_k(agent.knowledge_base)
         # self.epidemic_model.step()
@@ -316,8 +317,15 @@ class WorldInterface:
             
         if action == 'move':
             logger.info(f'Agent {agent.unique_id} is moving to {parameters[0]}')
-            a = a_star(self.map, agent.location, parameters[0])
-            self.move_agent(agent, parameters)
+            # a = a_star(self.map, agent.location, parameters[0])
+            if agent._last_path and agent._last_path[-1] == parameters[0] and agent._last_path[0] == agent.location:
+                path = agent._last_path
+            else:
+                path = bfs(self.map, agent.location, parameters[0])[1:]
+                agent._last_path = path
+            self.move_agent(agent, agent._last_path.pop(0))
+            pass
+                
             
         elif action == 'use_mask':
             logger.info(f'Agent {agent.unique_id} is using mask')
@@ -426,7 +434,7 @@ class WorldInterface:
             logger.error(f'Agent {agent.unique_id} cannot move to {pos} from {prev_location}')
             return
         
-        self.map.nodes[prev_location].agent_list.remove(agent.unique_id)
+        self.map.graph.nodes[prev_location].agent_list.remove(agent.unique_id)
 
         agent.location = pos
-        self.map.nodes[pos].agent_list.append(agent.unique_id)
+        self.map.graph.nodes[pos].agent_list.append(agent.unique_id)

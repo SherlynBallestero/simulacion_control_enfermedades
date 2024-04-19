@@ -89,8 +89,7 @@ add_open_place(Node, Bool):-
 
 add_open_hours_place(Node, Initial, Final):-
     retractall(open_hours_place(Node, _, _)),
-    assert(open_hours_place(Node,Initial,Final)),
-    writeln(open_hours_place(Node,Initial,Final)).
+    assert(open_hours_place(Node,Initial,Final)).
 
 add_date(WeekDayK, MonthDayK, HourK, MinK):-
     retractall(week_day(_)),
@@ -141,7 +140,10 @@ work_is_open(WorkId):-
     hour(H),
     write("Hour:"), writeln(H),
     write("WorkId:"), writeln(WorkId),
+    
+    open_hours_place(WorkId,I,F),
     writeln(open_hours_place(WorkId,I,F)),
+
     write("Opening Hour:"), writeln(I),
     write("Closing Hour:"), writeln(F),
     write("Is Open:"), writeln(open_place(WorkId, true)),
@@ -192,7 +194,6 @@ update_wearing_mask(WearingMask):-
 %     retractall(goal(move, Node)),
 %     open_place(Node, true),
 %     (take_bus(Node, _, _); walk(_, Node)).
-    
 
 % sleep(sleep):-
 %     hour(Hour),
@@ -231,7 +232,7 @@ update_wearing_mask(WearingMask):-
 %     mask_necessity(false),
 %     retractall(use_personal_mask(_)),
 %     assert(use_personal_mask(false)).
-    
+
 % search_medical_attention(FunctionName, Id):-
 %     FunctionName = move,
 %     hospital(Id, _),
@@ -345,13 +346,12 @@ planification_step():-
     remove_goals(),
     home(HomeId),
     work_place(WorkId, _),
-    write("HomeId:"), writeln(HomeId),
+    % write("HomeId:"), writeln(HomeId),
     write("WorkId:"), writeln(WorkId),
-    too_sick(Boolean), write("Is To Sick:"), writeln(Boolean),
     (work_is_open(WorkId), too_sick(false) ->
         work_day_routine(WorkId, HomeId);
         (
-            writeln("Entering on else"), 
+            % writeln("Entering on else"), 
             free_day_routine())).
     % (sleep_time() ->
     %     assert(goal(sleeping)), remove_schedule(sleeping, 6, 0)).%TODO: change this to sleep at home

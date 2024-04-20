@@ -15,7 +15,7 @@ class Agent:
                  wi_component: 'WorldInterface' = None,
                  knowledge_base: Knowledge = None
                  ):
-       
+                   
         # Agent Caracteristics
         self.location = -1
         self.unique_id = unique_id

@@ -152,6 +152,34 @@ class Knowledge:
         """
         return list(self.prolog.query(queryString))
         
+        
+class KnowledgeCanelo:
+    """
+    Class representing the knowledge base of canelo.
+
+    Attributes:
+        prolog (Prolog): The Prolog engine for querying the knowledge base.
+    """
+    def __init__(self):
+        """
+        Initialize the knowledge base.
+        """
+        self.prolog = Prolog()
+        self.prolog.consult('./simulation/agents/canelo.pl')
+        
+    def query(self, queryString):
+        """
+        Query the knowledge base.
+
+        Args:
+            queryString (str): The query string.
+
+        Returns:
+            list: The results of the query.
+        """
+        return list(self.prolog.query(queryString))
+        
+
 class BehaviorLayer:
     """
     Class representing the behavior layer of an agent.

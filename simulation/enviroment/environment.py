@@ -1,5 +1,5 @@
 from simulation.agents.agents import Agent
-from simulation.agents.agent_arquitecture import BehaviorLayer, LocalPlanningLayer, Knowledge
+from simulation.agents.agent_arquitecture import BehaviorLayer, LocalPlanningLayer, Knowledge, KnowledgeCanelo
 from simulation.epidemic.epidemic_model import EpidemicModel
 from simulation.enviroment.sim_nodes import CitizenPerceptionNode as CPNode
 from simulation.enviroment.sim_nodes import BlockNode, Hospital, HouseNode, PublicPlace, BusStop, Workspace
@@ -33,9 +33,11 @@ class Environment:
         """
         self.map = map    
         self.agents: List[Agent] = []
+        self.canelo = None
         self.epidemic_model = epidemic_model
         logger.debug('=== Initializing Agents ===')
         self.initialize_citizen_agents(num_agents)
+        self.initialize_canelo_agent()
 
     def _initialize_agents_knowledge(self):
         kb = Knowledge()
@@ -54,11 +56,23 @@ class Environment:
         kb.query('initialize_k()')
         return kb
     
-    def initialize_canel_agent(self):
-        self.prolog = Prolog()
-        self.prolog.consult('./simulation/agents/canelo.pl')
-
+    def initialize_canelo_agent(self):
+        kb = KnowledgeCanelo()
+        mind_map = self.generate_citizen_mind_map()
         
+        agents_wi  = WorldInterface(self.map, mind_map, kb)
+        agents_bbc = BehaviorLayer(mind_map, kb)
+        agents_pbc = LocalPlanningLayer(mind_map, kb)
+        
+        agent = Agent( 
+                mind_map=mind_map, 
+                wi_component=agents_wi,
+                bb_component=agents_bbc,
+                lp_component=agents_pbc,
+                knowledge_base=kb
+                )
+        
+        self.canelo = agent
         
     def initialize_citizen_agents(self, num_agents: int) -> None:
         """

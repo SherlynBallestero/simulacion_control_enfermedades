@@ -129,6 +129,26 @@ add_location(Node):-
     retractall(location(_)),
     assert(location(Node)).
 
+add_quarantine(Bool):-
+    retractall(quarantine(_)),
+    assert(quarantine(Bool)).
+
+add_social_distancing(Bool):-
+    retractall(social_distancing(_)),
+    assert(social_distancing(Bool)).
+
+add_tests_and_diagnosis(Bool):-
+    retractall(tests_and_diagnosis(_)),
+    assert(tests_and_diagnosis(Bool)).
+
+add_contact_tracing(Bool):-
+    retractall(contact_tracing(_)),
+    assert(contact_tracing(Bool)).
+
+add_isolation(Bool):-
+    retractall(isolation(_)),
+    assert(isolation(Bool)).
+
 work_is_open(WorkId):-
     not(week_day(saturday)),
     not(week_day(sunday)),

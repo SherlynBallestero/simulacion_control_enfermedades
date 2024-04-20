@@ -1,32 +1,11 @@
-2024-04-20 16:34:35,389 - INFO - === Simulation Execution Started ===
-2024-04-20 16:34:35,390 - DEBUG - === Initializing City ===
-2024-04-20 16:34:35,390 - DEBUG - === Initializing Epidemic Model ===
-2024-04-20 16:34:35,392 - DEBUG - === Initializing Environment ===
-2024-04-20 16:34:35,392 - DEBUG - === Initializing Agents ===
-2024-04-20 16:34:35,433 - INFO - === Starting Simulation Loop With 4464 Steps ===
-2024-04-20 16:34:35,433 - INFO - === Step: ('Monday', 0, 0, 0) ===
-2024-04-20 16:34:35,433 - INFO - Starting cond:
-	agent_num: 5
-	healthy_agents: 3
-	infected_agents: 2
-	symptomatic_agents: 0
-	critical_agents: 0
-	terminal_agents: 0
-	dead_agents: 0
-	recovered_agents: 0
-	
-2024-04-20 16:34:35,433 - INFO - Step of agent 1
-2024-04-20 16:34:35,434 - INFO - Agent Intent:
-2024-04-20 16:34:35,434 - ERROR - Action None not recognized
-2024-04-20 16:34:35,434 - INFO - Step of agent 3
-2024-04-20 16:34:35,435 - INFO - Agent Intent:
-2024-04-20 16:34:35,435 - ERROR - Action None not recognized
-2024-04-20 16:34:35,435 - INFO - Step of agent 0
-2024-04-20 16:34:35,435 - INFO - Agent Intent:
-2024-04-20 16:34:35,436 - ERROR - Action None not recognized
-2024-04-20 16:34:35,436 - INFO - Step of agent 4
-2024-04-20 16:34:35,436 - INFO - Agent Intent:
-2024-04-20 16:34:35,436 - ERROR - Action None not recognized
-2024-04-20 16:34:35,436 - INFO - Step of agent 2
-2024-04-20 16:34:35,437 - INFO - Agent Intent:
-2024-04-20 16:34:35,437 - ERROR - Action None not recognized
+2024-04-20 17:09:25,551 - INFO - === Simulation Execution Started ===
+2024-04-20 17:09:25,552 - DEBUG - === Initializing City ===
+2024-04-20 17:09:25,552 - DEBUG - === Initializing Epidemic Model ===
+2024-04-20 17:09:25,555 - DEBUG - === Initializing Environment ===
+2024-04-20 17:09:25,555 - DEBUG - === Initializing Agents ===
+2024-04-20 17:09:25,564 - INFO - === Starting Simulation Loop With 4464 Steps ===
+2024-04-20 17:09:25,564 - INFO - === Step: ('Monday', 0, 0, 0) ===
+2024-04-20 17:09:25,564 - INFO - Step of agent 0
+2024-04-20 17:09:25,564 - INFO - Agent Intent:
+2024-04-20 17:09:25,565 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-20 17:09:25,565 - INFO - Agent 0 action is empty

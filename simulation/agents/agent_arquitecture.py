@@ -137,6 +137,22 @@ class Knowledge:
         """
         list(self.prolog.query(f'add_place_to_use_mask({place_id}, {requirement})'))
     
+    def add_quarantine(self, requirement: bool):
+        list(self.prolog.query(f'add_quarantine({requirement})'))
+    
+    def add_social_distancing(self, requirement: bool):
+        list(self.prolog.query(f'add_social_distancing({requirement})'))
+    
+    def add_tests_and_diagnosis(self, requirement: bool):
+        list(self.prolog.query(f'add_tests_and_diagnosis({requirement})'))
+    
+    def add_contact_tracing(self, requirement: bool):
+        list(self.prolog.query(f'add_contact_tracing({requirement})'))
+    
+    def add_isolation(self, requirement: bool):
+        list(self.prolog.query(f'add_isolation({requirement})'))
+    
+    
     def feedback(self, location, wearing_mask):
         self.query(f'feedback({location}, {wearing_mask})')
     
@@ -164,8 +180,8 @@ class KnowledgeCanelo:
         """
         Initialize the knowledge base.
         """
-        self.prolog = Prolog()
-        self.prolog.consult('./simulation/agents/canelo.pl')
+        self.knowledge = Prolog()
+        self.knowledge.consult('./simulation/agents/canelo.pl')
         
     def query(self, queryString):
         """
@@ -178,7 +194,7 @@ class KnowledgeCanelo:
             list: The results of the query.
         """
         action = list(self.knowledge.query(queryString))[0]
-        return action['Action'], action['Arguments']
+        return action['Recommendation']
         
 
 class BehaviorLayer:

@@ -37,7 +37,7 @@ class Environment:
         self.epidemic_model = epidemic_model
         logger.debug('=== Initializing Agents ===')
         self.initialize_citizen_agents(num_agents)
-        # self.initialize_canelo_agent()
+        self.initialize_canelo_agent()
 
     def _initialize_agents_knowledge(self):
         kb = Knowledge()
@@ -60,7 +60,7 @@ class Environment:
         kb = KnowledgeCanelo()
         mind_map = self.generate_citizen_mind_map()
         
-        agents_wi  = WorldInterfaceCanelo(self.map, self.agents, mind_map, kb)
+        agents_wi  = WorldInterfaceCanelo(self.map, self.agents, kb)
         agents_bbc = BehaviorLayer(mind_map, kb)
         agents_pbc = LocalPlanningLayer(mind_map, kb)
         
@@ -179,8 +179,9 @@ class Environment:
             agent.step(step_num)
             # self._debug_agent_k(agent.knowledge_base)
         
-        self.canelo.knowledge_base.query('lala')
-        self.canelo.wi.act(self.canelo,action)
+        # action = self.canelo.knowledge_base.query('recommendation_based_on_severity(PeopleSick, Recommendation, RecomendationPlaces)')
+        self.canelo.step()
+        
         ocupied_nodes = [([self.agents[agent_id] for agent_id in node.agent_list], node.contact_rate) for node in self.map.graph.nodes.values() if node.agent_list]
         self.epidemic_model.step(ocupied_nodes)
 
@@ -373,26 +374,6 @@ class WorldInterface:
         elif not action:            
             logger.info(f'Agent {agent.unique_id} action is empty')
 
-    def comunicate(self, emiter, reciever, message) -> None:
-        """
-        Communicate a message from one agent to another.
-
-        Args:
-            emiter (Agent): The agent sending the message.
-            reciever (Agent): The agent receiving the message.
-            message (str): The message to send.
-        """
-        raise NotImplementedError
-
-    def recieve_comunication(self, agent, message) -> None:
-        """
-        Receive a communication from another agent.
-
-        Args:
-            agent (Agent): The agent receiving the communication.
-            message (str): The received message.
-        """
-        raise NotImplementedError
 
     def percieve(self, agent: Agent, step_num: int) -> dict:
         """
@@ -474,10 +455,9 @@ class WorldInterfaceCanelo:
         agent_mind_map (Graph): The mind map of the agent.
         agent_kb (Knowledge): The knowledge base of the agent.
     """
-    def __init__(self, map: Graph, agent_mind_map: Graph, list_agents:list[Agent], knowledge_base: KnowledgeCanelo) -> None:
+    def __init__(self, map: Graph, list_agents:list[Agent], knowledge_base: KnowledgeCanelo) -> None:
         self.map = map
         self.list_agents = list_agents
-        self.agent_mind_map = agent_mind_map
         self.agent_kb = knowledge_base
 
     def act(self, agent: Canelo, action: str) -> None:
@@ -489,15 +469,10 @@ class WorldInterfaceCanelo:
             action (str): The action to perform.
             parameters (list): The parameters for the action.
         """
-        if isinstance(parameters, int):
-            parametersList = []
-            parametersList.append(parameters)
-            parameters = parametersList
-            
-            
-        elif action == 'mask_use':
+        
+        if action == 'mask_use':
             for agent in self.list_agents:
-                self.comunicate(self, agent, action)
+                self.comunicate( agent, action)
         
         elif action == 'remove_mask':
             for agent in self.list_agents:
@@ -505,7 +480,6 @@ class WorldInterfaceCanelo:
          
         elif action == 'quarantine':
             pass 
-        
         
         elif action == 'social_distancing':
             pass
@@ -540,20 +514,20 @@ class WorldInterfaceCanelo:
         if message == 'remove_mask':
             reciever.knowledge_base.add_mask_necessity('false')
         
-        # if message == 'quarantine':
-        #     reciever.knowledge_base.add_mask_necessity('true')
+        if message == 'quarantine':
+            reciever.knowledge_base.add_quarantine('true')
             
-        # if message == 'social_distancing':
-        #     reciever.knowledge_base.add_mask_necessity('true')
+        if message == 'social_distancing':
+            reciever.knowledge_base.add_social_distancing('true')
         
-        # if message == 'tests_and_diagnosis':
-        #     reciever.knowledge_base.add_mask_necessity('true')
+        if message == 'tests_and_diagnosis':
+            reciever.knowledge_base.add_tests_and_diagnosis('true')
         
-        # if message == 'contact_tracing':
-        #     reciever.knowledge_base.add_mask_necessity('true')
+        if message == 'contact_tracing':
+            reciever.knowledge_base.add_contact_tracing('true')
         
-        # if message == 'isolation':
-        #     reciever.knowledge_base.add_mask_necessity('true')
+        if message == 'isolation':
+            reciever.knowledge_base.add_isolation('true')
              
 
     def percieve(self, agent: Agent, step_num: int) -> dict:

@@ -2,7 +2,7 @@ import random
 from typing import Dict, Any, Tuple, List, Set, Hashable
 from simulation.enviroment.graph import Graph
 from simulation.enviroment.sim_nodes import CitizenPerceptionNode as CPNode
-from simulation.agents.agent_arquitecture import BehaviorLayer, LocalPlanningLayer, CooperativeLayer, Knowledge
+from simulation.agents.agent_arquitecture import BehaviorLayer, LocalPlanningLayer, CooperativeLayer, Knowledge, KnowledgeCanelo
 import logging
 
 logger = logging.getLogger(__name__)
@@ -72,7 +72,7 @@ class Canelo:
                  lp_component: LocalPlanningLayer = None,
                  c_component: CooperativeLayer = None,
                  wi_component: 'WorldInterfaceCanelo' = None,
-                 knowledge_base: Knowledge = None
+                 knowledge_base: KnowledgeCanelo = None
                  ):
 
         # Hierarchical Knowlege Base
@@ -85,18 +85,22 @@ class Canelo:
         self.cc = c_component
         self.wi = wi_component
  
-    def step(self, step_num):
-        perception = self.wi.percieve(self, step_num)
-        self.process_perception(perception, step_num)
-        action, arguments = self.bbc.react("behavioral_step(Action, Arguments)")
+    def step(self):
+        # perception = self.wi.percieve(self, step_num)
+        # self.process_perception(perception, step_num)
+        # action, arguments = self.bbc.react("behavioral_step(Action, Arguments)")
         
-        if not action:
-            plan = self.pbc.plan("planification_step()")
-            action, arguments = self.bbc.react("behavioral_step(Action, Arguments)")
-        log_agent_intentions(self.knowledge_base)
-        self.wi.act(self, action, arguments)
-        self.knowledge_base.feedback(self.location, self.masked)
+        # if not action:
+        #     plan = self.pbc.plan("planification_step()")
+        #     action, arguments = self.bbc.react("behavioral_step(Action, Arguments)")
+        # log_agent_intentions(self.knowledge_base)
+        
+        # self.wi.act(self, action, arguments)
+        # self.knowledge_base.feedback(self.location, self.masked)
 
+        action = self.knowledge_base.query('recommendation_based_on_severity(0.2, Recommendation, RecomendationPlaces)')
+        self.wi.act(self,action)
+        return action
  
 def log_agent_intentions(agent_k):
     logger.info(f'Agent Intent:')

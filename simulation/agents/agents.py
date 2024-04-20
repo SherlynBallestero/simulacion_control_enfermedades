@@ -85,7 +85,7 @@ class Canelo:
         self.cc = c_component
         self.wi = wi_component
  
-    def step(self):
+    def step(self, infected_agents):
         # perception = self.wi.percieve(self, step_num)
         # self.process_perception(perception, step_num)
         # action, arguments = self.bbc.react("behavioral_step(Action, Arguments)")
@@ -98,9 +98,10 @@ class Canelo:
         # self.wi.act(self, action, arguments)
         # self.knowledge_base.feedback(self.location, self.masked)
 
-        action = self.knowledge_base.query('recommendation_based_on_severity(0.2, Recommendation, RecomendationPlaces)')
+        x = infected_agents * 0.1
+        action = self.knowledge_base.query(f'recommendation_based_on_severity({x}, Recommendation, RecomendationPlaces)')
         self.wi.act(self,action)
-        return action
+        
  
 def log_agent_intentions(agent_k):
     logger.info(f'Agent Intent:')

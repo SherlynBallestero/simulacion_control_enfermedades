@@ -4,7 +4,7 @@ from simulation.epidemic.epidemic_model import EpidemicModel
 from simulation.enviroment.sim_nodes import CitizenPerceptionNode as CPNode
 from simulation.enviroment.sim_nodes import BlockNode, Hospital, HouseNode, PublicPlace, BusStop, Workspace
 from simulation.enviroment.map import Terrain
-from ai.search import a_star, bfs
+from ai.search import a_star, bfs, ShortPathProblem, astar_search, path_states
 from typing import Tuple, List
 import random
 from simulation.enviroment.graph import Graph
@@ -179,8 +179,8 @@ class Environment:
             agent.step(step_num)
             # self._debug_agent_k(agent.knowledge_base)
         
-        # action = self.canelo.knowledge_base.query('recommendation_based_on_severity(PeopleSick, Recommendation, RecomendationPlaces)')
-        self.canelo.step()
+        infected_agents = self._count_infected_agents()
+        self.canelo.step(infected_agents)
         
         ocupied_nodes = [([self.agents[agent_id] for agent_id in node.agent_list], node.contact_rate) for node in self.map.graph.nodes.values() if node.agent_list]
         self.epidemic_model.step(ocupied_nodes)
@@ -303,7 +303,18 @@ class Environment:
         except Exception as e:
             logger.error(f"query 'goal' resulted in error: {e}")
 
-            
+    def _count_infected_agents(self):
+        infected = 0
+        for agent in self.agents:
+            if agent.status == 'symptomatic':
+                infected += 1
+            if agent.status == 'critical':
+                infected += 2
+            if agent.status == 'terminal':
+                infected += 3
+    
+        return infected
+    
     def _log_fact_type(self, fact_type, facts):
         logger.debug(f'All {fact_type} facts:')
         for fact in facts:
@@ -346,7 +357,8 @@ class WorldInterface:
             if agent._last_path and agent._last_path[-1] == parameters[0]:
                 path = agent._last_path
             else:
-                path = bfs(self.map, agent.location, parameters[0])[1:]
+                problem = ShortPathProblem(self.map[agent.location], self.map[parameters[0]], self.map )             
+                path = path_states(astar_search(problem))[1:]
                 agent._last_path = path
             
             if agent._last_path:
@@ -469,29 +481,45 @@ class WorldInterfaceCanelo:
             action (str): The action to perform.
             parameters (list): The parameters for the action.
         """
-        
+
         if action == 'mask_use':
+            logger.info(f'Canelo is transmitting use mask')
             for agent in self.list_agents:
                 self.comunicate( agent, action)
         
         elif action == 'remove_mask':
+            logger.info(f'Canelo is transmitting not use mask')
             for agent in self.list_agents:
                 self.comunicate(self, agent, action)
          
         elif action == 'quarantine':
-            pass 
+            logger.info(f'Canelo is transmitting go quarantine')
+            for agent in self.list_agents:
+                self.comunicate( agent, action)
+        
         
         elif action == 'social_distancing':
-            pass
+            logger.info(f'Canelo is transmitting social_distancing')
+            for agent in self.list_agents:
+                self.comunicate( agent, action)
+        
         
         elif action == 'tests_and_diagnosis':
-            pass
+            logger.info(f'Canelo is transmitting tests_and_diagnosis')
+            for agent in self.list_agents:
+                self.comunicate( agent, action)
         
         elif action == 'contact_tracing':
-            pass
+            logger.info(f'Canelo is transmitting contact_tracing')
+            for agent in self.list_agents:
+                self.comunicate( agent, action)
+        
         
         elif action == 'isolation':
-            pass
+            logger.info(f'Canelo is transmitting isolation')
+            for agent in self.list_agents:
+                self.comunicate( agent, action)
+        
         
         elif action == 'nothing':
             logger.info(f'Agent {agent.unique_id} is doing nothing')

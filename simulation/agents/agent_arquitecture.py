@@ -152,7 +152,7 @@ class Knowledge:
         """
         return list(self.prolog.query(queryString))
         
-        
+    
 class KnowledgeCanelo:
     """
     Class representing the knowledge base of canelo.
@@ -177,7 +177,8 @@ class KnowledgeCanelo:
         Returns:
             list: The results of the query.
         """
-        return list(self.prolog.query(queryString))
+        action = list(self.knowledge.query(queryString))[0]
+        return action['Action'], action['Arguments']
         
 
 class BehaviorLayer:
@@ -198,7 +199,10 @@ class BehaviorLayer:
         """
         self.world_model = world_model
         self.knowledge = knowledge
-        self.add_map_to_k()
+        try:
+            self.add_map_to_k()
+        except:
+            pass
 
     def add_map_to_k(self):
         """
@@ -244,7 +248,6 @@ class BehaviorLayer:
         except:
             return None, None
     
-
 class LocalPlanningLayer:
     """
     Class representing the local planning layer of an agent.
@@ -274,8 +277,6 @@ class LocalPlanningLayer:
         """
         query = f"{queryString}"
         list(self.knowledge.query(query))
-        
-        
 
 class CooperativeLayer:
     """

@@ -1,4 +1,4 @@
-from simulation.agents.agents import Agent
+from simulation.agents.agents import Agent, Canelo
 from simulation.agents.agent_arquitecture import BehaviorLayer, LocalPlanningLayer, Knowledge, KnowledgeCanelo
 from simulation.epidemic.epidemic_model import EpidemicModel
 from simulation.enviroment.sim_nodes import CitizenPerceptionNode as CPNode
@@ -60,11 +60,11 @@ class Environment:
         kb = KnowledgeCanelo()
         mind_map = self.generate_citizen_mind_map()
         
-        agents_wi  = WorldInterface(self.map, mind_map, kb)
+        agents_wi  = WorldInterfaceCanelo(self.map, self.agents, mind_map, kb)
         agents_bbc = BehaviorLayer(mind_map, kb)
         agents_pbc = LocalPlanningLayer(mind_map, kb)
         
-        agent = Agent( 
+        agent = Canelo( 
                 mind_map=mind_map, 
                 wi_component=agents_wi,
                 bb_component=agents_bbc,
@@ -178,6 +178,9 @@ class Environment:
             logger.info(f'Step of agent {agent.unique_id}')
             agent.step(step_num)
             # self._debug_agent_k(agent.knowledge_base)
+        
+        self.canelo.knowledge_base.query('lala')
+        self.canelo.wi.act(self.canelo,action)
         ocupied_nodes = [([self.agents[agent_id] for agent_id in node.agent_list], node.contact_rate) for node in self.map.graph.nodes.values() if node.agent_list]
         self.epidemic_model.step(ocupied_nodes)
 
@@ -461,3 +464,144 @@ class WorldInterface:
         agent.location = pos
         logger.info(f'Agent moved to {pos}')
         self.map.graph.nodes[pos].agent_list.append(agent.unique_id)
+
+class WorldInterfaceCanelo:
+    """
+    Class representing the world interface for canelo.
+
+    Attributes:
+        map (Graph): The map of the simulation.
+        agent_mind_map (Graph): The mind map of the agent.
+        agent_kb (Knowledge): The knowledge base of the agent.
+    """
+    def __init__(self, map: Graph, agent_mind_map: Graph, list_agents:list[Agent], knowledge_base: KnowledgeCanelo) -> None:
+        self.map = map
+        self.list_agents = list_agents
+        self.agent_mind_map = agent_mind_map
+        self.agent_kb = knowledge_base
+
+    def act(self, agent: Canelo, action: str) -> None:
+        """
+        Perform an action for an agent.
+
+        Args:
+            agent (Agent): The agent performing the action.
+            action (str): The action to perform.
+            parameters (list): The parameters for the action.
+        """
+        if isinstance(parameters, int):
+            parametersList = []
+            parametersList.append(parameters)
+            parameters = parametersList
+            
+            
+        elif action == 'mask_use':
+            for agent in self.list_agents:
+                self.comunicate(self, agent, action)
+        
+        elif action == 'remove_mask':
+            for agent in self.list_agents:
+                self.comunicate(self, agent, action)
+         
+        elif action == 'quarantine':
+            pass 
+        
+        
+        elif action == 'social_distancing':
+            pass
+        
+        elif action == 'tests_and_diagnosis':
+            pass
+        
+        elif action == 'contact_tracing':
+            pass
+        
+        elif action == 'isolation':
+            pass
+        
+        elif action == 'nothing':
+            logger.info(f'Agent {agent.unique_id} is doing nothing')
+
+        else:
+            logger.error(f'Action {action} not recognized')
+
+    def comunicate(self, reciever: Agent, message) -> None:
+        """
+        Communicate a message from one agent to another.
+
+        Args:
+            emiter (Agent): The agent sending the message.
+            reciever (Agent): The agent receiving the message.
+            message (str): The message to send.
+        """
+        if message == 'mask_use':
+            reciever.knowledge_base.add_mask_necessity('true')
+            
+        if message == 'remove_mask':
+            reciever.knowledge_base.add_mask_necessity('false')
+        
+        # if message == 'quarantine':
+        #     reciever.knowledge_base.add_mask_necessity('true')
+            
+        # if message == 'social_distancing':
+        #     reciever.knowledge_base.add_mask_necessity('true')
+        
+        # if message == 'tests_and_diagnosis':
+        #     reciever.knowledge_base.add_mask_necessity('true')
+        
+        # if message == 'contact_tracing':
+        #     reciever.knowledge_base.add_mask_necessity('true')
+        
+        # if message == 'isolation':
+        #     reciever.knowledge_base.add_mask_necessity('true')
+             
+
+    def percieve(self, agent: Agent, step_num: int) -> dict:
+        """
+        Perceive the environment around an agent.
+
+        Args:
+            agent (Agent): The agent perceiving the environment.
+            step_num (int): The current step number of the simulation.
+
+        Returns:
+            dict: A dictionary of perceived environments.
+        """
+        def density_classifier(node_population, node_capacity):
+            node_density = node_population/node_capacity
+            if node_density < 0.5:
+                return 'low'
+            elif node_density < 0.8:
+                return 'medium'
+            elif node_density <= 1.0:
+                return 'high'
+            else:
+                return 'very_high'
+        
+        new_perception = {}
+
+        current_node = self.map[agent.location]
+        if isinstance(current_node, BlockNode):
+            node_type = 'block'
+        elif isinstance(current_node, Hospital):
+            node_type = 'hospital'
+        elif isinstance(current_node, Workspace):
+            node_type = 'work_space'
+        elif isinstance(current_node, BusStop):
+            node_type = 'bus_stop'
+        elif isinstance(current_node, PublicPlace):
+            node_type = 'public_space'
+        elif isinstance(current_node, HouseNode):
+            node_type = 'house'
+        else:
+            raise ValueError(f'node of type unknown{type(current_node)}')
+        current_node_perception = CPNode(current_node.addr, current_node.id, node_type, density_classifier(len(current_node.agent_list), current_node.capacity))
+        if node_type in ['hospital', 'works_space', 'bus_stop', 'public_space']:
+            current_node_perception.oppening_hours = current_node.opening_hours
+            current_node_perception.closing_hours = current_node.closing_hours
+            current_node_perception.is_open = current_node.is_open
+
+        new_perception[current_node.addr] = current_node_perception
+
+        return new_perception
+

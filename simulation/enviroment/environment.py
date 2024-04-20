@@ -9,6 +9,7 @@ from typing import Tuple, List
 import random
 from simulation.enviroment.graph import Graph
 import logging
+from pyswip import Prolog
 
 logger = logging.getLogger(__name__)
 
@@ -52,6 +53,12 @@ class Environment:
             kb.add_is_medical_personnel(False)
         kb.query('initialize_k()')
         return kb
+    
+    def initialize_canel_agent(self):
+        self.prolog = Prolog()
+        self.prolog.consult('./simulation/agents/canelo.pl')
+
+        
         
     def initialize_citizen_agents(self, num_agents: int) -> None:
         """
@@ -347,7 +354,7 @@ class WorldInterface:
         elif action == 'work':
             logger.info(f'Agent {agent.unique_id} is working')
         
-        else: 
+        else:
             logger.error(f'Action {action} not recognized')
 
     def comunicate(self, emiter, reciever, message) -> None:

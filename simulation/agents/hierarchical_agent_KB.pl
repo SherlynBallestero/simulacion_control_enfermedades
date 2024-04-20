@@ -165,6 +165,9 @@ check_goals():-
     );
     ((goal(work),hour(H),work_place(WorkId, _),  open_hours_place(Id,_,F),H == F) ->
         retractall(goal(work)));
+    
+    (goal(sleep), hour(H), H == 7 ->
+    retractall(goal(sleep)));
 
     (goal(wear_mask), wearing_mask(true) ->
         retractall(goal(wear_mask)));
@@ -178,10 +181,6 @@ move(NodeId, Action, Arguments):-
 
 work(Action, Arguments):-
     Action = work,
-    Arguments = [].
-
-sleep(Action, Arguments):-
-    Action = sleeping,
     Arguments = [].
 
 wear_mask(Action, Arguments):-
@@ -207,15 +206,6 @@ update_wearing_mask(WearingMask):-
 %     open_place(Node, true),
 %     (take_bus(Node, _, _); walk(_, Node)).
 
-% sleep(sleep):-
-%     hour(Hour),
-%     Hour == 22,
-%     retractall(sleeping(_)),
-%     assert(sleeping(true)).
-
-% sleep_now(sleep):-
-%     retractall(sleeping(_)),
-%     assert(sleeping(true)).
 
 % wake_up(wake_up):-
 %     hour(Hour),
@@ -280,9 +270,6 @@ behavioral_step(Action, Arguments):-
     ((goal(A),writeln(goal(A)));
     (goal(A,B),writeln(goal(A,B)))),
     % (preconditions) - (actions)
-    
-    (goal(sleeping), home(HomeId), location(HomeId)->
-        sleep(Action, Arguments));
 
     (goal(work), work_place(WorkId, _), location(WorkId)->
     work(Action, Arguments));
@@ -292,7 +279,8 @@ behavioral_step(Action, Arguments):-
     write('location del beahaivior: '),writeln(location(NodeId)),
     move(NodeId, Action, Arguments)));
 
-    
+    ((goal(sleep), home(HomeId), location(HomeId) ) ->
+        sleep(Action, Arguments));
 
     (goal(wear_mask), mask_necessity(true), location(NodeId), mask_requirement(NodeId, true), wearing_mask(false)->
         wear_mask(Action, Arguments));
@@ -348,27 +336,37 @@ get_to_work(WorkId):-
     location(WorkId).
 
 work():-
-    writeln('trabajoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo'),
+    writeln('trabajoooooooooooo'),
     not(goal(work)),
     assert(goal(work)).
 
+sleep(Action, Arguments):-
+    Action = sleep,
+    Arguments = [].
+
+sleep_goal():-
+    not(goal(sleep)),
+    assert(goal(sleep)).
+
 go_home(HomeId):-
-    writeln('Homeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'),
+    writeln('Homeeeeeeeeeeeeeeeeeeeeeee'),
     goal_move(HomeId).
 
 work_day_routine(WorkId, HomeId):-
     get_to_work(WorkId),
     work(),
-    write('voyy a la casaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'),
-    go_home(HomeId).
+    write('voyy a la casaaaaaaaa'),
+    go_home(HomeId),
+    sleep_goal().
 
 free_day_routine():-
     true.
 
 sleep_time():-
     hour(H),
-    H >= 20,
-    H =< 6.
+    H == 10;
+    H == 11;
+    H == 12.
 
 planification_step():-
     remove_goals(),

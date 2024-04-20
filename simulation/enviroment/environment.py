@@ -37,7 +37,7 @@ class Environment:
         self.epidemic_model = epidemic_model
         logger.debug('=== Initializing Agents ===')
         self.initialize_citizen_agents(num_agents)
-        self.initialize_canelo_agent()
+        # self.initialize_canelo_agent()
 
     def _initialize_agents_knowledge(self):
         kb = Knowledge()
@@ -360,7 +360,6 @@ class WorldInterface:
         
         elif action == 'vaccinate':
             logger.info(f'Agent {agent.unique_id} is vaccinated')
-            agent.vaccinated = True
             
         elif action == 'nothing':
             logger.info(f'Agent {agent.unique_id} is doing nothing')
@@ -368,8 +367,8 @@ class WorldInterface:
         elif action == 'work':
             logger.info(f'Agent {agent.unique_id} is working')
         
-        else:
-            logger.error(f'Action {action} not recognized')
+        elif not action:            
+            logger.info(f'Agent {agent.unique_id} action is empty')
 
     def comunicate(self, emiter, reciever, message) -> None:
         """
@@ -460,4 +459,5 @@ class WorldInterface:
         self.map.graph.nodes[prev_location].agent_list.remove(agent.unique_id)
 
         agent.location = pos
+        logger.info(f'Agent moved to {pos}')
         self.map.graph.nodes[pos].agent_list.append(agent.unique_id)

@@ -18,9 +18,9 @@ def simulate(env, steps_num):
     for step in range(steps_num):
         date = format_day(step)
         logger.info(f'=== Step: {date} ===')
-        log_infection_status(env, 'Starting cond:')
+        # log_infection_status(env, 'Starting cond:')
         env.step(step)
-        log_infection_status(env, 'Ending cond:')
+        # log_infection_status(env, 'Ending cond:')
 
 def log_infection_status(env, msg):
     total_agents = len(env.agents)
@@ -54,6 +54,6 @@ if __name__ == '__main__':
     logger.debug("=== Initializing Epidemic Model ===")
     epidemic_model = EpidemicModel()
     logger.debug("=== Initializing Environment ===")
-    env = Environment(5, epidemic_model, map)
+    env = Environment(1, epidemic_model, map)
     logger.info(f'=== Starting Simulation Loop With {sim_steps} Steps ===')
     simulate(env, sim_steps)

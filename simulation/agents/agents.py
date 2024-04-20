@@ -73,6 +73,8 @@ def log_agent_intentions(agent_k):
         logger.info(f'\tgoal: {intention_1[0]["G"]}')
     if intention_2:
         logger.info(f'\tgoal: {intention_2[0]["G"]}, parameters: {intention_2[0]["P"]}')
+    if not intention_1 and not intention_2:
+        logger.info(f'\tgoal: The agent has not goals in life :-(')
 
 def format_day(step_num):
     # Calculating day of the week, hour and min sim_days = 31 sim_hours = sim_days * 24 sim_steps = sim_hours * 6

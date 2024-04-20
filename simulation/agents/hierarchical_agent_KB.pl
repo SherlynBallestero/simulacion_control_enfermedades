@@ -51,7 +51,6 @@ initialize_k():-
     assert(too_sick(false)),
     assert(wearing_mask(false)).
 
-
 add_node_info(Id, Address, CapacityStatus, NodeType):-%TODO: see if this is necesary and if it works
     retractall(node(Id, _, _, _)),
     retractall(),
@@ -327,7 +326,6 @@ remove_schedule(GoalType, H, M):-
 
 goal_move(TagetNode):-
     retractall(goal(move, _)),
-    writeln('moveeeeeeeeeeeeeeeeeeeeeeeeeeeee'),
     assert(goal(move, TagetNode)).
     
 
@@ -336,7 +334,6 @@ get_to_work(WorkId):-
     location(WorkId).
 
 work():-
-    writeln('trabajoooooooooooo'),
     not(goal(work)),
     assert(goal(work)).
 
@@ -349,13 +346,11 @@ sleep_goal():-
     assert(goal(sleep)).
 
 go_home(HomeId):-
-    writeln('Homeeeeeeeeeeeeeeeeeeeeeee'),
     goal_move(HomeId).
 
 work_day_routine(WorkId, HomeId):-
     get_to_work(WorkId),
     work(),
-    write('voyy a la casaaaaaaaa'),
     go_home(HomeId),
     sleep_goal().
 
@@ -364,9 +359,7 @@ free_day_routine():-
 
 sleep_time():-
     hour(H),
-    H == 10;
-    H == 11;
-    H == 12.
+    H > 20.sleep_time().
 
 planification_step():-
     remove_goals(),

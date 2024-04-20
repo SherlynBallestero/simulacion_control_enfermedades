@@ -155,10 +155,10 @@ class Environment:
         """
         for agent in random.sample(self.agents, len(self.agents)):
             logger.info(f'Step of agent {agent.unique_id}')
-            a =agent.knowledge_base.query(f'open_hours_place(A, B, C)')
             agent.step(step_num)
             # self._debug_agent_k(agent.knowledge_base)
-        # self.epidemic_model.step()
+        ocupied_nodes = [([self.agents[agent_id] for agent_id in node.agent_list], node.contact_rate) for node in self.map.graph.nodes.values() if node.agent_list]
+        self.epidemic_model.step(ocupied_nodes)
 
     def _debug_agent_k(self, agent_k:Knowledge):
         logger.debug(f'Knowlege Base Facts:')
@@ -316,9 +316,9 @@ class WorldInterface:
             parameters = parametersList
             
         if action == 'move':
-            logger.info(f'Agent {agent.unique_id} is moving to {parameters[0]}')
+            logger.info(f'Agent {agent.unique_id} is moving to {parameters[0]} from {agent.location}')
             # a = a_star(self.map, agent.location, parameters[0])
-            if agent._last_path and agent._last_path[-1] == parameters[0]:# and agent._last_path[0] == agent.location:
+            if agent._last_path and agent._last_path[-1] == parameters[0]:
                 path = agent._last_path
             else:
                 path = bfs(self.map, agent.location, parameters[0])[1:]
@@ -341,13 +341,13 @@ class WorldInterface:
             logger.info(f'Agent {agent.unique_id} is vaccinated')
             agent.vaccinated = True
             
-        elif action == 'sleep':
-            logger.info(f'Agent {agent.unique_id} is sleeping')
+        elif action == 'nothing':
+            logger.info(f'Agent {agent.unique_id} is doing nothing')
         
-        elif action == 'wake_up':
-            logger.info(f'Agent {agent.unique_id} is wake up')
+        elif action == 'work':
+            logger.info(f'Agent {agent.unique_id} is working')
         
-        else:
+        else: 
             logger.error(f'Action {action} not recognized')
 
     def comunicate(self, emiter, reciever, message) -> None:

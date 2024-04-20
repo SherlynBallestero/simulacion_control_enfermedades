@@ -3,6 +3,10 @@ from typing import Dict, Any, Tuple, List, Set, Hashable
 from simulation.enviroment.graph import Graph
 from simulation.enviroment.sim_nodes import CitizenPerceptionNode as CPNode
 from simulation.agents.agent_arquitecture import BehaviorLayer, LocalPlanningLayer, CooperativeLayer, Knowledge
+import logging
+
+logger = logging.getLogger(__name__)
+
 class Agent:
     """Class representing an agent in the simulation."""
     def __init__(self, 
@@ -56,10 +60,20 @@ class Agent:
         if not action:
             plan = self.pbc.plan("planification_step()")
             action, arguments = self.bbc.react("behavioral_step(Action, Arguments)")
-
+        log_agent_intentions(self.knowledge_base)
         self.wi.act(self, action, arguments)
         self.knowledge_base.feedback(self.location, self.masked)
         
+
+def log_agent_intentions(agent_k):
+    logger.info(f'Agent Intent:')
+    intention_1 = list(agent_k.query(f'goal(G)'))
+    intention_2 = list(agent_k.query(f'goal(G, P)'))
+    if intention_1:
+        logger.info(f'\tgoal: {intention_1[0]["G"]}')
+    if intention_2:
+        logger.info(f'\tgoal: {intention_2[0]["G"]}, parameters: {intention_2[0]["P"]}')
+
 def format_day(step_num):
     # Calculating day of the week, hour and min sim_days = 31 sim_hours = sim_days * 24 sim_steps = sim_hours * 6
     days_of_the_week = [ "monday", "tuesday", "wednesday", "thursday", "friday", "saturday","sunday"]

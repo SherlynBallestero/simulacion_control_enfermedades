@@ -17,11 +17,21 @@ def simulate(env, steps_num):
     # Main simulation loop
     for step in range(steps_num):
         date = format_day(step)
-        print(date)
         logger.info(f'=== Step: {date} ===')
-        logger.info(f'Starting cond:\n\tagent_num: {len(env.agents)},\n\tinfected_agents: {len([agent for agent in env.agents if agent.status == "infected"])}')
+        log_infection_status(env, 'Starting cond:')
         env.step(step)
-        logger.info(f'Ending cond:\n\tagent_num: {len(env.agents)},\n\tinfected_agents: {len([agent for agent in env.agents if agent.status == "infected"])}')
+        log_infection_status(env, 'Ending cond:')
+
+def log_infection_status(env, msg):
+    total_agents = len(env.agents)
+    healthy_agents = len([healthy_agent for healthy_agent in env.agents if healthy_agent.status if healthy_agent.status == 'susceptible'])
+    infected_agents = len([infected_agent for infected_agent in env.agents if infected_agent.status if infected_agent.status == 'asymptomatic'])
+    symptomatic_agents = len([symptomatic_agent for symptomatic_agent in env.agents if symptomatic_agent.status if symptomatic_agent.status == 'symptomatic'])
+    critical_agents = len([critical_agent for critical_agent in env.agents if critical_agent.status if critical_agent.status == 'critical'])
+    terminal_agents = len([terminal_agent for terminal_agent in env.agents if terminal_agent.status if terminal_agent.status == 'terminal'])
+    dead_agents = len([dead_agent for dead_agent in env.agents if dead_agent.status if dead_agent.status == 'dead'])
+    recovered_agents = len([recovered_agent for recovered_agent in env.agents if recovered_agent.status if recovered_agent.status == 'recovered'])
+    logger.info(f'{msg}\n\tagent_num: {total_agents}\n\thealthy_agents: {healthy_agents}\n\tinfected_agents: {infected_agents}\n\tsymptomatic_agents: {symptomatic_agents}\n\tcritical_agents: {critical_agents}\n\tterminal_agents: {terminal_agents}\n\tdead_agents: {dead_agents}\n\trecovered_agents: {recovered_agents}\n\t')
 
 def format_day(step_num):
     # Calculating day of the week, hour and min sim_days = 31 sim_hours = sim_days * 24 sim_steps = sim_hours * 6

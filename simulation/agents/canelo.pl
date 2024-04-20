@@ -20,22 +20,6 @@ control_measure(terminal_fever, isolation).
 control_measure(candela, isolation).
 control_measure(que_ostine, isolation).
 
-% Symptom severity
-% severity_of_symptom(normal_fever, low).
-% severity_of_symptom(normal_cough, low).
-% severity_of_symptom(normal_short_breath, low).
-% severity_of_symptom(back_ache, low).
-% severity_of_symptom(stomach_ache, low).
-% severity_of_symptom(laziness, low).
-% severity_of_symptom(sleepiness, low).
-% severity_of_symptom(critical_fever, high).
-% severity_of_symptom(critical_cough, high).
-% severity_of_symptom(critical_short_breath, high).
-% severity_of_symptom(gastritis, high).
-% severity_of_symptom(terminal_fever, terminal).
-% severity_of_symptom(candela, terminal).
-% severity_of_symptom(que_ostine, terminal).
-
 recommendation_control_measure(low, mask_use).
 recommendation_control_measure(low, social_distancing).
 

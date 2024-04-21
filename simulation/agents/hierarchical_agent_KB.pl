@@ -45,7 +45,8 @@
 
 initialize_k():-
     assert(too_sick(false)),
-    assert(wearing_mask(false)).
+    assert(wearing_mask(false)),
+    assert(social_distancing(false)).
 
 add_node_info(Id, Address, CapacityStatus, NodeType):-%TODO: see if this is necesary and if it works
     retractall(node(Id, _, _, _)),

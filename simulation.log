@@ -1,620 +1,296 @@
-2024-04-21 04:08:04,387 - INFO - === Simulation Execution Started ===
-2024-04-21 04:08:04,389 - DEBUG - === Initializing City ===
-2024-04-21 04:08:04,389 - DEBUG - === Initializing Epidemic Model ===
-2024-04-21 04:08:04,402 - DEBUG - === Initializing Environment ===
-2024-04-21 04:08:04,402 - DEBUG - === Initializing Agents ===
-2024-04-21 04:08:04,464 - INFO - === Starting Simulation Loop With 4464 Steps ===
-2024-04-21 04:08:04,464 - INFO - === Step: ('Monday', 0, 0, 0) ===
-2024-04-21 04:08:04,465 - INFO - Step of agent 0
-2024-04-21 04:08:04,470 - INFO - Agent Intent:
-2024-04-21 04:08:04,470 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,471 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,475 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,477 - INFO - === Step: ('Monday', 0, 0, 10) ===
-2024-04-21 04:08:04,477 - INFO - Step of agent 0
-2024-04-21 04:08:04,480 - INFO - Agent Intent:
-2024-04-21 04:08:04,481 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,481 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,484 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,484 - INFO - === Step: ('Monday', 0, 0, 20) ===
-2024-04-21 04:08:04,485 - INFO - Step of agent 0
-2024-04-21 04:08:04,486 - INFO - Agent Intent:
-2024-04-21 04:08:04,487 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,487 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,489 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,490 - INFO - === Step: ('Monday', 0, 0, 30) ===
-2024-04-21 04:08:04,490 - INFO - Step of agent 0
-2024-04-21 04:08:04,492 - INFO - Agent Intent:
-2024-04-21 04:08:04,492 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,493 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,494 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,495 - INFO - === Step: ('Monday', 0, 0, 40) ===
-2024-04-21 04:08:04,495 - INFO - Step of agent 0
-2024-04-21 04:08:04,497 - INFO - Agent Intent:
-2024-04-21 04:08:04,498 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,499 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,500 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,501 - INFO - === Step: ('Monday', 0, 0, 50) ===
-2024-04-21 04:08:04,501 - INFO - Step of agent 0
-2024-04-21 04:08:04,503 - INFO - Agent Intent:
-2024-04-21 04:08:04,504 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,504 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,506 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,507 - INFO - === Step: ('Monday', 0, 1, 0) ===
-2024-04-21 04:08:04,508 - INFO - Step of agent 0
-2024-04-21 04:08:04,509 - INFO - Agent Intent:
-2024-04-21 04:08:04,510 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,510 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,512 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,513 - INFO - === Step: ('Monday', 0, 1, 10) ===
-2024-04-21 04:08:04,514 - INFO - Step of agent 0
-2024-04-21 04:08:04,516 - INFO - Agent Intent:
-2024-04-21 04:08:04,517 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,517 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,519 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,520 - INFO - === Step: ('Monday', 0, 1, 20) ===
-2024-04-21 04:08:04,520 - INFO - Step of agent 0
-2024-04-21 04:08:04,522 - INFO - Agent Intent:
-2024-04-21 04:08:04,522 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,523 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,524 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,525 - INFO - === Step: ('Monday', 0, 1, 30) ===
-2024-04-21 04:08:04,525 - INFO - Step of agent 0
-2024-04-21 04:08:04,526 - INFO - Agent Intent:
-2024-04-21 04:08:04,527 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,527 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,529 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,530 - INFO - === Step: ('Monday', 0, 1, 40) ===
-2024-04-21 04:08:04,531 - INFO - Step of agent 0
-2024-04-21 04:08:04,533 - INFO - Agent Intent:
-2024-04-21 04:08:04,534 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,534 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,535 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,536 - INFO - === Step: ('Monday', 0, 1, 50) ===
-2024-04-21 04:08:04,536 - INFO - Step of agent 0
-2024-04-21 04:08:04,538 - INFO - Agent Intent:
-2024-04-21 04:08:04,539 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,539 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,542 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,543 - INFO - === Step: ('Monday', 0, 2, 0) ===
-2024-04-21 04:08:04,544 - INFO - Step of agent 0
-2024-04-21 04:08:04,547 - INFO - Agent Intent:
-2024-04-21 04:08:04,548 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,548 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,550 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,550 - INFO - === Step: ('Monday', 0, 2, 10) ===
-2024-04-21 04:08:04,551 - INFO - Step of agent 0
-2024-04-21 04:08:04,552 - INFO - Agent Intent:
-2024-04-21 04:08:04,553 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,553 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,554 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,555 - INFO - === Step: ('Monday', 0, 2, 20) ===
-2024-04-21 04:08:04,556 - INFO - Step of agent 0
-2024-04-21 04:08:04,557 - INFO - Agent Intent:
-2024-04-21 04:08:04,558 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,558 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,559 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,560 - INFO - === Step: ('Monday', 0, 2, 30) ===
-2024-04-21 04:08:04,560 - INFO - Step of agent 0
-2024-04-21 04:08:04,563 - INFO - Agent Intent:
-2024-04-21 04:08:04,564 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,565 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,566 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,567 - INFO - === Step: ('Monday', 0, 2, 40) ===
-2024-04-21 04:08:04,568 - INFO - Step of agent 0
-2024-04-21 04:08:04,569 - INFO - Agent Intent:
-2024-04-21 04:08:04,570 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,570 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,572 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,573 - INFO - === Step: ('Monday', 0, 2, 50) ===
-2024-04-21 04:08:04,574 - INFO - Step of agent 0
-2024-04-21 04:08:04,576 - INFO - Agent Intent:
-2024-04-21 04:08:04,578 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,578 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,581 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,582 - INFO - === Step: ('Monday', 0, 3, 0) ===
-2024-04-21 04:08:04,583 - INFO - Step of agent 0
-2024-04-21 04:08:04,585 - INFO - Agent Intent:
-2024-04-21 04:08:04,585 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,585 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,587 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,588 - INFO - === Step: ('Monday', 0, 3, 10) ===
-2024-04-21 04:08:04,588 - INFO - Step of agent 0
-2024-04-21 04:08:04,589 - INFO - Agent Intent:
-2024-04-21 04:08:04,590 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,590 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,593 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,593 - INFO - === Step: ('Monday', 0, 3, 20) ===
-2024-04-21 04:08:04,594 - INFO - Step of agent 0
-2024-04-21 04:08:04,595 - INFO - Agent Intent:
-2024-04-21 04:08:04,596 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,597 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,599 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,599 - INFO - === Step: ('Monday', 0, 3, 30) ===
-2024-04-21 04:08:04,600 - INFO - Step of agent 0
-2024-04-21 04:08:04,601 - INFO - Agent Intent:
-2024-04-21 04:08:04,602 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,602 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,604 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,604 - INFO - === Step: ('Monday', 0, 3, 40) ===
-2024-04-21 04:08:04,605 - INFO - Step of agent 0
-2024-04-21 04:08:04,606 - INFO - Agent Intent:
-2024-04-21 04:08:04,607 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,610 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,612 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,613 - INFO - === Step: ('Monday', 0, 3, 50) ===
-2024-04-21 04:08:04,615 - INFO - Step of agent 0
-2024-04-21 04:08:04,616 - INFO - Agent Intent:
-2024-04-21 04:08:04,617 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,617 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,619 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,620 - INFO - === Step: ('Monday', 0, 4, 0) ===
-2024-04-21 04:08:04,620 - INFO - Step of agent 0
-2024-04-21 04:08:04,621 - INFO - Agent Intent:
-2024-04-21 04:08:04,622 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,623 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,625 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,625 - INFO - === Step: ('Monday', 0, 4, 10) ===
-2024-04-21 04:08:04,626 - INFO - Step of agent 0
-2024-04-21 04:08:04,627 - INFO - Agent Intent:
-2024-04-21 04:08:04,628 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,628 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,629 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,631 - INFO - === Step: ('Monday', 0, 4, 20) ===
-2024-04-21 04:08:04,631 - INFO - Step of agent 0
-2024-04-21 04:08:04,634 - INFO - Agent Intent:
-2024-04-21 04:08:04,635 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,635 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,637 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,637 - INFO - === Step: ('Monday', 0, 4, 30) ===
-2024-04-21 04:08:04,638 - INFO - Step of agent 0
-2024-04-21 04:08:04,641 - INFO - Agent Intent:
-2024-04-21 04:08:04,642 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,643 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,645 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,646 - INFO - === Step: ('Monday', 0, 4, 40) ===
-2024-04-21 04:08:04,647 - INFO - Step of agent 0
-2024-04-21 04:08:04,649 - INFO - Agent Intent:
-2024-04-21 04:08:04,649 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,650 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,651 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,652 - INFO - === Step: ('Monday', 0, 4, 50) ===
-2024-04-21 04:08:04,652 - INFO - Step of agent 0
-2024-04-21 04:08:04,655 - INFO - Agent Intent:
-2024-04-21 04:08:04,656 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,656 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,658 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,659 - INFO - === Step: ('Monday', 0, 5, 0) ===
-2024-04-21 04:08:04,660 - INFO - Step of agent 0
-2024-04-21 04:08:04,663 - INFO - Agent Intent:
-2024-04-21 04:08:04,664 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,665 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,669 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,670 - INFO - === Step: ('Monday', 0, 5, 10) ===
-2024-04-21 04:08:04,671 - INFO - Step of agent 0
-2024-04-21 04:08:04,673 - INFO - Agent Intent:
-2024-04-21 04:08:04,675 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,676 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,679 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,680 - INFO - === Step: ('Monday', 0, 5, 20) ===
-2024-04-21 04:08:04,681 - INFO - Step of agent 0
-2024-04-21 04:08:04,684 - INFO - Agent Intent:
-2024-04-21 04:08:04,685 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,685 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,687 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,688 - INFO - === Step: ('Monday', 0, 5, 30) ===
-2024-04-21 04:08:04,689 - INFO - Step of agent 0
-2024-04-21 04:08:04,691 - INFO - Agent Intent:
-2024-04-21 04:08:04,692 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,692 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,694 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,696 - INFO - === Step: ('Monday', 0, 5, 40) ===
-2024-04-21 04:08:04,696 - INFO - Step of agent 0
-2024-04-21 04:08:04,699 - INFO - Agent Intent:
-2024-04-21 04:08:04,699 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,700 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,703 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,703 - INFO - === Step: ('Monday', 0, 5, 50) ===
-2024-04-21 04:08:04,704 - INFO - Step of agent 0
-2024-04-21 04:08:04,705 - INFO - Agent Intent:
-2024-04-21 04:08:04,706 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,706 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,709 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,710 - INFO - === Step: ('Monday', 0, 6, 0) ===
-2024-04-21 04:08:04,710 - INFO - Step of agent 0
-2024-04-21 04:08:04,713 - INFO - Agent Intent:
-2024-04-21 04:08:04,714 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,715 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,717 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,718 - INFO - === Step: ('Monday', 0, 6, 10) ===
-2024-04-21 04:08:04,718 - INFO - Step of agent 0
-2024-04-21 04:08:04,720 - INFO - Agent Intent:
-2024-04-21 04:08:04,720 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,721 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,722 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,723 - INFO - === Step: ('Monday', 0, 6, 20) ===
-2024-04-21 04:08:04,724 - INFO - Step of agent 0
-2024-04-21 04:08:04,725 - INFO - Agent Intent:
-2024-04-21 04:08:04,726 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,726 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,727 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,728 - INFO - === Step: ('Monday', 0, 6, 30) ===
-2024-04-21 04:08:04,729 - INFO - Step of agent 0
-2024-04-21 04:08:04,732 - INFO - Agent Intent:
-2024-04-21 04:08:04,733 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,734 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,737 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,737 - INFO - === Step: ('Monday', 0, 6, 40) ===
-2024-04-21 04:08:04,738 - INFO - Step of agent 0
-2024-04-21 04:08:04,739 - INFO - Agent Intent:
-2024-04-21 04:08:04,740 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,741 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,744 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,745 - INFO - === Step: ('Monday', 0, 6, 50) ===
-2024-04-21 04:08:04,746 - INFO - Step of agent 0
-2024-04-21 04:08:04,748 - INFO - Agent Intent:
-2024-04-21 04:08:04,749 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,749 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,751 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,752 - INFO - === Step: ('Monday', 0, 7, 0) ===
-2024-04-21 04:08:04,752 - INFO - Step of agent 0
-2024-04-21 04:08:04,754 - INFO - Agent Intent:
-2024-04-21 04:08:04,754 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,755 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,756 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,757 - INFO - === Step: ('Monday', 0, 7, 10) ===
-2024-04-21 04:08:04,757 - INFO - Step of agent 0
-2024-04-21 04:08:04,759 - INFO - Agent Intent:
-2024-04-21 04:08:04,759 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,760 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,762 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,763 - INFO - === Step: ('Monday', 0, 7, 20) ===
-2024-04-21 04:08:04,764 - INFO - Step of agent 0
-2024-04-21 04:08:04,765 - INFO - Agent Intent:
-2024-04-21 04:08:04,766 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,766 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,767 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,768 - INFO - === Step: ('Monday', 0, 7, 30) ===
-2024-04-21 04:08:04,768 - INFO - Step of agent 0
-2024-04-21 04:08:04,770 - INFO - Agent Intent:
-2024-04-21 04:08:04,770 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,771 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,772 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,774 - INFO - === Step: ('Monday', 0, 7, 40) ===
-2024-04-21 04:08:04,774 - INFO - Step of agent 0
-2024-04-21 04:08:04,776 - INFO - Agent Intent:
-2024-04-21 04:08:04,777 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,778 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,781 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,782 - INFO - === Step: ('Monday', 0, 7, 50) ===
-2024-04-21 04:08:04,782 - INFO - Step of agent 0
-2024-04-21 04:08:04,784 - INFO - Agent Intent:
-2024-04-21 04:08:04,785 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 04:08:04,785 - INFO - Agent 0 action is empty
-2024-04-21 04:08:04,787 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:04,788 - INFO - === Step: ('Monday', 0, 8, 0) ===
-2024-04-21 04:08:04,788 - INFO - Step of agent 0
-2024-04-21 04:08:04,790 - INFO - Agent Intent:
-2024-04-21 04:08:04,792 - INFO - 	goal: move, parameters: 158
-2024-04-21 04:08:04,792 - INFO - Agent 0 is moving to 158 from 12
-2024-04-21 04:08:08,550 - INFO - Agent moved to 13
-2024-04-21 04:08:08,556 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,558 - INFO - === Step: ('Monday', 0, 8, 10) ===
-2024-04-21 04:08:08,559 - INFO - Step of agent 0
-2024-04-21 04:08:08,563 - INFO - Agent Intent:
-2024-04-21 04:08:08,565 - INFO - 	goal: move, parameters: 158
-2024-04-21 04:08:08,565 - INFO - Agent 0 is moving to 158 from 13
-2024-04-21 04:08:08,566 - INFO - Agent moved to 14
-2024-04-21 04:08:08,569 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,570 - INFO - === Step: ('Monday', 0, 8, 20) ===
-2024-04-21 04:08:08,570 - INFO - Step of agent 0
-2024-04-21 04:08:08,572 - INFO - Agent Intent:
-2024-04-21 04:08:08,573 - INFO - 	goal: move, parameters: 158
-2024-04-21 04:08:08,574 - INFO - Agent 0 is moving to 158 from 14
-2024-04-21 04:08:08,574 - INFO - Agent moved to 15
-2024-04-21 04:08:08,584 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,585 - INFO - === Step: ('Monday', 0, 8, 30) ===
-2024-04-21 04:08:08,585 - INFO - Step of agent 0
-2024-04-21 04:08:08,587 - INFO - Agent Intent:
-2024-04-21 04:08:08,590 - INFO - 	goal: move, parameters: 158
-2024-04-21 04:08:08,591 - INFO - Agent 0 is moving to 158 from 15
-2024-04-21 04:08:08,596 - INFO - Agent moved to 25
-2024-04-21 04:08:08,600 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,600 - INFO - === Step: ('Monday', 0, 8, 40) ===
-2024-04-21 04:08:08,601 - INFO - Step of agent 0
-2024-04-21 04:08:08,604 - INFO - Agent Intent:
-2024-04-21 04:08:08,605 - INFO - 	goal: move, parameters: 158
-2024-04-21 04:08:08,606 - INFO - Agent 0 is moving to 158 from 25
-2024-04-21 04:08:08,607 - INFO - Agent moved to 158
-2024-04-21 04:08:08,621 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,623 - INFO - === Step: ('Monday', 0, 8, 50) ===
-2024-04-21 04:08:08,624 - INFO - Step of agent 0
-2024-04-21 04:08:08,628 - INFO - Agent Intent:
-2024-04-21 04:08:08,630 - INFO - 	goal: work
-2024-04-21 04:08:08,631 - INFO - Agent 0 is working
-2024-04-21 04:08:08,634 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,634 - INFO - === Step: ('Monday', 0, 9, 0) ===
-2024-04-21 04:08:08,635 - INFO - Step of agent 0
-2024-04-21 04:08:08,637 - INFO - Agent Intent:
-2024-04-21 04:08:08,638 - INFO - 	goal: work
-2024-04-21 04:08:08,638 - INFO - Agent 0 is working
-2024-04-21 04:08:08,641 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,642 - INFO - === Step: ('Monday', 0, 9, 10) ===
-2024-04-21 04:08:08,646 - INFO - Step of agent 0
-2024-04-21 04:08:08,651 - INFO - Agent Intent:
-2024-04-21 04:08:08,652 - INFO - 	goal: work
-2024-04-21 04:08:08,653 - INFO - Agent 0 is working
-2024-04-21 04:08:08,655 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,656 - INFO - === Step: ('Monday', 0, 9, 20) ===
-2024-04-21 04:08:08,657 - INFO - Step of agent 0
-2024-04-21 04:08:08,659 - INFO - Agent Intent:
-2024-04-21 04:08:08,661 - INFO - 	goal: work
-2024-04-21 04:08:08,661 - INFO - Agent 0 is working
-2024-04-21 04:08:08,666 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,668 - INFO - === Step: ('Monday', 0, 9, 30) ===
-2024-04-21 04:08:08,668 - INFO - Step of agent 0
-2024-04-21 04:08:08,671 - INFO - Agent Intent:
-2024-04-21 04:08:08,673 - INFO - 	goal: work
-2024-04-21 04:08:08,673 - INFO - Agent 0 is working
-2024-04-21 04:08:08,676 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,680 - INFO - === Step: ('Monday', 0, 9, 40) ===
-2024-04-21 04:08:08,682 - INFO - Step of agent 0
-2024-04-21 04:08:08,686 - INFO - Agent Intent:
-2024-04-21 04:08:08,687 - INFO - 	goal: work
-2024-04-21 04:08:08,688 - INFO - Agent 0 is working
-2024-04-21 04:08:08,690 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,691 - INFO - === Step: ('Monday', 0, 9, 50) ===
-2024-04-21 04:08:08,692 - INFO - Step of agent 0
-2024-04-21 04:08:08,695 - INFO - Agent Intent:
-2024-04-21 04:08:08,697 - INFO - 	goal: work
-2024-04-21 04:08:08,698 - INFO - Agent 0 is working
-2024-04-21 04:08:08,702 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,704 - INFO - === Step: ('Monday', 0, 10, 0) ===
-2024-04-21 04:08:08,704 - INFO - Step of agent 0
-2024-04-21 04:08:08,707 - INFO - Agent Intent:
-2024-04-21 04:08:08,708 - INFO - 	goal: work
-2024-04-21 04:08:08,709 - INFO - Agent 0 is working
-2024-04-21 04:08:08,712 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,714 - INFO - === Step: ('Monday', 0, 10, 10) ===
-2024-04-21 04:08:08,715 - INFO - Step of agent 0
-2024-04-21 04:08:08,718 - INFO - Agent Intent:
-2024-04-21 04:08:08,718 - INFO - 	goal: work
-2024-04-21 04:08:08,719 - INFO - Agent 0 is working
-2024-04-21 04:08:08,720 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,721 - INFO - === Step: ('Monday', 0, 10, 20) ===
-2024-04-21 04:08:08,722 - INFO - Step of agent 0
-2024-04-21 04:08:08,723 - INFO - Agent Intent:
-2024-04-21 04:08:08,724 - INFO - 	goal: work
-2024-04-21 04:08:08,725 - INFO - Agent 0 is working
-2024-04-21 04:08:08,726 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,727 - INFO - === Step: ('Monday', 0, 10, 30) ===
-2024-04-21 04:08:08,728 - INFO - Step of agent 0
-2024-04-21 04:08:08,731 - INFO - Agent Intent:
-2024-04-21 04:08:08,732 - INFO - 	goal: work
-2024-04-21 04:08:08,732 - INFO - Agent 0 is working
-2024-04-21 04:08:08,734 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,734 - INFO - === Step: ('Monday', 0, 10, 40) ===
-2024-04-21 04:08:08,735 - INFO - Step of agent 0
-2024-04-21 04:08:08,736 - INFO - Agent Intent:
-2024-04-21 04:08:08,737 - INFO - 	goal: work
-2024-04-21 04:08:08,738 - INFO - Agent 0 is working
-2024-04-21 04:08:08,739 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,740 - INFO - === Step: ('Monday', 0, 10, 50) ===
-2024-04-21 04:08:08,740 - INFO - Step of agent 0
-2024-04-21 04:08:08,742 - INFO - Agent Intent:
-2024-04-21 04:08:08,744 - INFO - 	goal: work
-2024-04-21 04:08:08,745 - INFO - Agent 0 is working
-2024-04-21 04:08:08,749 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,750 - INFO - === Step: ('Monday', 0, 11, 0) ===
-2024-04-21 04:08:08,750 - INFO - Step of agent 0
-2024-04-21 04:08:08,752 - INFO - Agent Intent:
-2024-04-21 04:08:08,753 - INFO - 	goal: work
-2024-04-21 04:08:08,753 - INFO - Agent 0 is working
-2024-04-21 04:08:08,755 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,755 - INFO - === Step: ('Monday', 0, 11, 10) ===
-2024-04-21 04:08:08,756 - INFO - Step of agent 0
-2024-04-21 04:08:08,758 - INFO - Agent Intent:
-2024-04-21 04:08:08,758 - INFO - 	goal: work
-2024-04-21 04:08:08,759 - INFO - Agent 0 is working
-2024-04-21 04:08:08,760 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,761 - INFO - === Step: ('Monday', 0, 11, 20) ===
-2024-04-21 04:08:08,762 - INFO - Step of agent 0
-2024-04-21 04:08:08,765 - INFO - Agent Intent:
-2024-04-21 04:08:08,765 - INFO - 	goal: work
-2024-04-21 04:08:08,766 - INFO - Agent 0 is working
-2024-04-21 04:08:08,767 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,768 - INFO - === Step: ('Monday', 0, 11, 30) ===
-2024-04-21 04:08:08,768 - INFO - Step of agent 0
-2024-04-21 04:08:08,770 - INFO - Agent Intent:
-2024-04-21 04:08:08,771 - INFO - 	goal: work
-2024-04-21 04:08:08,771 - INFO - Agent 0 is working
-2024-04-21 04:08:08,773 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,773 - INFO - === Step: ('Monday', 0, 11, 40) ===
-2024-04-21 04:08:08,774 - INFO - Step of agent 0
-2024-04-21 04:08:08,776 - INFO - Agent Intent:
-2024-04-21 04:08:08,779 - INFO - 	goal: work
-2024-04-21 04:08:08,780 - INFO - Agent 0 is working
-2024-04-21 04:08:08,782 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,783 - INFO - === Step: ('Monday', 0, 11, 50) ===
-2024-04-21 04:08:08,783 - INFO - Step of agent 0
-2024-04-21 04:08:08,785 - INFO - Agent Intent:
-2024-04-21 04:08:08,786 - INFO - 	goal: work
-2024-04-21 04:08:08,786 - INFO - Agent 0 is working
-2024-04-21 04:08:08,788 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,789 - INFO - === Step: ('Monday', 0, 12, 0) ===
-2024-04-21 04:08:08,789 - INFO - Step of agent 0
-2024-04-21 04:08:08,791 - INFO - Agent Intent:
-2024-04-21 04:08:08,792 - INFO - 	goal: work
-2024-04-21 04:08:08,792 - INFO - Agent 0 is working
-2024-04-21 04:08:08,796 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,797 - INFO - === Step: ('Monday', 0, 12, 10) ===
-2024-04-21 04:08:08,798 - INFO - Step of agent 0
-2024-04-21 04:08:08,800 - INFO - Agent Intent:
-2024-04-21 04:08:08,801 - INFO - 	goal: work
-2024-04-21 04:08:08,802 - INFO - Agent 0 is working
-2024-04-21 04:08:08,803 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,804 - INFO - === Step: ('Monday', 0, 12, 20) ===
-2024-04-21 04:08:08,804 - INFO - Step of agent 0
-2024-04-21 04:08:08,806 - INFO - Agent Intent:
-2024-04-21 04:08:08,807 - INFO - 	goal: work
-2024-04-21 04:08:08,807 - INFO - Agent 0 is working
-2024-04-21 04:08:08,811 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,813 - INFO - === Step: ('Monday', 0, 12, 30) ===
-2024-04-21 04:08:08,814 - INFO - Step of agent 0
-2024-04-21 04:08:08,816 - INFO - Agent Intent:
-2024-04-21 04:08:08,817 - INFO - 	goal: work
-2024-04-21 04:08:08,818 - INFO - Agent 0 is working
-2024-04-21 04:08:08,820 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,820 - INFO - === Step: ('Monday', 0, 12, 40) ===
-2024-04-21 04:08:08,821 - INFO - Step of agent 0
-2024-04-21 04:08:08,823 - INFO - Agent Intent:
-2024-04-21 04:08:08,823 - INFO - 	goal: work
-2024-04-21 04:08:08,824 - INFO - Agent 0 is working
-2024-04-21 04:08:08,825 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,826 - INFO - === Step: ('Monday', 0, 12, 50) ===
-2024-04-21 04:08:08,827 - INFO - Step of agent 0
-2024-04-21 04:08:08,828 - INFO - Agent Intent:
-2024-04-21 04:08:08,830 - INFO - 	goal: work
-2024-04-21 04:08:08,830 - INFO - Agent 0 is working
-2024-04-21 04:08:08,832 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,833 - INFO - === Step: ('Monday', 0, 13, 0) ===
-2024-04-21 04:08:08,834 - INFO - Step of agent 0
-2024-04-21 04:08:08,836 - INFO - Agent Intent:
-2024-04-21 04:08:08,837 - INFO - 	goal: work
-2024-04-21 04:08:08,837 - INFO - Agent 0 is working
-2024-04-21 04:08:08,839 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,840 - INFO - === Step: ('Monday', 0, 13, 10) ===
-2024-04-21 04:08:08,840 - INFO - Step of agent 0
-2024-04-21 04:08:08,845 - INFO - Agent Intent:
-2024-04-21 04:08:08,846 - INFO - 	goal: work
-2024-04-21 04:08:08,847 - INFO - Agent 0 is working
-2024-04-21 04:08:08,849 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,850 - INFO - === Step: ('Monday', 0, 13, 20) ===
-2024-04-21 04:08:08,850 - INFO - Step of agent 0
-2024-04-21 04:08:08,852 - INFO - Agent Intent:
-2024-04-21 04:08:08,853 - INFO - 	goal: work
-2024-04-21 04:08:08,854 - INFO - Agent 0 is working
-2024-04-21 04:08:08,855 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,856 - INFO - === Step: ('Monday', 0, 13, 30) ===
-2024-04-21 04:08:08,856 - INFO - Step of agent 0
-2024-04-21 04:08:08,860 - INFO - Agent Intent:
-2024-04-21 04:08:08,865 - INFO - 	goal: work
-2024-04-21 04:08:08,865 - INFO - Agent 0 is working
-2024-04-21 04:08:08,867 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,868 - INFO - === Step: ('Monday', 0, 13, 40) ===
-2024-04-21 04:08:08,868 - INFO - Step of agent 0
-2024-04-21 04:08:08,870 - INFO - Agent Intent:
-2024-04-21 04:08:08,871 - INFO - 	goal: work
-2024-04-21 04:08:08,871 - INFO - Agent 0 is working
-2024-04-21 04:08:08,883 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,884 - INFO - === Step: ('Monday', 0, 13, 50) ===
-2024-04-21 04:08:08,884 - INFO - Step of agent 0
-2024-04-21 04:08:08,886 - INFO - Agent Intent:
-2024-04-21 04:08:08,890 - INFO - 	goal: work
-2024-04-21 04:08:08,890 - INFO - Agent 0 is working
-2024-04-21 04:08:08,893 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,895 - INFO - === Step: ('Monday', 0, 14, 0) ===
-2024-04-21 04:08:08,896 - INFO - Step of agent 0
-2024-04-21 04:08:08,898 - INFO - Agent Intent:
-2024-04-21 04:08:08,899 - INFO - 	goal: work
-2024-04-21 04:08:08,899 - INFO - Agent 0 is working
-2024-04-21 04:08:08,901 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,902 - INFO - === Step: ('Monday', 0, 14, 10) ===
-2024-04-21 04:08:08,902 - INFO - Step of agent 0
-2024-04-21 04:08:08,906 - INFO - Agent Intent:
-2024-04-21 04:08:08,907 - INFO - 	goal: work
-2024-04-21 04:08:08,907 - INFO - Agent 0 is working
-2024-04-21 04:08:08,909 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,914 - INFO - === Step: ('Monday', 0, 14, 20) ===
-2024-04-21 04:08:08,915 - INFO - Step of agent 0
-2024-04-21 04:08:08,918 - INFO - Agent Intent:
-2024-04-21 04:08:08,919 - INFO - 	goal: work
-2024-04-21 04:08:08,920 - INFO - Agent 0 is working
-2024-04-21 04:08:08,922 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,923 - INFO - === Step: ('Monday', 0, 14, 30) ===
-2024-04-21 04:08:08,923 - INFO - Step of agent 0
-2024-04-21 04:08:08,925 - INFO - Agent Intent:
-2024-04-21 04:08:08,926 - INFO - 	goal: work
-2024-04-21 04:08:08,926 - INFO - Agent 0 is working
-2024-04-21 04:08:08,928 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,929 - INFO - === Step: ('Monday', 0, 14, 40) ===
-2024-04-21 04:08:08,930 - INFO - Step of agent 0
-2024-04-21 04:08:08,932 - INFO - Agent Intent:
-2024-04-21 04:08:08,933 - INFO - 	goal: work
-2024-04-21 04:08:08,934 - INFO - Agent 0 is working
-2024-04-21 04:08:08,936 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,937 - INFO - === Step: ('Monday', 0, 14, 50) ===
-2024-04-21 04:08:08,937 - INFO - Step of agent 0
-2024-04-21 04:08:08,939 - INFO - Agent Intent:
-2024-04-21 04:08:08,940 - INFO - 	goal: work
-2024-04-21 04:08:08,941 - INFO - Agent 0 is working
-2024-04-21 04:08:08,943 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:08,944 - INFO - === Step: ('Monday', 0, 15, 0) ===
-2024-04-21 04:08:08,945 - INFO - Step of agent 0
-2024-04-21 04:08:08,948 - INFO - Agent Intent:
-2024-04-21 04:08:08,948 - INFO - 	goal: work
-2024-04-21 04:08:08,949 - INFO - Agent 0 is working
-2024-04-21 04:08:08,951 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:09,000 - INFO - === Step: ('Monday', 0, 15, 10) ===
-2024-04-21 04:08:09,000 - INFO - Step of agent 0
-2024-04-21 04:08:09,002 - INFO - Agent Intent:
-2024-04-21 04:08:09,003 - INFO - 	goal: work
-2024-04-21 04:08:09,003 - INFO - Agent 0 is working
-2024-04-21 04:08:09,005 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:09,005 - INFO - === Step: ('Monday', 0, 15, 20) ===
-2024-04-21 04:08:09,006 - INFO - Step of agent 0
-2024-04-21 04:08:09,008 - INFO - Agent Intent:
-2024-04-21 04:08:09,010 - INFO - 	goal: work
-2024-04-21 04:08:09,011 - INFO - Agent 0 is working
-2024-04-21 04:08:09,015 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:09,016 - INFO - === Step: ('Monday', 0, 15, 30) ===
-2024-04-21 04:08:09,017 - INFO - Step of agent 0
-2024-04-21 04:08:09,020 - INFO - Agent Intent:
-2024-04-21 04:08:09,021 - INFO - 	goal: work
-2024-04-21 04:08:09,022 - INFO - Agent 0 is working
-2024-04-21 04:08:09,024 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:09,025 - INFO - === Step: ('Monday', 0, 15, 40) ===
-2024-04-21 04:08:09,026 - INFO - Step of agent 0
-2024-04-21 04:08:09,030 - INFO - Agent Intent:
-2024-04-21 04:08:09,031 - INFO - 	goal: work
-2024-04-21 04:08:09,032 - INFO - Agent 0 is working
-2024-04-21 04:08:09,034 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:09,035 - INFO - === Step: ('Monday', 0, 15, 50) ===
-2024-04-21 04:08:09,036 - INFO - Step of agent 0
-2024-04-21 04:08:09,039 - INFO - Agent Intent:
-2024-04-21 04:08:09,040 - INFO - 	goal: work
-2024-04-21 04:08:09,040 - INFO - Agent 0 is working
-2024-04-21 04:08:09,047 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:09,048 - INFO - === Step: ('Monday', 0, 16, 0) ===
-2024-04-21 04:08:09,048 - INFO - Step of agent 0
-2024-04-21 04:08:09,050 - INFO - Agent Intent:
-2024-04-21 04:08:09,051 - INFO - 	goal: move, parameters: 147
-2024-04-21 04:08:09,052 - INFO - Agent 0 is moving to 147 from 158
-2024-04-21 04:08:58,005 - INFO - Agent moved to 25
-2024-04-21 04:08:58,291 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:58,336 - INFO - === Step: ('Monday', 0, 16, 10) ===
-2024-04-21 04:08:58,337 - INFO - Step of agent 0
-2024-04-21 04:08:58,340 - INFO - Agent Intent:
-2024-04-21 04:08:58,344 - INFO - 	goal: move, parameters: 147
-2024-04-21 04:08:58,346 - INFO - Agent 0 is moving to 147 from 25
-2024-04-21 04:08:58,348 - INFO - Agent moved to 35
-2024-04-21 04:08:58,354 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:58,355 - INFO - === Step: ('Monday', 0, 16, 20) ===
-2024-04-21 04:08:58,356 - INFO - Step of agent 0
-2024-04-21 04:08:58,360 - INFO - Agent Intent:
-2024-04-21 04:08:58,362 - INFO - 	goal: move, parameters: 147
-2024-04-21 04:08:58,364 - INFO - Agent 0 is moving to 147 from 35
-2024-04-21 04:08:58,366 - INFO - Agent moved to 45
-2024-04-21 04:08:58,370 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:58,373 - INFO - === Step: ('Monday', 0, 16, 30) ===
-2024-04-21 04:08:58,375 - INFO - Step of agent 0
-2024-04-21 04:08:58,392 - INFO - Agent Intent:
-2024-04-21 04:08:58,393 - INFO - 	goal: move, parameters: 147
-2024-04-21 04:08:58,394 - INFO - Agent 0 is moving to 147 from 45
-2024-04-21 04:08:58,395 - INFO - Agent moved to 147
-2024-04-21 04:08:58,400 - INFO - Canelo is transmitting use mask
-2024-04-21 04:08:58,402 - INFO - === Step: ('Monday', 0, 16, 40) ===
-2024-04-21 04:08:58,406 - INFO - Step of agent 0
-2024-04-21 04:08:58,417 - INFO - Agent Intent:
-2024-04-21 04:08:58,420 - INFO - 	goal: move, parameters: 158
-2024-04-21 04:08:58,421 - INFO - Agent 0 is moving to 158 from 147
+2024-04-21 14:09:15,782 - INFO - === Simulation Execution Started ===
+2024-04-21 14:09:15,782 - DEBUG - === Initializing City ===
+2024-04-21 14:09:15,783 - DEBUG - === Initializing Epidemic Model ===
+2024-04-21 14:09:15,785 - DEBUG - === Initializing Environment ===
+2024-04-21 14:09:15,785 - DEBUG - === Initializing Agents ===
+2024-04-21 14:09:15,794 - INFO - === Starting Simulation Loop With 4464 Steps ===
+2024-04-21 14:09:15,794 - INFO - === Step: ('Monday', 0, 0, 0) ===
+2024-04-21 14:09:15,794 - INFO - Step of agent 0
+2024-04-21 14:09:15,795 - INFO - Agent Intent:
+2024-04-21 14:09:15,795 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,795 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,795 - ERROR - Action none not recognized
+2024-04-21 14:09:15,795 - INFO - === Step: ('Monday', 0, 0, 10) ===
+2024-04-21 14:09:15,796 - INFO - Step of agent 0
+2024-04-21 14:09:15,796 - INFO - Agent Intent:
+2024-04-21 14:09:15,796 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,796 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,796 - ERROR - Action none not recognized
+2024-04-21 14:09:15,796 - INFO - === Step: ('Monday', 0, 0, 20) ===
+2024-04-21 14:09:15,797 - INFO - Step of agent 0
+2024-04-21 14:09:15,797 - INFO - Agent Intent:
+2024-04-21 14:09:15,797 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,797 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,797 - ERROR - Action none not recognized
+2024-04-21 14:09:15,797 - INFO - === Step: ('Monday', 0, 0, 30) ===
+2024-04-21 14:09:15,798 - INFO - Step of agent 0
+2024-04-21 14:09:15,798 - INFO - Agent Intent:
+2024-04-21 14:09:15,798 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,798 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,798 - ERROR - Action none not recognized
+2024-04-21 14:09:15,798 - INFO - === Step: ('Monday', 0, 0, 40) ===
+2024-04-21 14:09:15,798 - INFO - Step of agent 0
+2024-04-21 14:09:15,799 - INFO - Agent Intent:
+2024-04-21 14:09:15,799 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,799 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,799 - ERROR - Action none not recognized
+2024-04-21 14:09:15,799 - INFO - === Step: ('Monday', 0, 0, 50) ===
+2024-04-21 14:09:15,799 - INFO - Step of agent 0
+2024-04-21 14:09:15,800 - INFO - Agent Intent:
+2024-04-21 14:09:15,800 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,800 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,800 - ERROR - Action none not recognized
+2024-04-21 14:09:15,800 - INFO - === Step: ('Monday', 0, 1, 0) ===
+2024-04-21 14:09:15,800 - INFO - Step of agent 0
+2024-04-21 14:09:15,800 - INFO - Agent Intent:
+2024-04-21 14:09:15,801 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,801 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,801 - ERROR - Action none not recognized
+2024-04-21 14:09:15,801 - INFO - === Step: ('Monday', 0, 1, 10) ===
+2024-04-21 14:09:15,801 - INFO - Step of agent 0
+2024-04-21 14:09:15,801 - INFO - Agent Intent:
+2024-04-21 14:09:15,801 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,802 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,802 - ERROR - Action none not recognized
+2024-04-21 14:09:15,802 - INFO - === Step: ('Monday', 0, 1, 20) ===
+2024-04-21 14:09:15,802 - INFO - Step of agent 0
+2024-04-21 14:09:15,802 - INFO - Agent Intent:
+2024-04-21 14:09:15,802 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,802 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,803 - ERROR - Action none not recognized
+2024-04-21 14:09:15,803 - INFO - === Step: ('Monday', 0, 1, 30) ===
+2024-04-21 14:09:15,803 - INFO - Step of agent 0
+2024-04-21 14:09:15,803 - INFO - Agent Intent:
+2024-04-21 14:09:15,803 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,803 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,804 - ERROR - Action none not recognized
+2024-04-21 14:09:15,804 - INFO - === Step: ('Monday', 0, 1, 40) ===
+2024-04-21 14:09:15,804 - INFO - Step of agent 0
+2024-04-21 14:09:15,804 - INFO - Agent Intent:
+2024-04-21 14:09:15,804 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,804 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,805 - ERROR - Action none not recognized
+2024-04-21 14:09:15,805 - INFO - === Step: ('Monday', 0, 1, 50) ===
+2024-04-21 14:09:15,805 - INFO - Step of agent 0
+2024-04-21 14:09:15,805 - INFO - Agent Intent:
+2024-04-21 14:09:15,805 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,805 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,806 - ERROR - Action none not recognized
+2024-04-21 14:09:15,806 - INFO - === Step: ('Monday', 0, 2, 0) ===
+2024-04-21 14:09:15,806 - INFO - Step of agent 0
+2024-04-21 14:09:15,806 - INFO - Agent Intent:
+2024-04-21 14:09:15,806 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,807 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,807 - ERROR - Action none not recognized
+2024-04-21 14:09:15,807 - INFO - === Step: ('Monday', 0, 2, 10) ===
+2024-04-21 14:09:15,807 - INFO - Step of agent 0
+2024-04-21 14:09:15,807 - INFO - Agent Intent:
+2024-04-21 14:09:15,807 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,808 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,808 - ERROR - Action none not recognized
+2024-04-21 14:09:15,808 - INFO - === Step: ('Monday', 0, 2, 20) ===
+2024-04-21 14:09:15,808 - INFO - Step of agent 0
+2024-04-21 14:09:15,808 - INFO - Agent Intent:
+2024-04-21 14:09:15,808 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,809 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,809 - ERROR - Action none not recognized
+2024-04-21 14:09:15,809 - INFO - === Step: ('Monday', 0, 2, 30) ===
+2024-04-21 14:09:15,809 - INFO - Step of agent 0
+2024-04-21 14:09:15,809 - INFO - Agent Intent:
+2024-04-21 14:09:15,810 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,810 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,810 - ERROR - Action none not recognized
+2024-04-21 14:09:15,810 - INFO - === Step: ('Monday', 0, 2, 40) ===
+2024-04-21 14:09:15,810 - INFO - Step of agent 0
+2024-04-21 14:09:15,810 - INFO - Agent Intent:
+2024-04-21 14:09:15,811 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,811 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,811 - ERROR - Action none not recognized
+2024-04-21 14:09:15,811 - INFO - === Step: ('Monday', 0, 2, 50) ===
+2024-04-21 14:09:15,811 - INFO - Step of agent 0
+2024-04-21 14:09:15,812 - INFO - Agent Intent:
+2024-04-21 14:09:15,812 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,812 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,812 - ERROR - Action none not recognized
+2024-04-21 14:09:15,812 - INFO - === Step: ('Monday', 0, 3, 0) ===
+2024-04-21 14:09:15,812 - INFO - Step of agent 0
+2024-04-21 14:09:15,813 - INFO - Agent Intent:
+2024-04-21 14:09:15,813 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,813 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,813 - ERROR - Action none not recognized
+2024-04-21 14:09:15,813 - INFO - === Step: ('Monday', 0, 3, 10) ===
+2024-04-21 14:09:15,813 - INFO - Step of agent 0
+2024-04-21 14:09:15,814 - INFO - Agent Intent:
+2024-04-21 14:09:15,814 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,814 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,814 - ERROR - Action none not recognized
+2024-04-21 14:09:15,814 - INFO - === Step: ('Monday', 0, 3, 20) ===
+2024-04-21 14:09:15,814 - INFO - Step of agent 0
+2024-04-21 14:09:15,815 - INFO - Agent Intent:
+2024-04-21 14:09:15,815 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,815 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,815 - ERROR - Action none not recognized
+2024-04-21 14:09:15,815 - INFO - === Step: ('Monday', 0, 3, 30) ===
+2024-04-21 14:09:15,815 - INFO - Step of agent 0
+2024-04-21 14:09:15,816 - INFO - Agent Intent:
+2024-04-21 14:09:15,816 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,816 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,816 - ERROR - Action none not recognized
+2024-04-21 14:09:15,816 - INFO - === Step: ('Monday', 0, 3, 40) ===
+2024-04-21 14:09:15,817 - INFO - Step of agent 0
+2024-04-21 14:09:15,817 - INFO - Agent Intent:
+2024-04-21 14:09:15,817 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,817 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,817 - ERROR - Action none not recognized
+2024-04-21 14:09:15,818 - INFO - === Step: ('Monday', 0, 3, 50) ===
+2024-04-21 14:09:15,818 - INFO - Step of agent 0
+2024-04-21 14:09:15,818 - INFO - Agent Intent:
+2024-04-21 14:09:15,818 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,818 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,818 - ERROR - Action none not recognized
+2024-04-21 14:09:15,819 - INFO - === Step: ('Monday', 0, 4, 0) ===
+2024-04-21 14:09:15,819 - INFO - Step of agent 0
+2024-04-21 14:09:15,819 - INFO - Agent Intent:
+2024-04-21 14:09:15,819 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,819 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,819 - ERROR - Action none not recognized
+2024-04-21 14:09:15,820 - INFO - === Step: ('Monday', 0, 4, 10) ===
+2024-04-21 14:09:15,820 - INFO - Step of agent 0
+2024-04-21 14:09:15,820 - INFO - Agent Intent:
+2024-04-21 14:09:15,820 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,820 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,821 - ERROR - Action none not recognized
+2024-04-21 14:09:15,821 - INFO - === Step: ('Monday', 0, 4, 20) ===
+2024-04-21 14:09:15,821 - INFO - Step of agent 0
+2024-04-21 14:09:15,821 - INFO - Agent Intent:
+2024-04-21 14:09:15,821 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,821 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,822 - ERROR - Action none not recognized
+2024-04-21 14:09:15,822 - INFO - === Step: ('Monday', 0, 4, 30) ===
+2024-04-21 14:09:15,822 - INFO - Step of agent 0
+2024-04-21 14:09:15,822 - INFO - Agent Intent:
+2024-04-21 14:09:15,822 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,822 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,823 - ERROR - Action none not recognized
+2024-04-21 14:09:15,823 - INFO - === Step: ('Monday', 0, 4, 40) ===
+2024-04-21 14:09:15,823 - INFO - Step of agent 0
+2024-04-21 14:09:15,823 - INFO - Agent Intent:
+2024-04-21 14:09:15,823 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,823 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,824 - ERROR - Action none not recognized
+2024-04-21 14:09:15,824 - INFO - === Step: ('Monday', 0, 4, 50) ===
+2024-04-21 14:09:15,824 - INFO - Step of agent 0
+2024-04-21 14:09:15,824 - INFO - Agent Intent:
+2024-04-21 14:09:15,824 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,824 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,825 - ERROR - Action none not recognized
+2024-04-21 14:09:15,825 - INFO - === Step: ('Monday', 0, 5, 0) ===
+2024-04-21 14:09:15,825 - INFO - Step of agent 0
+2024-04-21 14:09:15,825 - INFO - Agent Intent:
+2024-04-21 14:09:15,825 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,825 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,826 - ERROR - Action none not recognized
+2024-04-21 14:09:15,826 - INFO - === Step: ('Monday', 0, 5, 10) ===
+2024-04-21 14:09:15,826 - INFO - Step of agent 0
+2024-04-21 14:09:15,826 - INFO - Agent Intent:
+2024-04-21 14:09:15,826 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,826 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,827 - ERROR - Action none not recognized
+2024-04-21 14:09:15,827 - INFO - === Step: ('Monday', 0, 5, 20) ===
+2024-04-21 14:09:15,827 - INFO - Step of agent 0
+2024-04-21 14:09:15,827 - INFO - Agent Intent:
+2024-04-21 14:09:15,827 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,827 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,828 - ERROR - Action none not recognized
+2024-04-21 14:09:15,828 - INFO - === Step: ('Monday', 0, 5, 30) ===
+2024-04-21 14:09:15,828 - INFO - Step of agent 0
+2024-04-21 14:09:15,828 - INFO - Agent Intent:
+2024-04-21 14:09:15,828 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,829 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,829 - ERROR - Action none not recognized
+2024-04-21 14:09:15,829 - INFO - === Step: ('Monday', 0, 5, 40) ===
+2024-04-21 14:09:15,829 - INFO - Step of agent 0
+2024-04-21 14:09:15,829 - INFO - Agent Intent:
+2024-04-21 14:09:15,829 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,830 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,830 - ERROR - Action none not recognized
+2024-04-21 14:09:15,830 - INFO - === Step: ('Monday', 0, 5, 50) ===
+2024-04-21 14:09:15,830 - INFO - Step of agent 0
+2024-04-21 14:09:15,830 - INFO - Agent Intent:
+2024-04-21 14:09:15,830 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,831 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,831 - ERROR - Action none not recognized
+2024-04-21 14:09:15,831 - INFO - === Step: ('Monday', 0, 6, 0) ===
+2024-04-21 14:09:15,831 - INFO - Step of agent 0
+2024-04-21 14:09:15,831 - INFO - Agent Intent:
+2024-04-21 14:09:15,831 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,832 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,832 - ERROR - Action none not recognized
+2024-04-21 14:09:15,832 - INFO - === Step: ('Monday', 0, 6, 10) ===
+2024-04-21 14:09:15,832 - INFO - Step of agent 0
+2024-04-21 14:09:15,832 - INFO - Agent Intent:
+2024-04-21 14:09:15,833 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,833 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,833 - ERROR - Action none not recognized
+2024-04-21 14:09:15,833 - INFO - === Step: ('Monday', 0, 6, 20) ===
+2024-04-21 14:09:15,833 - INFO - Step of agent 0
+2024-04-21 14:09:15,833 - INFO - Agent Intent:
+2024-04-21 14:09:15,834 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,834 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,834 - ERROR - Action none not recognized
+2024-04-21 14:09:15,834 - INFO - === Step: ('Monday', 0, 6, 30) ===
+2024-04-21 14:09:15,834 - INFO - Step of agent 0
+2024-04-21 14:09:15,834 - INFO - Agent Intent:
+2024-04-21 14:09:15,835 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,835 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,835 - ERROR - Action none not recognized
+2024-04-21 14:09:15,835 - INFO - === Step: ('Monday', 0, 6, 40) ===
+2024-04-21 14:09:15,835 - INFO - Step of agent 0
+2024-04-21 14:09:15,836 - INFO - Agent Intent:
+2024-04-21 14:09:15,836 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,836 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,836 - ERROR - Action none not recognized
+2024-04-21 14:09:15,836 - INFO - === Step: ('Monday', 0, 6, 50) ===
+2024-04-21 14:09:15,836 - INFO - Step of agent 0
+2024-04-21 14:09:15,837 - INFO - Agent Intent:
+2024-04-21 14:09:15,837 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,837 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,837 - ERROR - Action none not recognized
+2024-04-21 14:09:15,837 - INFO - === Step: ('Monday', 0, 7, 0) ===
+2024-04-21 14:09:15,837 - INFO - Step of agent 0
+2024-04-21 14:09:15,838 - INFO - Agent Intent:
+2024-04-21 14:09:15,838 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,838 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,838 - ERROR - Action none not recognized
+2024-04-21 14:09:15,838 - INFO - === Step: ('Monday', 0, 7, 10) ===
+2024-04-21 14:09:15,838 - INFO - Step of agent 0
+2024-04-21 14:09:15,839 - INFO - Agent Intent:
+2024-04-21 14:09:15,839 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,839 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,839 - ERROR - Action none not recognized
+2024-04-21 14:09:15,839 - INFO - === Step: ('Monday', 0, 7, 20) ===
+2024-04-21 14:09:15,839 - INFO - Step of agent 0
+2024-04-21 14:09:15,840 - INFO - Agent Intent:
+2024-04-21 14:09:15,840 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,840 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,840 - ERROR - Action none not recognized
+2024-04-21 14:09:15,840 - INFO - === Step: ('Monday', 0, 7, 30) ===
+2024-04-21 14:09:15,840 - INFO - Step of agent 0
+2024-04-21 14:09:15,841 - INFO - Agent Intent:
+2024-04-21 14:09:15,841 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,841 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,841 - ERROR - Action none not recognized
+2024-04-21 14:09:15,841 - INFO - === Step: ('Monday', 0, 7, 40) ===
+2024-04-21 14:09:15,842 - INFO - Step of agent 0
+2024-04-21 14:09:15,842 - INFO - Agent Intent:
+2024-04-21 14:09:15,842 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,842 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,842 - ERROR - Action none not recognized
+2024-04-21 14:09:15,842 - INFO - === Step: ('Monday', 0, 7, 50) ===
+2024-04-21 14:09:15,843 - INFO - Step of agent 0
+2024-04-21 14:09:15,843 - INFO - Agent Intent:
+2024-04-21 14:09:15,843 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 14:09:15,843 - INFO - Agent 0 action is empty
+2024-04-21 14:09:15,843 - ERROR - Action none not recognized
+2024-04-21 14:09:15,843 - INFO - === Step: ('Monday', 0, 8, 0) ===
+2024-04-21 14:09:15,844 - INFO - Step of agent 0

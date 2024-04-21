@@ -89,3 +89,12 @@ La interfaz de usuario, desarrollada con Streamlit, es una herramienta clave par
 Una característica destacada de la interfaz de usuario es su capacidad para modificar parámetros de la simulación, lo que permite a los usuarios explorar diferentes escenarios y observar cómo estos cambios afectan la dinámica de la enfermedad en el entorno. Para implementar esta interfaz, se utiliza **gpt4all**, una plataforma de inteligencia artificial que integra capacidades de procesamiento de lenguaje natural (NLP). Esto facilita la creación de interfaces de usuario basadas en texto que pueden entender y responder a las consultas de los usuarios de manera natural y fluida.
 
 El modelo **Mistral**, entrenado con **gpt4all**, juega un papel crucial en el procesamiento de lenguaje natural dentro de la interfaz de usuario. El entrenamiento del modelo implica la recolección de un conjunto de datos de entrenamiento que incluye ejemplos de consultas y respuestas esperadas. A través de este proceso, el modelo aprende a reconocer patrones en las consultas de los usuarios y a generar respuestas que se alinean con las expectativas. Una vez entrenado, el modelo se evalúa y, si su rendimiento es satisfactorio, se despliega en la interfaz de usuario para interactuar con los usuarios y responder a sus consultas de manera eficiente y precisa.
+
+# Conclusiones
+
+# Bibliografía
+
+[1] https://towardsdatascience.com/introducing-geneal-a-genetic-algorithm-python-library-db69abfc212c  
+[2] https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1009149  
+[3] https://github.com/diogomatoschaves/geneal  
+[4] https://jmvidal.cse.sc.edu/library/muller93a.pdf  

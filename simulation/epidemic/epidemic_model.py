@@ -6,6 +6,7 @@ from typing import List, Tuple
 import random
 import logging
 import itertools
+logger = logging.getLogger(__name__)
 
 class EpidemicModel:
     """
@@ -137,7 +138,17 @@ class EpidemicModel:
         for (citizens, contact_rate) in nodes:
             for citizen in citizens:
                 if citizen.status in self.infection_stages:
+                    agent_old_status = self._query_stage(citizen.unique_id)
+                    agent_old_symptoms = self._query_symptoms(citizen.unique_id)
                     self.step_dissease(citizen)
+                    # log the new state of the dissease and the symptoms
+                    agent_new_status = self._query_stage(citizen.unique_id)
+                    agent_new_symptoms = self._query_symptoms(citizen.unique_id)
+                    if agent_new_status != agent_old_status:
+                        logger.info(f'Agent status changed from {agent_old_status} to {agent_new_status}')
+                    
+                    log_agent_symptoms_chages(agent_old_symptoms, agent_new_symptoms)
+                    
                 else:
                     for infected_citizen in [c for c in citizens if c.status in self.infection_stages]:
                         if any([citizen.masked, infected_citizen.masked]):
@@ -148,3 +159,22 @@ class EpidemicModel:
 
         for citizen in contact_list:
             self.spread_disease(citizen)
+            # Log the newly infected agents
+
+def log_agent_symptoms_chages(old_symptoms, new_symptoms):
+    removed_symptoms = []
+    added_symptoms = []
+    for symptom in old_symptoms:
+        if symptom not in new_symptoms:
+            removed_symptoms.append(symptom)
+
+    for symptom in new_symptoms:
+        if symptom not in old_symptoms:
+            added_symptoms.append(symptom)
+
+    if removed_symptoms:
+        logger.debug(f'Removed Symptoms: {removed_symptoms}')
+    if added_symptoms:
+        logger.debug(f'Added Symptoms: {added_symptoms}')
+    else:
+        logger.debug(f'No Symptoms were modified')

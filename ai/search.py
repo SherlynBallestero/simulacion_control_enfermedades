@@ -79,80 +79,50 @@ class Problem(object):
 
     def __init__(self, initial=None, goal=None, **kwds): 
         self.__dict__.update(initial=initial, goal=goal, **kwds) 
-        
+
     def actions(self, state):        raise NotImplementedError
     def result(self, state, action): raise NotImplementedError
     def is_goal(self, state):        return state == self.goal
     def action_cost(self, s, a, s1): return 1
     def h(self, node):               return 0
-    
+
     def __str__(self):
         return '{}({!r}, {!r})'.format(
             type(self).__name__, self.initial, self.goal)
-    
-  
-class ShortPathProblem(Problem):
+
+
+class AgentPathProblem(Problem):
     def __init__(self, initial, goal, map):
         self.initial, self.goal, self.map = initial, goal, map
-    
+
     def actions(self, state):
-        return [self.map[node_id] for node_id in self.map.graph.get_neighbors(state.id)]
-    
+        return [self.map[node_id] for node_id in self.map.get_neighbors(state.id)]
+
     def result(self, state, action):
         return action
     
-    def h2(self, node):
-        return  abs(node.addr[0] - self.goal.addr[0]) + abs(node.addr[1] - self.goal.addr[1])
-    
-    def h(self, node): return self.h2(node)
-    
-    
-class MinExposureProblem(Problem):
-    def __init__():
-        pass
-    
-        """ The problem of sliding tiles numbered from 1 to 8 on a 3x3 board,
-    where one of the squares is a blank, trying to reach a goal configuration.
-    A board state is represented as a tuple of length 9, where the element at index i 
-    represents the tile number at index i, or 0 if for the empty square, e.g. the goal:
-        1 2 3
-        4 5 6 ==> (1, 2, 3, 4, 5, 6, 7, 8, 0)
-        7 8 _
-    """
+    def manhattan_h(self, node):
+        return  abs(node.state.addr[0] - self.goal.addr[0]) + abs(node.state.addr[1] - self.goal.addr[1])
 
-    def __init__(self, initial, goal=(0, 1, 2, 3, 4, 5, 6, 7, 8)):
-        assert inversions(initial) % 2 == inversions(goal) % 2 # Parity check
-        self.initial, self.goal = initial, goal
-    
-    def actions(self, state):
-        """The indexes of the squares that the blank can move to."""
-        moves = ((1, 3),    (0, 2, 4),    (1, 5),
-                 (0, 4, 6), (1, 3, 5, 7), (2, 4, 8),
-                 (3, 7),    (4, 6, 8),    (7, 5))
-        blank = state.index(0)
-        return moves[blank]
-    
-    def result(self, state, action):
-        """Swap the blank with the square numbered `action`."""
-        s = list(state)
-        blank = state.index(0)
-        s[action], s[blank] = s[blank], s[action]
-        return tuple(s)
-    
-    def h1(self, node):
-        """The misplaced tiles heuristic."""
-        return hamming_distance(node.state, self.goal)
-    
-    def h2(self, node):
-        """The Manhattan heuristic."""
-        X = (0, 1, 2, 0, 1, 2, 0, 1, 2)
-        Y = (0, 0, 0, 1, 1, 1, 2, 2, 2)
-        return sum(abs(X[s] - X[g]) + abs(Y[s] - Y[g])
-                   for (s, g) in zip(node.state, self.goal) if s != 0)
-    
-    def h(self, node): return self.h2(node)
-    
-    
+    def minimum_contact_h(self, node):
+        # Define a heuristic function based on contact chance
+        contact_danger = {
+            'low': 1, 'medium': 2, 'high': 3, 'very_high': 4
+        }
+        if node.state.capacity_status == 'unknown':
+            total = 0
+            for neighbor in self.map.get_neighbors(node.state.id):
+                if self.map[neighbor].capacity_status != 'unknown':
+                    total += contact_danger[self.map[neighbor].capacity_status]
+            contact_val = total/ len(self.map.get_neighbors(node.state.id))
+            #change the state so capacity status corresponds to the 
+            node.state.capacity_status = 'low' if contact_val < 1.5 else 'medium' if contact_val < 2.5 else 'high' if contact_val < 3.5 else 'very_high'
+
+        return contact_danger[node.state.capacity_status]
+
+    def h(self, node): return self.minimum_contact_h(node)
+
+
 class Node:
     "A Node in a search tree."
     def __init__(self, state, parent=None, action=None, path_cost=0):
@@ -161,25 +131,20 @@ class Node:
     def __repr__(self): return '<{}>'.format(self.state)
     def __len__(self): return 0 if self.parent is None else (1 + len(self.parent))
     def __lt__(self, other): return self.path_cost < other.path_cost
- 
-class NodeCity(Node):
-    def __init__(self, state, parent=None, action=None, path_cost=0):
-        super().__init__(state, parent, action, path_cost)
-        self.__dict__.update(addr = state.addr, id = state.id)
-         
-    
+
+
 failure = Node('failure', path_cost=math.inf) # Indicates an algorithm couldn't find a solution.
 cutoff  = Node('cutoff',  path_cost=math.inf) # Indicates iterative deepening search was cut off.
-    
-    
+
+
 def expand(problem, node):
     "Expand a node, generating the children nodes."
     s = node.state
     for action in problem.actions(s):
         s1 = problem.result(s, action)
         cost = node.path_cost + problem.action_cost(s, action, s1)
-        yield NodeCity(s1, node, action, cost)
-        
+        yield Node(s1, node, action, cost)
+
 
 def path_actions(node):
     "The sequence of actions to get to this node."
@@ -197,7 +162,9 @@ def path_states(node):
 
 FIFOQueue = deque
 
+
 LIFOQueue = list
+
 
 class PriorityQueue:
     """A queue in which the item with minimum f(item) is always popped first."""
@@ -220,10 +187,11 @@ class PriorityQueue:
     def top(self): return self.items[0][1]
 
     def __len__(self): return len(self.items)
-    
+
+
 def best_first_search(problem, f):
     "Search nodes with minimum f(node) value first."
-    node = NodeCity(problem.initial)
+    node = Node(problem.initial)
     frontier = PriorityQueue([node], key=f)
     reached = {problem.initial: node}
     while frontier:
@@ -271,7 +239,7 @@ def weighted_astar_search(problem, h=None, weight=1.4):
     h = h or problem.h
     return best_first_search(problem, f=lambda n: g(n) + weight * h(n))
 
-        
+
 def greedy_bfs(problem, h=None):
     """Search nodes with minimum h(n)."""
     h = h or problem.h
@@ -300,6 +268,7 @@ def is_cycle(node, k=30):
                 (ancestor.state == node.state or find_cycle(ancestor.parent, k - 1)))
     return find_cycle(node.parent, k)
 
+
 def breadth_first_search(problem):
     "Search shallowest nodes in the search tree first."
     node = Node(problem.initial)
@@ -325,8 +294,8 @@ def iterative_deepening_search(problem):
         result = depth_limited_search(problem, limit)
         if result != cutoff:
             return result
-        
-        
+
+
 def depth_limited_search(problem, limit=10):
     "Search deepest nodes in the search tree first."
     frontier = LIFOQueue([Node(problem.initial)])
@@ -356,3 +325,4 @@ def depth_first_recursive_search(problem, node=None):
             if result:
                 return result
         return failure
+

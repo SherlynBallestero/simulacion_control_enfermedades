@@ -4,7 +4,7 @@ from simulation.epidemic.epidemic_model import EpidemicModel
 from simulation.enviroment.sim_nodes import CitizenPerceptionNode as CPNode
 from simulation.enviroment.sim_nodes import BlockNode, Hospital, HouseNode, PublicPlace, BusStop, Workspace
 from simulation.enviroment.map import Terrain
-from ai.search import a_star, bfs, ShortPathProblem, astar_search, path_states
+from ai.search import a_star, bfs, AgentPathProblem, astar_search, path_states
 from typing import Tuple, List
 import random
 from simulation.enviroment.graph import Graph
@@ -355,13 +355,15 @@ class WorldInterface:
             parametersList.append(parameters)
             parameters = parametersList
             
-        if action == 'move':
+        if action == 'move':#TODO: Change to a heuristic to another when needed
             logger.info(f'Agent {agent.unique_id} is moving to {parameters[0]} from {agent.location}')
             # a = a_star(self.map, agent.location, parameters[0])
             if agent._last_path and agent._last_path[-1] == parameters[0]:
                 path = agent._last_path
             else:
-                problem = ShortPathProblem(self.map[agent.location], self.map[parameters[0]], self.map )             
+                map = self.agent_mind_map
+                problem = AgentPathProblem(map[agent.location], map[parameters[0]], map)
+                # problem = AgentPathProblem(self.map[agent.location], self.map[parameters[0]], self.map)             
                 path = path_states(astar_search(problem))[1:]
                 agent._last_path = path
 

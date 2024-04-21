@@ -53,6 +53,15 @@ class Graph:
         """
         self.nodes: dict[Hashable, Node] = {}
         self.edges: dict[Tuple[Hashable,Hashable], float] = {}
+        
+    def __getitem__(self, index: int):
+        """
+        Gets a node or a list of nodes by their address or ID.
+        
+        Args:
+            index (Union[Tuple, int]): Address or ID of the node.
+        """
+        return self.nodes[index]
 
     def add_node(self, node:Node)-> None:
         """

@@ -307,7 +307,7 @@ class CooperativeLayer:
             local_planning_layer (LocalPlanningLayer): The local planning layer of the agent.
             knowledge (Knowledge): The knowledge base of the agent.
         """
-        self.local_planning_layer = local_planning_layer
+        self.local_planning_layer: LocalPlanningLayer = local_planning_layer
         self.knowledge = knowledge
 
     def cooperate(self,agent1, agent2, queryString):
@@ -329,33 +329,3 @@ class CooperativeLayer:
         """
         return self.local_planning_layer.plan(joint_plan)
         
-    # def comunicate(self, reciever: 'Agent', message) -> None:
-    #     """
-    #     Communicate with another agent based on a message.
-
-    #     Args:
-    #         receiver (Agent): The agent to communicate with.
-    #         message (str): The message to be communicated.
-    #     """
-    #     if message == 'mask_use':
-    #         reciever.knowledge_base.add_mask_necessity('true')
-            
-    #     if message == 'remove_mask':
-    #         reciever.knowledge_base.add_mask_necessity('false')
-        
-    #     if message == 'quarantine':
-    #         reciever.knowledge_base.add_quarantine('true')
-            
-    #     if message == 'social_distancing':
-    #         reciever.knowledge_base.add_social_distancing('true')
-        
-    #     if message == 'tests_and_diagnosis':
-    #         reciever.knowledge_base.add_tests_and_diagnosis('true')
-        
-    #     if message == 'contact_tracing':
-    #         reciever.knowledge_base.add_contact_tracing('true')
-        
-    #     if message == 'isolation':
-    #         reciever.knowledge_base.add_isolation('true')
-            
-

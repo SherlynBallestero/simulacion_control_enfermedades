@@ -68,7 +68,8 @@ class EpidemicModel:
         Returns:
             List[str]: The symptoms of the agent.
         """
-        return [atom.value for atom in list(self.disease_k.query(f'symptoms({agent_id}, S)'))[0]['S']]
+        result = list(self.disease_k.query(f'symptoms({agent_id}, S)'))
+        return [atom.value for atom in result[0]['S']]
 
     def _step_dissease_query(self, agent: Agent) -> str:
         """
@@ -143,11 +144,12 @@ class EpidemicModel:
                     self.step_dissease(citizen)
                     # log the new state of the dissease and the symptoms
                     agent_new_status = self._query_stage(citizen.unique_id)
-                    agent_new_symptoms = self._query_symptoms(citizen.unique_id)
+                    if agent_new_status in self.infection_stages:
+                        agent_new_symptoms = self._query_symptoms(citizen.unique_id)
+                        log_agent_symptoms_chages(agent_old_symptoms, agent_new_symptoms)
                     if agent_new_status != agent_old_status:
                         logger.info(f'Agent status changed from {agent_old_status} to {agent_new_status}')
                     
-                    log_agent_symptoms_chages(agent_old_symptoms, agent_new_symptoms)
                     
                 else:
                     for infected_citizen in [c for c in citizens if c.status in self.infection_stages]:

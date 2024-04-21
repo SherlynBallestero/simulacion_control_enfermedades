@@ -310,7 +310,7 @@ class CooperativeLayer:
         self.local_planning_layer = local_planning_layer
         self.knowledge = knowledge
 
-    def cooperate(self, queryString):
+    def cooperate(self,agent1, agent2, queryString):
         """
         Cooperate based on a query string.
 
@@ -320,7 +320,23 @@ class CooperativeLayer:
         query = f"{queryString}"
         self.knowledge.query(query)
         
+    def execute_plan(self, joint_plan):
+        """
+        Execute a joint plan.
+
+        Args:
+            joint_plan (dict): The joint plan to be executed.
+        """
+        return self.local_planning_layer.plan(joint_plan)
+        
     def comunicate(self, reciever: 'Agent', message) -> None:
+        """
+        Communicate with another agent based on a message.
+
+        Args:
+            receiver (Agent): The agent to communicate with.
+            message (str): The message to be communicated.
+        """
         if message == 'mask_use':
             reciever.knowledge_base.add_mask_necessity('true')
             

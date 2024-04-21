@@ -40,7 +40,6 @@ class Agent:
         self.pbc = lp_component
         self.cc = c_component
         self.wi = wi_component
-  
 
     def process_perception(self, world_perception: Dict[Hashable, CPNode], step_num):
         k = self.knowledge_base
@@ -58,13 +57,12 @@ class Agent:
         self.process_perception(perception, step_num)
         action, arguments = self.bbc.react("behavioral_step(Action, Arguments)")
         if not action:
-            plan = self.pbc.plan("planification_step()")
+            plan = self.pbc.plan("planification_step(X)")
             action, arguments = self.bbc.react("behavioral_step(Action, Arguments)")
         
         # if (not action) and (not plan) :
         #     coperate = self.cc.cooperate(self, 'other', "coperate()")
-            
-        
+
         log_agent_intentions(self.knowledge_base)
         self.wi.act(self, action, arguments)
         self.knowledge_base.feedback(self.location, self.masked)

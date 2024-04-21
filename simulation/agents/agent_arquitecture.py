@@ -289,7 +289,8 @@ class LocalPlanningLayer:
             queryString (str): The query string.
         """
         query = f"{queryString}"
-        list(self.knowledge.query(query))
+        plan = list(self.knowledge.query(query))
+        return plan[0]['X'] if plan != [] else []
 
 class CooperativeLayer:
     """
@@ -319,6 +320,12 @@ class CooperativeLayer:
         """
         query = f"{queryString}"
         self.knowledge.query(query)
+    
+    def generate_plan(self):
+        self.local_planning_layer.plan()
+    
+    def evaluate_plan():
+        pass
         
     def execute_plan(self, joint_plan):
         """

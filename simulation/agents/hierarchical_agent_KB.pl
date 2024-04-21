@@ -241,7 +241,6 @@ feedback(Location, WearingMask):-
 
 % Rules
 
-
 remove_goals():-
     retractall(goal(_)),
     retractall(goal(_, _)).
@@ -266,7 +265,6 @@ goal_move(TagetNode):-
     retractall(goal(move, _)),
     assert(goal(move, TagetNode)).
     
-
 get_to_work(WorkId):-
     goal_move(WorkId),
     location(WorkId).
@@ -304,30 +302,33 @@ have_fun(Id):-
 go_home(HomeId):-
     goal_move(HomeId).
 
-work_day_routine(WorkId, HomeId):-
+work_day_routine(WorkId):-
+    home(HomeId),
     get_to_work(WorkId),
     work(WorkId),
     go_home(HomeId).
 
-hospital_rutine(HospitalId, HomeId):-
+hospital_rutine(HospitalId):-
+    home(HomeId),
     get_to_hospital(HospitalId),
     medical_check(HospitalId),
     go_home(HomeId).
 
-go_public_place_rutine(Id, HomeId):-
+go_public_place_rutine(Id):-
+    home(HomeId),
     get_to_public_place(Id),
     have_fun(Id),
     go_home(HomeId).
 
 hospital_overrun(_, false).
 
-planification_step():-
+planification_step(Plan):-
     remove_goals(),
-    home(HomeId),
     work_place(WorkId, _),
-    (work_is_open(WorkId), too_sick(false) -> work_day_routine(WorkId, HomeId));
-    ((too_sick(true), hospital(Id,_), open_place(Id, true), hospital_overrun(Id, false))-> hospital_rutine(Id, HomeId));
-    ((public_space(Id, _),open_place(Id, true)) -> go_public_place_rutine(Id, HomeId)).
+    ((work_is_open(WorkId), too_sick(false)) -> work_day_routine(WorkId), Plan = work_day_routine(WorkId));
+    ((too_sick(true), hospital(Id,_), open_place(Id, true), hospital_overrun(Id, false))-> hospital_rutine(Id), Plan = hospital_rutine(Id));
+    ((public_space(Id, _),open_place(Id, true), week_day(W), W == saturday; W == sunday) -> go_public_place_rutine(Id), Plan = go_public_place_rutine(Id)); 
+    Plan = no_plan.
 
 
 % Facts for testing purposes:
@@ -355,7 +356,12 @@ planification_step():-
 %     send_message(AgentId, OtherAgentId, coordinate_action),
 %     receive_message(AgentId, OtherAgentId, coordinate_action).
 
-cooperation_step().
+cooperation_step(PlaceId):- 
+    open_place(PlaceId, true),
+    home(Home),
+    go_public_place_rutine(PlaceId, Home).
+
+
 
 
 %--------------------------- Auxiliary Methods -----------------------------------------

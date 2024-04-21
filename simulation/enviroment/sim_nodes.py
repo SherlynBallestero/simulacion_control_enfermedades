@@ -47,7 +47,7 @@ class SimNode(Node):
         self.addr = addr
 
     def __str__(self):
-        agents = '\n\t'.join(self.agent_list)
+        agents = '\n\t'.join(str(self.agent_list))
         return f'{self._node_name}({self.id})):\n\tcapacity:{self.capacity}\n\tagents:{agents}'
 
     @property

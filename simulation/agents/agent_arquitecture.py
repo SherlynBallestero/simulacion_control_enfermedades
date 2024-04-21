@@ -1,7 +1,6 @@
 from pyswip import Prolog
 from typing import Tuple
 import random
-
 class Knowledge:
     """
     Class representing the knowledge base of an agent.
@@ -137,6 +136,22 @@ class Knowledge:
         """
         list(self.prolog.query(f'add_place_to_use_mask({place_id}, {requirement})'))
     
+    def add_quarantine(self, requirement: bool):
+        list(self.prolog.query(f'add_quarantine({requirement})'))
+    
+    def add_social_distancing(self, requirement: bool):
+        list(self.prolog.query(f'add_social_distancing({requirement})'))
+    
+    def add_tests_and_diagnosis(self, requirement: bool):
+        list(self.prolog.query(f'add_tests_and_diagnosis({requirement})'))
+    
+    def add_contact_tracing(self, requirement: bool):
+        list(self.prolog.query(f'add_contact_tracing({requirement})'))
+    
+    def add_isolation(self, requirement: bool):
+        list(self.prolog.query(f'add_isolation({requirement})'))
+    
+    
     def feedback(self, location, wearing_mask):
         self.query(f'feedback({location}, {wearing_mask})')
     
@@ -152,7 +167,6 @@ class Knowledge:
         """
         return list(self.prolog.query(queryString))
         
-    
 class KnowledgeCanelo:
     """
     Class representing the knowledge base of canelo.
@@ -164,8 +178,8 @@ class KnowledgeCanelo:
         """
         Initialize the knowledge base.
         """
-        self.prolog = Prolog()
-        self.prolog.consult('./simulation/agents/canelo.pl')
+        self.knowledge = Prolog()
+        self.knowledge.consult('./simulation/agents/canelo.pl')
         
     def query(self, queryString):
         """
@@ -178,8 +192,7 @@ class KnowledgeCanelo:
             list: The results of the query.
         """
         action = list(self.knowledge.query(queryString))[0]
-        return action['Action'], action['Arguments']
-        
+        return action['Recommendation']
 
 class BehaviorLayer:
     """
@@ -306,3 +319,27 @@ class CooperativeLayer:
         """
         query = f"{queryString}"
         self.knowledge.query(query)
+        
+    def comunicate(self, reciever: 'Agent', message) -> None:
+        if message == 'mask_use':
+            reciever.knowledge_base.add_mask_necessity('true')
+            
+        if message == 'remove_mask':
+            reciever.knowledge_base.add_mask_necessity('false')
+        
+        if message == 'quarantine':
+            reciever.knowledge_base.add_quarantine('true')
+            
+        if message == 'social_distancing':
+            reciever.knowledge_base.add_social_distancing('true')
+        
+        if message == 'tests_and_diagnosis':
+            reciever.knowledge_base.add_tests_and_diagnosis('true')
+        
+        if message == 'contact_tracing':
+            reciever.knowledge_base.add_contact_tracing('true')
+        
+        if message == 'isolation':
+            reciever.knowledge_base.add_isolation('true')
+            
+

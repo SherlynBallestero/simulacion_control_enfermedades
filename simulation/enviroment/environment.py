@@ -1,10 +1,10 @@
 from simulation.agents.agents import Agent, Canelo
-from simulation.agents.agent_arquitecture import BehaviorLayer, LocalPlanningLayer, Knowledge, KnowledgeCanelo
+from simulation.agents.agent_arquitecture import BehaviorLayer, LocalPlanningLayer, CooperativeLayer, Knowledge, KnowledgeCanelo
 from simulation.epidemic.epidemic_model import EpidemicModel
 from simulation.enviroment.sim_nodes import CitizenPerceptionNode as CPNode
 from simulation.enviroment.sim_nodes import BlockNode, Hospital, HouseNode, PublicPlace, BusStop, Workspace
 from simulation.enviroment.map import Terrain
-from ai.search import a_star, bfs
+from ai.search import a_star, bfs, ShortPathProblem, astar_search, path_states
 from typing import Tuple, List
 import random
 from simulation.enviroment.graph import Graph
@@ -37,7 +37,7 @@ class Environment:
         self.epidemic_model = epidemic_model
         logger.debug('=== Initializing Agents ===')
         self.initialize_citizen_agents(num_agents)
-        # self.initialize_canelo_agent()
+        self.initialize_canelo_agent()
 
     def _initialize_agents_knowledge(self):
         kb = Knowledge()
@@ -60,15 +60,17 @@ class Environment:
         kb = KnowledgeCanelo()
         mind_map = self.generate_citizen_mind_map()
         
-        agents_wi  = WorldInterfaceCanelo(self.map, self.agents, mind_map, kb)
+        agents_wi  = WorldInterfaceCanelo(self.map, self.agents, kb)
         agents_bbc = BehaviorLayer(mind_map, kb)
         agents_pbc = LocalPlanningLayer(mind_map, kb)
+        agent_cc = CooperativeLayer(agents_bbc, kb)
         
         agent = Canelo( 
                 mind_map=mind_map, 
-                wi_component=agents_wi,
                 bb_component=agents_bbc,
                 lp_component=agents_pbc,
+                c_component=agent_cc,
+                wi_component=agents_wi,
                 knowledge_base=kb
                 )
         
@@ -89,13 +91,15 @@ class Environment:
             agents_wi  = WorldInterface(self.map, mind_map, kb)
             agents_bbc = BehaviorLayer(mind_map, kb)
             agents_pbc = LocalPlanningLayer(mind_map, kb)
+            agent_cc = CooperativeLayer(agents_bbc, kb)
             
             agent = Agent(
                 unique_id=i, 
                 mind_map=mind_map, 
-                wi_component=agents_wi,
                 bb_component=agents_bbc,
                 lp_component=agents_pbc,
+                c_component=agent_cc,
+                wi_component=agents_wi,
                 knowledge_base=kb
                 )
             
@@ -179,8 +183,9 @@ class Environment:
             agent.step(step_num)
             # self._debug_agent_k(agent.knowledge_base)
         
-        self.canelo.knowledge_base.query('lala')
-        self.canelo.wi.act(self.canelo,action)
+        infected_agents = self._count_infected_agents()
+        self.canelo.step(infected_agents)
+        
         ocupied_nodes = [([self.agents[agent_id] for agent_id in node.agent_list], node.contact_rate) for node in self.map.graph.nodes.values() if node.agent_list]
         self.epidemic_model.step(ocupied_nodes)
 
@@ -302,7 +307,18 @@ class Environment:
         except Exception as e:
             logger.error(f"query 'goal' resulted in error: {e}")
 
-            
+    def _count_infected_agents(self):
+        infected = 0
+        for agent in self.agents:
+            if agent.status == 'symptomatic':
+                infected += 1
+            if agent.status == 'critical':
+                infected += 2
+            if agent.status == 'terminal':
+                infected += 3
+    
+        return infected
+    
     def _log_fact_type(self, fact_type, facts):
         logger.debug(f'All {fact_type} facts:')
         for fact in facts:
@@ -345,14 +361,14 @@ class WorldInterface:
             if agent._last_path and agent._last_path[-1] == parameters[0]:
                 path = agent._last_path
             else:
-                path = bfs(self.map, agent.location, parameters[0])[1:]
+                problem = ShortPathProblem(self.map[agent.location], self.map[parameters[0]], self.map )             
+                path = path_states(astar_search(problem))[1:]
                 agent._last_path = path
-            
+
             if agent._last_path:
                 self.move_agent(agent, agent._last_path.pop(0))
             pass
-                
-            
+   
         elif action == 'use_mask':
             logger.info(f'Agent {agent.unique_id} is using mask')
             agent.masked = True 
@@ -363,6 +379,7 @@ class WorldInterface:
         
         elif action == 'vaccinate':
             logger.info(f'Agent {agent.unique_id} is vaccinated')
+            agent.vaccinated = True
             
         elif action == 'nothing':
             logger.info(f'Agent {agent.unique_id} is doing nothing')
@@ -373,26 +390,6 @@ class WorldInterface:
         elif not action:            
             logger.info(f'Agent {agent.unique_id} action is empty')
 
-    def comunicate(self, emiter, reciever, message) -> None:
-        """
-        Communicate a message from one agent to another.
-
-        Args:
-            emiter (Agent): The agent sending the message.
-            reciever (Agent): The agent receiving the message.
-            message (str): The message to send.
-        """
-        raise NotImplementedError
-
-    def recieve_comunication(self, agent, message) -> None:
-        """
-        Receive a communication from another agent.
-
-        Args:
-            agent (Agent): The agent receiving the communication.
-            message (str): The received message.
-        """
-        raise NotImplementedError
 
     def percieve(self, agent: Agent, step_num: int) -> dict:
         """
@@ -474,10 +471,9 @@ class WorldInterfaceCanelo:
         agent_mind_map (Graph): The mind map of the agent.
         agent_kb (Knowledge): The knowledge base of the agent.
     """
-    def __init__(self, map: Graph, agent_mind_map: Graph, list_agents:list[Agent], knowledge_base: KnowledgeCanelo) -> None:
+    def __init__(self, map: Graph, list_agents:list[Agent], knowledge_base: KnowledgeCanelo) -> None:
         self.map = map
         self.list_agents = list_agents
-        self.agent_mind_map = agent_mind_map
         self.agent_kb = knowledge_base
 
     def act(self, agent: Canelo, action: str) -> None:
@@ -489,35 +485,42 @@ class WorldInterfaceCanelo:
             action (str): The action to perform.
             parameters (list): The parameters for the action.
         """
-        if isinstance(parameters, int):
-            parametersList = []
-            parametersList.append(parameters)
-            parameters = parametersList
-            
-            
-        elif action == 'mask_use':
+
+        if action == 'mask_use':
+            logger.info(f'Canelo is transmitting use mask')
             for agent in self.list_agents:
-                self.comunicate(self, agent, action)
+                self.comunicate( agent, action)
         
         elif action == 'remove_mask':
+            logger.info(f'Canelo is transmitting not use mask')
             for agent in self.list_agents:
-                self.comunicate(self, agent, action)
+                self.comunicate( agent, action)
          
         elif action == 'quarantine':
-            pass 
-        
-        
+            logger.info(f'Canelo is transmitting go quarantine')
+            for agent in self.list_agents:
+                self.comunicate( agent, action)
+             
         elif action == 'social_distancing':
-            pass
+            logger.info(f'Canelo is transmitting social_distancing')
+            for agent in self.list_agents:
+                self.comunicate( agent, action)     
         
         elif action == 'tests_and_diagnosis':
-            pass
+            logger.info(f'Canelo is transmitting tests_and_diagnosis')
+            for agent in self.list_agents:
+                self.comunicate( agent, action)
         
         elif action == 'contact_tracing':
-            pass
+            logger.info(f'Canelo is transmitting contact_tracing')
+            for agent in self.list_agents:
+                self.comunicate( agent, action)
         
         elif action == 'isolation':
-            pass
+            logger.info(f'Canelo is transmitting isolation')
+            for agent in self.list_agents:
+                self.comunicate( agent, action)
+        
         
         elif action == 'nothing':
             logger.info(f'Agent {agent.unique_id} is doing nothing')
@@ -534,27 +537,7 @@ class WorldInterfaceCanelo:
             reciever (Agent): The agent receiving the message.
             message (str): The message to send.
         """
-        if message == 'mask_use':
-            reciever.knowledge_base.add_mask_necessity('true')
-            
-        if message == 'remove_mask':
-            reciever.knowledge_base.add_mask_necessity('false')
-        
-        # if message == 'quarantine':
-        #     reciever.knowledge_base.add_mask_necessity('true')
-            
-        # if message == 'social_distancing':
-        #     reciever.knowledge_base.add_mask_necessity('true')
-        
-        # if message == 'tests_and_diagnosis':
-        #     reciever.knowledge_base.add_mask_necessity('true')
-        
-        # if message == 'contact_tracing':
-        #     reciever.knowledge_base.add_mask_necessity('true')
-        
-        # if message == 'isolation':
-        #     reciever.knowledge_base.add_mask_necessity('true')
-             
+        reciever.cc.comunicate(reciever, message)   
 
     def percieve(self, agent: Agent, step_num: int) -> dict:
         """

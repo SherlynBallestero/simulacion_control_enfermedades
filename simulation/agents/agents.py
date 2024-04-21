@@ -60,6 +60,11 @@ class Agent:
         if not action:
             plan = self.pbc.plan("planification_step()")
             action, arguments = self.bbc.react("behavioral_step(Action, Arguments)")
+        
+        # if (not action) and (not plan) :
+        #     coperate = self.cc.cooperate(self, 'other', "coperate()")
+            
+        
         log_agent_intentions(self.knowledge_base)
         self.wi.act(self, action, arguments)
         self.knowledge_base.feedback(self.location, self.masked)
@@ -99,8 +104,8 @@ class Canelo:
         # self.knowledge_base.feedback(self.location, self.masked)
 
         x = infected_agents * 0.1
-        action = self.knowledge_base.query(f'recommendation_based_on_severity({x}, Recommendation, RecomendationPlaces)')
-        self.wi.act(self,action)
+        action, actionPlace = self.knowledge_base.query(f'recommendation_based_on_severity({x}, Recommendation, RecomendationPlaces)')
+        self.wi.act(self,action, actionPlace)
         
  
 def log_agent_intentions(agent_k):

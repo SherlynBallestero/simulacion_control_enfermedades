@@ -192,7 +192,7 @@ class KnowledgeCanelo:
             list: The results of the query.
         """
         action = list(self.knowledge.query(queryString))[0]
-        return action['Recommendation']
+        return action['Recommendation'], action['RecomendationPlaces']
 
 class BehaviorLayer:
     """
@@ -310,7 +310,7 @@ class CooperativeLayer:
         self.local_planning_layer = local_planning_layer
         self.knowledge = knowledge
 
-    def cooperate(self, queryString):
+    def cooperate(self,agent1, agent2, queryString):
         """
         Cooperate based on a query string.
 
@@ -320,26 +320,42 @@ class CooperativeLayer:
         query = f"{queryString}"
         self.knowledge.query(query)
         
-    def comunicate(self, reciever: 'Agent', message) -> None:
-        if message == 'mask_use':
-            reciever.knowledge_base.add_mask_necessity('true')
+    def execute_plan(self, joint_plan):
+        """
+        Execute a joint plan.
+
+        Args:
+            joint_plan (dict): The joint plan to be executed.
+        """
+        return self.local_planning_layer.plan(joint_plan)
+        
+    # def comunicate(self, reciever: 'Agent', message) -> None:
+    #     """
+    #     Communicate with another agent based on a message.
+
+    #     Args:
+    #         receiver (Agent): The agent to communicate with.
+    #         message (str): The message to be communicated.
+    #     """
+    #     if message == 'mask_use':
+    #         reciever.knowledge_base.add_mask_necessity('true')
             
-        if message == 'remove_mask':
-            reciever.knowledge_base.add_mask_necessity('false')
+    #     if message == 'remove_mask':
+    #         reciever.knowledge_base.add_mask_necessity('false')
         
-        if message == 'quarantine':
-            reciever.knowledge_base.add_quarantine('true')
+    #     if message == 'quarantine':
+    #         reciever.knowledge_base.add_quarantine('true')
             
-        if message == 'social_distancing':
-            reciever.knowledge_base.add_social_distancing('true')
+    #     if message == 'social_distancing':
+    #         reciever.knowledge_base.add_social_distancing('true')
         
-        if message == 'tests_and_diagnosis':
-            reciever.knowledge_base.add_tests_and_diagnosis('true')
+    #     if message == 'tests_and_diagnosis':
+    #         reciever.knowledge_base.add_tests_and_diagnosis('true')
         
-        if message == 'contact_tracing':
-            reciever.knowledge_base.add_contact_tracing('true')
+    #     if message == 'contact_tracing':
+    #         reciever.knowledge_base.add_contact_tracing('true')
         
-        if message == 'isolation':
-            reciever.knowledge_base.add_isolation('true')
+    #     if message == 'isolation':
+    #         reciever.knowledge_base.add_isolation('true')
             
 

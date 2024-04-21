@@ -478,7 +478,7 @@ class WorldInterfaceCanelo:
         self.list_agents = list_agents
         self.agent_kb = knowledge_base
 
-    def act(self, agent: Canelo, action: str) -> None:
+    def act(self, agent: Canelo, action: str, action_place: str) -> None:
         """
         Perform an action for an agent.
 
@@ -487,7 +487,27 @@ class WorldInterfaceCanelo:
             action (str): The action to perform.
             parameters (list): The parameters for the action.
         """
-
+        if action_place == 'use_mask_pp':
+            logger.info(f'Canelo is transmitting use mask in public places')
+            for agent in self.list_agents:
+                self.comunicate( agent, action_place)
+        
+        elif action_place == 'temporary_closure_pp':
+            logger.info(f'Canelo is transmitting temporaly closure in public places')
+            for agent in self.list_agents:
+                self.comunicate( agent, action_place)
+        
+        elif action_place == 'use_mask_work':
+            logger.info(f'Canelo is transmitting use mask in work')
+            for agent in self.list_agents:
+                self.comunicate( agent, action_place, list(agent.knowledge_base.query('work_place(X,_)'))[0]['X'])
+        
+        elif action_place == 'temporary_closure_work':
+            logger.info(f'Canelo is transmitting temporaly closure in work')
+            for agent in self.list_agents:
+                self.comunicate( agent, action_place, list(agent.knowledge_base.query('work_place(X,_)'))[0]['X'])
+        
+        
         if action == 'mask_use':
             logger.info(f'Canelo is transmitting use mask')
             for agent in self.list_agents:
@@ -530,7 +550,7 @@ class WorldInterfaceCanelo:
         else:
             logger.error(f'Action {action} not recognized')
 
-    def comunicate(self, reciever: Agent, message) -> None:
+    def comunicate(self, reciever: Agent, message, Id = None) -> None:
         """
         Communicate a message from one agent to another.
 
@@ -539,7 +559,43 @@ class WorldInterfaceCanelo:
             reciever (Agent): The agent receiving the message.
             message (str): The message to send.
         """
-        reciever.cc.comunicate(reciever, message)   
+        # reciever.cc.comunicate(reciever, message) 
+        
+        if message == 'use_mask_pp':
+            reciever.knowledge_base.add_mask_requirement('_', 'true')
+        
+        elif message == 'temporary_closure_pp':
+            reciever.knowledge_base.add_open_place('_', 'false')
+        
+        elif message == 'use_mask_work':
+            reciever.knowledge_base.add_mask_requirement(Id,'true')
+        
+        elif message == 'social_distancing_work':
+            reciever.knowledge_base.add_mask_necessity('true')
+        
+        elif message == 'temporary_closure_work': 
+            reciever.knowledge_base.add_open_place(Id, 'false')
+        
+        if message == 'mask_use':
+            reciever.knowledge_base.add_mask_necessity('true')
+            
+        elif message == 'remove_mask':
+            reciever.knowledge_base.add_mask_necessity('false')
+        
+        elif message == 'quarantine':
+            reciever.knowledge_base.add_quarantine('true')
+              
+        elif message == 'tests_and_diagnosis':
+            reciever.knowledge_base.add_tests_and_diagnosis('true')
+        
+        elif message == 'contact_tracing':
+            reciever.knowledge_base.add_contact_tracing('true')
+        
+        elif message == 'isolation':
+            reciever.knowledge_base.add_isolation('true')
+            
+
+ 
 
     def percieve(self, agent: Agent, step_num: int) -> dict:
         """

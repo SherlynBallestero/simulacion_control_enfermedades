@@ -364,7 +364,7 @@ class WorldInterface:
                 map = self.agent_mind_map
                 problem = AgentPathProblem(map[agent.location], map[parameters[0]], map)
                 # problem = AgentPathProblem(self.map[agent.location], self.map[parameters[0]], self.map)             
-                path = path_states(astar_search(problem))[1:]
+                path = path_states(astar_search(problem))[1:]#TODO: change g in a_star for min_exposure
                 agent._last_path = path
 
             if agent._last_path:

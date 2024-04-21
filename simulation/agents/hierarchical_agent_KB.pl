@@ -174,8 +174,9 @@ check_goals():-
     true.
 
 move(NodeId, Action, Arguments):-
+    social_distancing(SocialDistancing),
     Action = move,
-    Arguments = [NodeId].
+    Arguments = [NodeId, SocialDistancing].
 
 work(Action, Arguments):-
     Action = work,

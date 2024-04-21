@@ -1,7 +1,6 @@
 from pyswip import Prolog
 from typing import Tuple
 import random
-
 class Knowledge:
     """
     Class representing the knowledge base of an agent.
@@ -168,7 +167,6 @@ class Knowledge:
         """
         return list(self.prolog.query(queryString))
         
-    
 class KnowledgeCanelo:
     """
     Class representing the knowledge base of canelo.
@@ -195,7 +193,6 @@ class KnowledgeCanelo:
         """
         action = list(self.knowledge.query(queryString))[0]
         return action['Recommendation']
-        
 
 class BehaviorLayer:
     """
@@ -322,3 +319,27 @@ class CooperativeLayer:
         """
         query = f"{queryString}"
         self.knowledge.query(query)
+        
+    def comunicate(self, reciever: 'Agent', message) -> None:
+        if message == 'mask_use':
+            reciever.knowledge_base.add_mask_necessity('true')
+            
+        if message == 'remove_mask':
+            reciever.knowledge_base.add_mask_necessity('false')
+        
+        if message == 'quarantine':
+            reciever.knowledge_base.add_quarantine('true')
+            
+        if message == 'social_distancing':
+            reciever.knowledge_base.add_social_distancing('true')
+        
+        if message == 'tests_and_diagnosis':
+            reciever.knowledge_base.add_tests_and_diagnosis('true')
+        
+        if message == 'contact_tracing':
+            reciever.knowledge_base.add_contact_tracing('true')
+        
+        if message == 'isolation':
+            reciever.knowledge_base.add_isolation('true')
+            
+

@@ -1,5 +1,5 @@
 from simulation.agents.agents import Agent, Canelo
-from simulation.agents.agent_arquitecture import BehaviorLayer, LocalPlanningLayer, Knowledge, KnowledgeCanelo
+from simulation.agents.agent_arquitecture import BehaviorLayer, LocalPlanningLayer, CooperativeLayer, Knowledge, KnowledgeCanelo
 from simulation.epidemic.epidemic_model import EpidemicModel
 from simulation.enviroment.sim_nodes import CitizenPerceptionNode as CPNode
 from simulation.enviroment.sim_nodes import BlockNode, Hospital, HouseNode, PublicPlace, BusStop, Workspace
@@ -63,12 +63,14 @@ class Environment:
         agents_wi  = WorldInterfaceCanelo(self.map, self.agents, kb)
         agents_bbc = BehaviorLayer(mind_map, kb)
         agents_pbc = LocalPlanningLayer(mind_map, kb)
+        agent_cc = CooperativeLayer(agents_bbc, kb)
         
         agent = Canelo( 
                 mind_map=mind_map, 
-                wi_component=agents_wi,
                 bb_component=agents_bbc,
                 lp_component=agents_pbc,
+                c_component=agent_cc,
+                wi_component=agents_wi,
                 knowledge_base=kb
                 )
         
@@ -89,13 +91,15 @@ class Environment:
             agents_wi  = WorldInterface(self.map, mind_map, kb)
             agents_bbc = BehaviorLayer(mind_map, kb)
             agents_pbc = LocalPlanningLayer(mind_map, kb)
+            agent_cc = CooperativeLayer(agents_bbc, kb)
             
             agent = Agent(
                 unique_id=i, 
                 mind_map=mind_map, 
-                wi_component=agents_wi,
                 bb_component=agents_bbc,
                 lp_component=agents_pbc,
+                c_component=agent_cc,
+                wi_component=agents_wi,
                 knowledge_base=kb
                 )
             
@@ -360,12 +364,11 @@ class WorldInterface:
                 problem = ShortPathProblem(self.map[agent.location], self.map[parameters[0]], self.map )             
                 path = path_states(astar_search(problem))[1:]
                 agent._last_path = path
-            
+
             if agent._last_path:
                 self.move_agent(agent, agent._last_path.pop(0))
             pass
-                
-            
+   
         elif action == 'use_mask':
             logger.info(f'Agent {agent.unique_id} is using mask')
             agent.masked = True 
@@ -376,6 +379,7 @@ class WorldInterface:
         
         elif action == 'vaccinate':
             logger.info(f'Agent {agent.unique_id} is vaccinated')
+            agent.vaccinated = True
             
         elif action == 'nothing':
             logger.info(f'Agent {agent.unique_id} is doing nothing')
@@ -490,19 +494,17 @@ class WorldInterfaceCanelo:
         elif action == 'remove_mask':
             logger.info(f'Canelo is transmitting not use mask')
             for agent in self.list_agents:
-                self.comunicate(self, agent, action)
+                self.comunicate( agent, action)
          
         elif action == 'quarantine':
             logger.info(f'Canelo is transmitting go quarantine')
             for agent in self.list_agents:
                 self.comunicate( agent, action)
-        
-        
+             
         elif action == 'social_distancing':
             logger.info(f'Canelo is transmitting social_distancing')
             for agent in self.list_agents:
-                self.comunicate( agent, action)
-        
+                self.comunicate( agent, action)     
         
         elif action == 'tests_and_diagnosis':
             logger.info(f'Canelo is transmitting tests_and_diagnosis')
@@ -513,7 +515,6 @@ class WorldInterfaceCanelo:
             logger.info(f'Canelo is transmitting contact_tracing')
             for agent in self.list_agents:
                 self.comunicate( agent, action)
-        
         
         elif action == 'isolation':
             logger.info(f'Canelo is transmitting isolation')
@@ -536,27 +537,7 @@ class WorldInterfaceCanelo:
             reciever (Agent): The agent receiving the message.
             message (str): The message to send.
         """
-        if message == 'mask_use':
-            reciever.knowledge_base.add_mask_necessity('true')
-            
-        if message == 'remove_mask':
-            reciever.knowledge_base.add_mask_necessity('false')
-        
-        if message == 'quarantine':
-            reciever.knowledge_base.add_quarantine('true')
-            
-        if message == 'social_distancing':
-            reciever.knowledge_base.add_social_distancing('true')
-        
-        if message == 'tests_and_diagnosis':
-            reciever.knowledge_base.add_tests_and_diagnosis('true')
-        
-        if message == 'contact_tracing':
-            reciever.knowledge_base.add_contact_tracing('true')
-        
-        if message == 'isolation':
-            reciever.knowledge_base.add_isolation('true')
-             
+        reciever.cc.comunicate(reciever, message)   
 
     def percieve(self, agent: Agent, step_num: int) -> dict:
         """

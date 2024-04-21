@@ -44,7 +44,8 @@ closure_measures_based_on_place_type(PlaceType,Level, Measures) :-
     findall(Measure, measure_closure_place(PlaceType,Level, Measure), Measures).
 
 recommendation_based_on_severity(PeopleSick, Recommendation, RecomendationPlaces) :-
-    ((PeopleSick < 0.3 -> recommendation_control_measure(low, Recommendation)));
+    (PeopleSick < 0.1 -> Recommendation = none, RecomendationPlaces = none);
+    (PeopleSick < 0.3 -> recommendation_control_measure(low, Recommendation));
 
     (PeopleSick < 0.7 -> recommendation_control_measure(high, Recommendation),
                         closure_measures_based_on_place_type(public_place,high, [RecomendationPlaces|_]));

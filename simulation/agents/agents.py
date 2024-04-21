@@ -104,7 +104,7 @@ class Canelo:
         # self.knowledge_base.feedback(self.location, self.masked)
 
         x = infected_agents * 0.1
-        action, actionPlace = self.knowledge_base.query(f'recommendation_based_on_severity(0.9, Recommendation, RecomendationPlaces)')
+        action, actionPlace = self.knowledge_base.query(f'recommendation_based_on_severity({x}, Recommendation, RecomendationPlaces)')
         self.wi.act(self,action, actionPlace)
         
  

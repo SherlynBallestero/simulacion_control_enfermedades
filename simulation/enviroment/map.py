@@ -44,7 +44,7 @@ class Terrain:
         for node in self.graph.nodes.values():
             if isinstance(node, BlockNode) and node.addr == addr:
                 w_node = Workspace(capacity, last_id+1, addr)
-                self.works.append(w_node.id)
+                self.works.append(w_node)
                 self._add_node(w_node)
                 self.add_edge(node.id, w_node.id)
                 break
@@ -98,7 +98,7 @@ class Terrain:
         for node in self.graph.nodes.values():
             if isinstance(node, BlockNode) and node.addr == addr:
                 w_node = Hospital(capacity, last_id+1, addr)
-                self.hospitals.append(w_node.id)
+                self.hospitals.append(w_node)
                 self._add_node(w_node)
                 self.add_edge(node.id, w_node.id)
                 break

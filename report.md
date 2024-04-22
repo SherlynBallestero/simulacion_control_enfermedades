@@ -70,13 +70,29 @@ Existen varios factores que pueden aumentar el riesgo de infección y de progres
 
 ## Búsqueda
 
-Para la planificación de rutas de los agentes dentro de nuestro entorno simulado utilizamos la implementación de **A\*** de las clases prácticas.
-
-También utilizamos una implementación de algorítmo genético para la optimización del sistema experto.
+Usamos A star para hallar el camino mas corto de un punto a otro y, cuando los agentes quieran evitar el contacto minimizar la exposicion de estos
 
 ## Interfaz de Usuario y Procesamiento del Lenguaje Natural
 
-## Sistema Experto
+Para mejorar la interacción con la simulación, desarrollamos una interfaz de usuario que permite a estos interactuar con la simulación mediante comandos de lenguaje natural. Utilizamos técnicas de procesamiento del lenguaje natural (NLP) para interpretar los comandos del usuario y mapearlos a acciones en la simulación.
+
+### Sistema Experto
+
+En nuestra simulación, implementamos un sistema experto utilizando Prolog para guiar las decisiones del agente institucional (Canelo) en la implementación de medidas para contener la enfermedad. El sistema experto se basa en reglas lógicas que reflejan las recomendaciones de salud pública y epidemiología.
+
+### Funcionamiento
+
+El sistema experto se basa en una serie de reglas que establecen condiciones y acciones a seguir. Por ejemplo, una regla podría ser:
+
+'''
+si la tasa de infección es alta y la capacidad hospitalaria es baja, entonces se debe implementar una cuarentena.
+'''
+
+El sistema experto evalúa estas reglas con respecto al estado actual de la simulación y las decisiones previas tomadas, generando recomendaciones para el agente institucional. Para realizar este sistema experto utilizamos el algoritmo genético sobre una serie de parámetros que este agente utiliza para tomar desiciones.
+
+## Búsqueda
+
+En nuestra simulación, utilizamos el algoritmo A* implementado en clases prácticas para resolver dos problemas muy similares, haciendo un cambio de las funciones g(n) y h(n). Uno de estos fue encontrar el camino de longitud mínima, el cuál se utiliza por defecto por los agentes, y otro que intenta minimizar la exposición a la enfermedad priorizando moverse por nodos con menos densidad poblacional.
 
 ## Resultados Experimentales
 ---

@@ -92,11 +92,17 @@ class Problem(object):
 
 
 class AgentPathProblem(Problem):
-    def __init__(self, initial, goal, map):
-        self.initial, self.goal, self.map = initial, goal, map
+    def __init__(self, initial, goal, map, path_type = 'shortest_path'):
+        self.initial, self.goal, self.map, self.path_type = initial, goal, map, path_type
 
     def actions(self, state):
         return [self.map[node_id] for node_id in self.map.get_neighbors(state.id)]
+    
+    def action_cost(self, s, a, s1): 
+        if self.path_type == 'shortest_path':
+            return 1
+        elif self.path_type == 'minimum_contact_path':
+            self.calculate_contact_danger(s1)
 
     def result(self, state, action):
         return action
@@ -104,8 +110,8 @@ class AgentPathProblem(Problem):
     def manhattan_h(self, node):
         return  abs(node.state.addr[0] - self.goal.addr[0]) + abs(node.state.addr[1] - self.goal.addr[1])
 
-    def minimum_contact_h(self, node):
-        # Define a heuristic function based on contact chance
+    def calculate_contact_danger(self, node):
+        # calculate contact danger based on capacity status
         contact_danger = {
             'low': 1, 'medium': 2, 'high': 3, 'very_high': 4
         }
@@ -117,10 +123,16 @@ class AgentPathProblem(Problem):
             contact_val = total/ len(self.map.get_neighbors(node.state.id))
             #change the state so capacity status corresponds to the 
             node.state.capacity_status = 'low' if contact_val < 1.5 else 'medium' if contact_val < 2.5 else 'high' if contact_val < 3.5 else 'very_high'
-
         return contact_danger[node.state.capacity_status]
 
-    def h(self, node): return self.minimum_contact_h(node)
+    def minimum_contact_h(self, node):# TODO: define a heuristic of minimum cost path
+        return self.calculate_contact_danger(node) + self.manhattan_h(node)
+
+    def h(self, node): 
+        if self.path_type == 'shortest_path':
+            return self.manhattan_h(node)
+        elif self.path_type == 'minimum_contact_path':
+            return self.minimum_contact_h(node)
 
 
 class Node:
@@ -218,15 +230,19 @@ def best_first_tree_search(problem, f):
                 frontier.add(child)
     return failure
 
-
+def shortest_path_g(n): return 1
+def minimum_contact_path_g(n): return 1
 def g(n): return n.path_cost
 
-
-def astar_search(problem, h=None):
+def astar_search(problem, h=None, g_selection=None):
     """Search nodes with minimum f(n) = g(n) + h(n)."""
     h = h or problem.h
-    return best_first_search(problem, f=lambda n: g(n) + h(n))
-
+    if g_selection == 'shortest_path':
+        return best_first_search(problem, f=lambda n: shortest_path_g(n) + h(n))
+    if g_selection == 'minimum_contact_path':
+        return best_first_search(problem, f=lambda n: minimum_contact_path_g(n) + h(n))
+    else:
+        return best_first_search(problem, f = lambda n: g(n) + h(n))
 
 def astar_tree_search(problem, h=None):
     """Search nodes with minimum f(n) = g(n) + h(n), with no `reached` table."""

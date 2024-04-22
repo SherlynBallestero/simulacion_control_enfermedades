@@ -46,13 +46,15 @@ class Environment:
         kb.add_home(house.id)
         is_medic = random.choice([True, False])
         
-        if is_medic:
-            work_id = random.choice(self.map.hospitals)
-            kb.add_work_place(self.map[work_id])
+        if is_medic:  
+            work = random.choice(self.map.hospitals)
+            work.add_person(id)
+            kb.add_work_place(self.map[work.id])
             kb.add_is_medical_personnel(True)
         else:
-            work_id = random.choice(self.map.works)
-            kb.add_work_place(self.map[work_id])
+            work = random.choice(self.map.works)
+            work.add_person(id)
+            kb.add_work_place(self.map[work.id])
             kb.add_is_medical_personnel(False)
         kb.query('initialize_k()')
         return kb
@@ -472,28 +474,23 @@ class WorldInterface:
     def send_message(self, agent, message):
         pass
 
-
+    
     def comunicate(self, sender: Agent, message, Id = None) -> None:
         """
         Communicate a message from one agent to another.
-
+        
         Args:
             emiter (Agent): The agent sending the message.
             reciever (Agent): The agent receiving the message.
             message (str): The message to send.
         """
         home_id = self.agent_kb.query('home(X)')[0]['X']
-        house =  None
-        for h in self.map.houses:
-            if h.id == home_id:
-                house = h
-                break
-                
+        house = self.map[home_id]
         list_family = house.persons
         
         for agent_id in list_family:
             agent = self.eviroment.agents[agent_id]
-            self.send_message(agent, message) 
+            self.send_message(agent, message)
         
 
 class WorldInterfaceCanelo:

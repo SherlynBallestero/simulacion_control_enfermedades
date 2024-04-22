@@ -94,6 +94,13 @@ class Workspace(SimNode):
         self.opening_hours = opening_hours
         self.closing_hours = closing_hours
         self.is_open = True
+        self.persons: list = []
+        
+    def add_person(self, id):
+        self.persons.append(id)
+
+    def remove_person(self, id):
+        self.persons.remove(id)
 
 class PublicPlace(SimNode):
     """

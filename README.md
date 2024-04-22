@@ -7,4 +7,4 @@
 
 Ejecutar el archivo 'main.py'
 
-[Informe](./reporte.pdf)
+[Informe](./report.pdf)

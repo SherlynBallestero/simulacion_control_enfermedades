@@ -356,7 +356,7 @@ planification_step(Plan):-
 %     send_message(AgentId, OtherAgentId, coordinate_action),
 %     receive_message(AgentId, OtherAgentId, coordinate_action).
 
-cooperation_step(PlaceId):- 
+cooperation_step(Plan):- 
     open_place(PlaceId, true),
     home(Home),
     go_public_place_rutine(PlaceId, Home).

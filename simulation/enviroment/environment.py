@@ -31,7 +31,7 @@ class Environment:
             epidemic_model (EpidemicModel): The epidemic model for the simulation.
             map (Terrain): The terrain of the simulation.
         """
-        self.map = map    
+        self.map: Terrain = map    
         self.agents: List[Agent] = []
         self.canelo = None
         self.epidemic_model = epidemic_model
@@ -39,10 +39,11 @@ class Environment:
         self.initialize_citizen_agents(num_agents)
         self.initialize_canelo_agent()
 
-    def _initialize_agents_knowledge(self):
+    def _initialize_agents_knowledge(self, id):
         kb = Knowledge()
-        house_id = random.choice(self.map.houses)
-        kb.add_home(house_id)
+        house = random.choice(self.map.houses)
+        house.add_person(id)
+        kb.add_home(house.id)
         is_medic = random.choice([True, False])
         
         if is_medic:
@@ -61,9 +62,9 @@ class Environment:
         mind_map = self.generate_citizen_mind_map()
         
         agents_wi  = WorldInterfaceCanelo(self.map, self.agents, kb)
-        agents_bbc = BehaviorLayer(mind_map, kb)
-        agents_pbc = LocalPlanningLayer(mind_map, kb)
-        agent_cc = CooperativeLayer(agents_bbc, kb)
+        agents_bbc = BehaviorLayer(agents_wi, kb)
+        agents_pbc = LocalPlanningLayer(agents_bbc, kb)
+        agent_cc = CooperativeLayer(agents_pbc, kb)
         
         agent = Canelo( 
                 mind_map=mind_map, 
@@ -86,18 +87,18 @@ class Environment:
         infected_agents = random.randint(0, int(num_agents/2))
         for i in range(num_agents):
             mind_map = self.generate_citizen_mind_map()
-            kb = self._initialize_agents_knowledge()
+            kb = self._initialize_agents_knowledge(i)
             
-            agents_wi  = WorldInterface(self.map, mind_map, kb)
-            agents_bbc = BehaviorLayer(mind_map, kb)
-            agents_pbc = LocalPlanningLayer(mind_map, kb)
-            agent_cc = CooperativeLayer(agents_bbc, kb)
+            agents_wi  = WorldInterface(self, self.map, mind_map, kb)
+            agents_bbc = BehaviorLayer(agents_wi, kb)
+            agents_pbc = LocalPlanningLayer(agents_bbc, kb)
+            agent_cc = CooperativeLayer(agents_pbc, kb)
             
             agent = Agent(
                 unique_id=i, 
-                mind_map=mind_map, 
-                bb_component=agents_bbc,
+                mind_map=mind_map,
                 lp_component=agents_pbc,
+                bb_component=agents_bbc,
                 c_component=agent_cc,
                 wi_component=agents_wi,
                 knowledge_base=kb
@@ -336,7 +337,8 @@ class WorldInterface:
         agent_mind_map (Graph): The mind map of the agent.
         agent_kb (Knowledge): The knowledge base of the agent.
     """
-    def __init__(self, map: Graph, agent_mind_map: Graph, knowledge_base: Knowledge) -> None:
+    def __init__(self, enviroment: Environment, map: Graph, agent_mind_map: Graph, knowledge_base: Knowledge) -> None:
+        self.eviroment = enviroment
         self.map = map
         self.agent_mind_map = agent_mind_map
         self.agent_kb = knowledge_base
@@ -391,6 +393,7 @@ class WorldInterface:
         
         elif not action:            
             logger.info(f'Agent {agent.unique_id} action is empty')
+
 
 
     def percieve(self, agent: Agent, step_num: int) -> dict:
@@ -463,6 +466,33 @@ class WorldInterface:
         agent.location = pos
         logger.info(f'Agent moved to {pos}')
         self.map.graph.nodes[pos].agent_list.append(agent.unique_id)
+        
+    def send_message(self, agent, message):
+        pass
+
+
+    def comunicate(self, sender: Agent, message, Id = None) -> None:
+        """
+        Communicate a message from one agent to another.
+
+        Args:
+            emiter (Agent): The agent sending the message.
+            reciever (Agent): The agent receiving the message.
+            message (str): The message to send.
+        """
+        home_id = self.agent_kb.query('home(X)')[0]['X']
+        house =  None
+        for h in self.map.houses:
+            if h.id == home_id:
+                house = h
+                break
+                
+        list_family = house.persons
+        
+        for agent_id in list_family:
+            agent = self.eviroment.agents[agent_id]
+            self.send_message(agent, message) 
+        
 
 class WorldInterfaceCanelo:
     """
@@ -593,9 +623,6 @@ class WorldInterfaceCanelo:
         
         elif message == 'isolation':
             reciever.knowledge_base.add_isolation('true')
-            
-
- 
 
     def percieve(self, agent: Agent, step_num: int) -> dict:
         """

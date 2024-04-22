@@ -146,3 +146,10 @@ class HouseNode(SimNode):
     """
     def __init__(self, capacity: int, id: Hashable, addr: Tuple[int, int], contact_rate: Callable[..., Any] = None):
         super().__init__(capacity, id, addr, contact_rate)
+        self.persons: list = []
+        
+    def add_person(self, id):
+        self.persons.append(id)
+
+    def remove_person(self, id):
+        self.persons.remove(id)

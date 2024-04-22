@@ -260,6 +260,16 @@ class BehaviorLayer:
             return action['Action'], action['Arguments']
         except:
             return None, None
+        
+    def search_friend(self, agent, plan):
+        message, place = self._split_string(plan) if plan != 'no_plan' else None, None
+        self.world_model.comunicate(agent, message, place)
+        
+    def _split_string(self, s):
+        parts = s.split('(', 1)
+        outside_parentheses = parts[0]
+        inside_parentheses = parts[1].split(')', 1)[0] if len(parts) > 1 else ''
+        return outside_parentheses, inside_parentheses
     
 class LocalPlanningLayer:
     """
@@ -269,7 +279,7 @@ class LocalPlanningLayer:
         behavior_layer_based (BehaviorLayer): The behavior layer based on which the local planning is performed.
         prolog (Knowledge): The knowledge base of the agent.
     """
-    def __init__(self, behavior_layer_based, knowledge: Knowledge):
+    def __init__(self, behavior_layer_based: BehaviorLayer, knowledge: Knowledge):
         """
         Initialize the local planning layer.
 
@@ -291,6 +301,9 @@ class LocalPlanningLayer:
         query = f"{queryString}"
         plan = list(self.knowledge.query(query))
         return plan[0]['X'] if plan != [] else []
+    
+    def plan_coperative(self, agent, plan):
+        self.behavior_layer_based.search_friend(agent, plan)
 
 class CooperativeLayer:
     """
@@ -311,28 +324,20 @@ class CooperativeLayer:
         self.local_planning_layer: LocalPlanningLayer = local_planning_layer
         self.knowledge = knowledge
 
-    def cooperate(self,agent1, agent2, queryString):
+    def cooperate(self,agent, queryString):
         """
         Cooperate based on a query string.
 
         Args:
             queryString (str): The query string.
         """
-        query = f"{queryString}"
-        self.knowledge.query(query)
+        self.local_planning_layer.plan_coperative(agent, self.generate_plan())
     
     def generate_plan(self):
-        self.local_planning_layer.plan()
+        plan = self.local_planning_layer.plan('planification_step(X)')
+        return plan
     
     def evaluate_plan():
         pass
         
-    def execute_plan(self, joint_plan):
-        """
-        Execute a joint plan.
-
-        Args:
-            joint_plan (dict): The joint plan to be executed.
-        """
-        return self.local_planning_layer.plan(joint_plan)
-        
+    

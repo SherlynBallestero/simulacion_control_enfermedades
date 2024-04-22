@@ -62,7 +62,7 @@ class Terrain:
         for node in self.graph.nodes.values():
             if isinstance(node, BlockNode) and node.addr == addr:
                 w_node = HouseNode(capacity, last_id+1, addr)
-                self.houses.append(w_node.id)
+                self.houses.append(w_node)
                 self._add_node(w_node)
                 self.add_edge(node.id, w_node.id)
                 break

@@ -1,0 +1,299 @@
+2024-04-21 15:43:33,847 - INFO - === Simulation Execution Started ===
+2024-04-21 15:43:33,850 - DEBUG - === Initializing City ===
+2024-04-21 15:43:33,850 - DEBUG - === Initializing Epidemic Model ===
+2024-04-21 15:43:33,866 - DEBUG - === Initializing Environment ===
+2024-04-21 15:43:33,866 - DEBUG - === Initializing Agents ===
+2024-04-21 15:43:33,940 - INFO - === Starting Simulation Loop With 4464 Steps ===
+2024-04-21 15:43:33,941 - INFO - === Step: ('Monday', 0, 0, 0) ===
+2024-04-21 15:43:33,942 - INFO - Step of agent 0
+2024-04-21 15:43:33,945 - INFO - Agent Intent:
+2024-04-21 15:43:33,945 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:33,946 - INFO - Agent 0 action is empty
+2024-04-21 15:43:33,947 - ERROR - Action none not recognized
+2024-04-21 15:43:33,948 - INFO - === Step: ('Monday', 0, 0, 10) ===
+2024-04-21 15:43:33,948 - INFO - Step of agent 0
+2024-04-21 15:43:33,950 - INFO - Agent Intent:
+2024-04-21 15:43:33,950 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:33,950 - INFO - Agent 0 action is empty
+2024-04-21 15:43:33,951 - ERROR - Action none not recognized
+2024-04-21 15:43:33,952 - INFO - === Step: ('Monday', 0, 0, 20) ===
+2024-04-21 15:43:33,952 - INFO - Step of agent 0
+2024-04-21 15:43:33,954 - INFO - Agent Intent:
+2024-04-21 15:43:33,955 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:33,955 - INFO - Agent 0 action is empty
+2024-04-21 15:43:33,956 - ERROR - Action none not recognized
+2024-04-21 15:43:33,956 - INFO - === Step: ('Monday', 0, 0, 30) ===
+2024-04-21 15:43:33,957 - INFO - Step of agent 0
+2024-04-21 15:43:33,958 - INFO - Agent Intent:
+2024-04-21 15:43:33,961 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:33,962 - INFO - Agent 0 action is empty
+2024-04-21 15:43:33,963 - ERROR - Action none not recognized
+2024-04-21 15:43:33,964 - INFO - === Step: ('Monday', 0, 0, 40) ===
+2024-04-21 15:43:33,964 - INFO - Step of agent 0
+2024-04-21 15:43:33,966 - INFO - Agent Intent:
+2024-04-21 15:43:33,967 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:33,967 - INFO - Agent 0 action is empty
+2024-04-21 15:43:33,968 - ERROR - Action none not recognized
+2024-04-21 15:43:33,969 - INFO - === Step: ('Monday', 0, 0, 50) ===
+2024-04-21 15:43:33,969 - INFO - Step of agent 0
+2024-04-21 15:43:33,970 - INFO - Agent Intent:
+2024-04-21 15:43:33,971 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:33,971 - INFO - Agent 0 action is empty
+2024-04-21 15:43:33,972 - ERROR - Action none not recognized
+2024-04-21 15:43:33,973 - INFO - === Step: ('Monday', 0, 1, 0) ===
+2024-04-21 15:43:33,973 - INFO - Step of agent 0
+2024-04-21 15:43:33,975 - INFO - Agent Intent:
+2024-04-21 15:43:33,976 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:33,976 - INFO - Agent 0 action is empty
+2024-04-21 15:43:33,977 - ERROR - Action none not recognized
+2024-04-21 15:43:33,978 - INFO - === Step: ('Monday', 0, 1, 10) ===
+2024-04-21 15:43:33,978 - INFO - Step of agent 0
+2024-04-21 15:43:33,980 - INFO - Agent Intent:
+2024-04-21 15:43:33,981 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:33,982 - INFO - Agent 0 action is empty
+2024-04-21 15:43:33,983 - ERROR - Action none not recognized
+2024-04-21 15:43:33,983 - INFO - === Step: ('Monday', 0, 1, 20) ===
+2024-04-21 15:43:33,983 - INFO - Step of agent 0
+2024-04-21 15:43:33,985 - INFO - Agent Intent:
+2024-04-21 15:43:33,985 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:33,986 - INFO - Agent 0 action is empty
+2024-04-21 15:43:33,987 - ERROR - Action none not recognized
+2024-04-21 15:43:33,987 - INFO - === Step: ('Monday', 0, 1, 30) ===
+2024-04-21 15:43:33,988 - INFO - Step of agent 0
+2024-04-21 15:43:33,990 - INFO - Agent Intent:
+2024-04-21 15:43:33,990 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:33,990 - INFO - Agent 0 action is empty
+2024-04-21 15:43:33,992 - ERROR - Action none not recognized
+2024-04-21 15:43:33,992 - INFO - === Step: ('Monday', 0, 1, 40) ===
+2024-04-21 15:43:33,993 - INFO - Step of agent 0
+2024-04-21 15:43:33,996 - INFO - Agent Intent:
+2024-04-21 15:43:33,997 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:33,998 - INFO - Agent 0 action is empty
+2024-04-21 15:43:33,999 - ERROR - Action none not recognized
+2024-04-21 15:43:34,000 - INFO - === Step: ('Monday', 0, 1, 50) ===
+2024-04-21 15:43:34,000 - INFO - Step of agent 0
+2024-04-21 15:43:34,002 - INFO - Agent Intent:
+2024-04-21 15:43:34,002 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,003 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,003 - ERROR - Action none not recognized
+2024-04-21 15:43:34,004 - INFO - === Step: ('Monday', 0, 2, 0) ===
+2024-04-21 15:43:34,004 - INFO - Step of agent 0
+2024-04-21 15:43:34,006 - INFO - Agent Intent:
+2024-04-21 15:43:34,007 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,008 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,011 - ERROR - Action none not recognized
+2024-04-21 15:43:34,012 - INFO - === Step: ('Monday', 0, 2, 10) ===
+2024-04-21 15:43:34,012 - INFO - Step of agent 0
+2024-04-21 15:43:34,014 - INFO - Agent Intent:
+2024-04-21 15:43:34,015 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,015 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,016 - ERROR - Action none not recognized
+2024-04-21 15:43:34,017 - INFO - === Step: ('Monday', 0, 2, 20) ===
+2024-04-21 15:43:34,017 - INFO - Step of agent 0
+2024-04-21 15:43:34,019 - INFO - Agent Intent:
+2024-04-21 15:43:34,019 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,019 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,020 - ERROR - Action none not recognized
+2024-04-21 15:43:34,021 - INFO - === Step: ('Monday', 0, 2, 30) ===
+2024-04-21 15:43:34,021 - INFO - Step of agent 0
+2024-04-21 15:43:34,023 - INFO - Agent Intent:
+2024-04-21 15:43:34,024 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,024 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,026 - ERROR - Action none not recognized
+2024-04-21 15:43:34,028 - INFO - === Step: ('Monday', 0, 2, 40) ===
+2024-04-21 15:43:34,029 - INFO - Step of agent 0
+2024-04-21 15:43:34,032 - INFO - Agent Intent:
+2024-04-21 15:43:34,032 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,033 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,034 - ERROR - Action none not recognized
+2024-04-21 15:43:34,035 - INFO - === Step: ('Monday', 0, 2, 50) ===
+2024-04-21 15:43:34,035 - INFO - Step of agent 0
+2024-04-21 15:43:34,036 - INFO - Agent Intent:
+2024-04-21 15:43:34,037 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,037 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,038 - ERROR - Action none not recognized
+2024-04-21 15:43:34,039 - INFO - === Step: ('Monday', 0, 3, 0) ===
+2024-04-21 15:43:34,039 - INFO - Step of agent 0
+2024-04-21 15:43:34,041 - INFO - Agent Intent:
+2024-04-21 15:43:34,042 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,042 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,044 - ERROR - Action none not recognized
+2024-04-21 15:43:34,045 - INFO - === Step: ('Monday', 0, 3, 10) ===
+2024-04-21 15:43:34,045 - INFO - Step of agent 0
+2024-04-21 15:43:34,047 - INFO - Agent Intent:
+2024-04-21 15:43:34,047 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,048 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,049 - ERROR - Action none not recognized
+2024-04-21 15:43:34,049 - INFO - === Step: ('Monday', 0, 3, 20) ===
+2024-04-21 15:43:34,049 - INFO - Step of agent 0
+2024-04-21 15:43:34,051 - INFO - Agent Intent:
+2024-04-21 15:43:34,051 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,052 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,053 - ERROR - Action none not recognized
+2024-04-21 15:43:34,053 - INFO - === Step: ('Monday', 0, 3, 30) ===
+2024-04-21 15:43:34,053 - INFO - Step of agent 0
+2024-04-21 15:43:34,056 - INFO - Agent Intent:
+2024-04-21 15:43:34,056 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,057 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,058 - ERROR - Action none not recognized
+2024-04-21 15:43:34,058 - INFO - === Step: ('Monday', 0, 3, 40) ===
+2024-04-21 15:43:34,058 - INFO - Step of agent 0
+2024-04-21 15:43:34,063 - INFO - Agent Intent:
+2024-04-21 15:43:34,063 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,064 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,065 - ERROR - Action none not recognized
+2024-04-21 15:43:34,065 - INFO - === Step: ('Monday', 0, 3, 50) ===
+2024-04-21 15:43:34,065 - INFO - Step of agent 0
+2024-04-21 15:43:34,067 - INFO - Agent Intent:
+2024-04-21 15:43:34,067 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,068 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,068 - ERROR - Action none not recognized
+2024-04-21 15:43:34,069 - INFO - === Step: ('Monday', 0, 4, 0) ===
+2024-04-21 15:43:34,069 - INFO - Step of agent 0
+2024-04-21 15:43:34,071 - INFO - Agent Intent:
+2024-04-21 15:43:34,072 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,073 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,074 - ERROR - Action none not recognized
+2024-04-21 15:43:34,074 - INFO - === Step: ('Monday', 0, 4, 10) ===
+2024-04-21 15:43:34,075 - INFO - Step of agent 0
+2024-04-21 15:43:34,076 - INFO - Agent Intent:
+2024-04-21 15:43:34,077 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,078 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,079 - ERROR - Action none not recognized
+2024-04-21 15:43:34,080 - INFO - === Step: ('Monday', 0, 4, 20) ===
+2024-04-21 15:43:34,080 - INFO - Step of agent 0
+2024-04-21 15:43:34,082 - INFO - Agent Intent:
+2024-04-21 15:43:34,082 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,083 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,084 - ERROR - Action none not recognized
+2024-04-21 15:43:34,084 - INFO - === Step: ('Monday', 0, 4, 30) ===
+2024-04-21 15:43:34,084 - INFO - Step of agent 0
+2024-04-21 15:43:34,086 - INFO - Agent Intent:
+2024-04-21 15:43:34,086 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,087 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,089 - ERROR - Action none not recognized
+2024-04-21 15:43:34,089 - INFO - === Step: ('Monday', 0, 4, 40) ===
+2024-04-21 15:43:34,090 - INFO - Step of agent 0
+2024-04-21 15:43:34,091 - INFO - Agent Intent:
+2024-04-21 15:43:34,092 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,093 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,095 - ERROR - Action none not recognized
+2024-04-21 15:43:34,096 - INFO - === Step: ('Monday', 0, 4, 50) ===
+2024-04-21 15:43:34,097 - INFO - Step of agent 0
+2024-04-21 15:43:34,099 - INFO - Agent Intent:
+2024-04-21 15:43:34,099 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,100 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,101 - ERROR - Action none not recognized
+2024-04-21 15:43:34,101 - INFO - === Step: ('Monday', 0, 5, 0) ===
+2024-04-21 15:43:34,101 - INFO - Step of agent 0
+2024-04-21 15:43:34,103 - INFO - Agent Intent:
+2024-04-21 15:43:34,104 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,104 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,105 - ERROR - Action none not recognized
+2024-04-21 15:43:34,106 - INFO - === Step: ('Monday', 0, 5, 10) ===
+2024-04-21 15:43:34,106 - INFO - Step of agent 0
+2024-04-21 15:43:34,108 - INFO - Agent Intent:
+2024-04-21 15:43:34,109 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,109 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,110 - ERROR - Action none not recognized
+2024-04-21 15:43:34,111 - INFO - === Step: ('Monday', 0, 5, 20) ===
+2024-04-21 15:43:34,111 - INFO - Step of agent 0
+2024-04-21 15:43:34,113 - INFO - Agent Intent:
+2024-04-21 15:43:34,114 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,114 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,115 - ERROR - Action none not recognized
+2024-04-21 15:43:34,116 - INFO - === Step: ('Monday', 0, 5, 30) ===
+2024-04-21 15:43:34,116 - INFO - Step of agent 0
+2024-04-21 15:43:34,118 - INFO - Agent Intent:
+2024-04-21 15:43:34,119 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,119 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,120 - ERROR - Action none not recognized
+2024-04-21 15:43:34,121 - INFO - === Step: ('Monday', 0, 5, 40) ===
+2024-04-21 15:43:34,121 - INFO - Step of agent 0
+2024-04-21 15:43:34,122 - INFO - Agent Intent:
+2024-04-21 15:43:34,123 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,123 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,124 - ERROR - Action none not recognized
+2024-04-21 15:43:34,125 - INFO - === Step: ('Monday', 0, 5, 50) ===
+2024-04-21 15:43:34,125 - INFO - Step of agent 0
+2024-04-21 15:43:34,129 - INFO - Agent Intent:
+2024-04-21 15:43:34,130 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,131 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,132 - ERROR - Action none not recognized
+2024-04-21 15:43:34,133 - INFO - === Step: ('Monday', 0, 6, 0) ===
+2024-04-21 15:43:34,133 - INFO - Step of agent 0
+2024-04-21 15:43:34,134 - INFO - Agent Intent:
+2024-04-21 15:43:34,135 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,136 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,137 - ERROR - Action none not recognized
+2024-04-21 15:43:34,137 - INFO - === Step: ('Monday', 0, 6, 10) ===
+2024-04-21 15:43:34,138 - INFO - Step of agent 0
+2024-04-21 15:43:34,139 - INFO - Agent Intent:
+2024-04-21 15:43:34,140 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,140 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,141 - ERROR - Action none not recognized
+2024-04-21 15:43:34,141 - INFO - === Step: ('Monday', 0, 6, 20) ===
+2024-04-21 15:43:34,142 - INFO - Step of agent 0
+2024-04-21 15:43:34,143 - INFO - Agent Intent:
+2024-04-21 15:43:34,144 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,144 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,145 - ERROR - Action none not recognized
+2024-04-21 15:43:34,146 - INFO - === Step: ('Monday', 0, 6, 30) ===
+2024-04-21 15:43:34,146 - INFO - Step of agent 0
+2024-04-21 15:43:34,148 - INFO - Agent Intent:
+2024-04-21 15:43:34,149 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,149 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,150 - ERROR - Action none not recognized
+2024-04-21 15:43:34,151 - INFO - === Step: ('Monday', 0, 6, 40) ===
+2024-04-21 15:43:34,151 - INFO - Step of agent 0
+2024-04-21 15:43:34,153 - INFO - Agent Intent:
+2024-04-21 15:43:34,153 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,153 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,155 - ERROR - Action none not recognized
+2024-04-21 15:43:34,155 - INFO - === Step: ('Monday', 0, 6, 50) ===
+2024-04-21 15:43:34,156 - INFO - Step of agent 0
+2024-04-21 15:43:34,157 - INFO - Agent Intent:
+2024-04-21 15:43:34,158 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,159 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,161 - ERROR - Action none not recognized
+2024-04-21 15:43:34,162 - INFO - === Step: ('Monday', 0, 7, 0) ===
+2024-04-21 15:43:34,162 - INFO - Step of agent 0
+2024-04-21 15:43:34,165 - INFO - Agent Intent:
+2024-04-21 15:43:34,166 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,166 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,168 - ERROR - Action none not recognized
+2024-04-21 15:43:34,168 - INFO - === Step: ('Monday', 0, 7, 10) ===
+2024-04-21 15:43:34,168 - INFO - Step of agent 0
+2024-04-21 15:43:34,170 - INFO - Agent Intent:
+2024-04-21 15:43:34,171 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,171 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,172 - ERROR - Action none not recognized
+2024-04-21 15:43:34,173 - INFO - === Step: ('Monday', 0, 7, 20) ===
+2024-04-21 15:43:34,173 - INFO - Step of agent 0
+2024-04-21 15:43:34,175 - INFO - Agent Intent:
+2024-04-21 15:43:34,176 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,176 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,178 - ERROR - Action none not recognized
+2024-04-21 15:43:34,179 - INFO - === Step: ('Monday', 0, 7, 30) ===
+2024-04-21 15:43:34,179 - INFO - Step of agent 0
+2024-04-21 15:43:34,180 - INFO - Agent Intent:
+2024-04-21 15:43:34,181 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,181 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,182 - ERROR - Action none not recognized
+2024-04-21 15:43:34,182 - INFO - === Step: ('Monday', 0, 7, 40) ===
+2024-04-21 15:43:34,183 - INFO - Step of agent 0
+2024-04-21 15:43:34,185 - INFO - Agent Intent:
+2024-04-21 15:43:34,186 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,187 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,189 - ERROR - Action none not recognized
+2024-04-21 15:43:34,189 - INFO - === Step: ('Monday', 0, 7, 50) ===
+2024-04-21 15:43:34,190 - INFO - Step of agent 0
+2024-04-21 15:43:34,191 - INFO - Agent Intent:
+2024-04-21 15:43:34,192 - INFO - 	goal: The agent has not goals in life :-(
+2024-04-21 15:43:34,192 - INFO - Agent 0 action is empty
+2024-04-21 15:43:34,195 - ERROR - Action none not recognized
+2024-04-21 15:43:34,195 - INFO - === Step: ('Monday', 0, 8, 0) ===
+2024-04-21 15:43:34,196 - INFO - Step of agent 0
+2024-04-21 15:43:34,200 - INFO - Agent Intent:
+2024-04-21 15:43:34,201 - INFO - 	goal: move, parameters: 164
+2024-04-21 15:43:34,201 - INFO - Agent 0 is moving to 164 from 1

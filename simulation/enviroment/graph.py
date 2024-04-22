@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import Tuple, Hashable
 import random
 
 class Node:
@@ -10,7 +10,7 @@ class Node:
     - name: Unique identifier for the node.
     """
 
-    def __init__(self, id: int =None)-> None:
+    def __init__(self, id: Hashable =None)-> None:
         """
         Initializes a new node.
 
@@ -27,7 +27,7 @@ class Node:
         Returns:
         - A string representing the node.
         """
-        return f"Node({self.id}, {self.value})"
+        return f"Node({self.id})"
 
     def __repr__(self):
         """
@@ -51,8 +51,17 @@ class Graph:
         """
         Initializes a new graph.
         """
-        self.nodes: dict[int, Node] = {}
-        self.edges: list[Tuple[int,int]] = []
+        self.nodes: dict[Hashable, Node] = {}
+        self.edges: dict[Tuple[Hashable,Hashable], float] = {}
+        
+    def __getitem__(self, index: int):
+        """
+        Gets a node or a list of nodes by their address or ID.
+        
+        Args:
+            index (Union[Tuple, int]): Address or ID of the node.
+        """
+        return self.nodes[index]
 
     def add_node(self, node:Node)-> None:
         """
@@ -64,7 +73,7 @@ class Graph:
         if node.id not in self.nodes:
             self.nodes[node.id] = node
 
-    def add_edge(self, node1:int, node2:int)-> Tuple[int, int]:
+    def add_edge(self, node1:int, node2:int, cost: float)-> Tuple[int, int]:
         """
         Adds an edge between two nodes in the graph.
 
@@ -73,18 +82,26 @@ class Graph:
         - node2: Second node of the edge.
         """
         if node1 in self.nodes and node2 in self.nodes:
-            self.edges.append((node1, node2))
+            self.edges[(node1, node2)] = cost
             return (node1, node2)
         else:
             raise ValueError("Both nodes must be in the graph")
 
     def get_neighbors(self, node:int):
+        """
+        get the neighbors.
+
+        Parameters:
+        - node: Node to remove from the graph.
+        """
         neighbors = []
         for edge in self.edges:
             if node == edge[0]:
-                neighbors.append(edge[1])
+                if edge[1] not in neighbors:
+                    neighbors.append(edge[1])
             if node == edge[1]:
-                neighbors.append(edge[0])
+                if edge[0] not in neighbors:
+                    neighbors.append(edge[0])
         return neighbors
     
     def remove_node(self, node:int)->int:
@@ -148,3 +165,6 @@ class Graph:
         - A string representing the graph.
         """
         return str(self.nodes,self.edges)
+    
+    def cost(self, from_node_id, to_node_id):
+        return self.edges.get((from_node_id, to_node_id), float('inf'))

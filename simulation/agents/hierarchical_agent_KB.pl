@@ -170,6 +170,13 @@ check_goals():-
 
     (goal(wear_mask), wearing_mask(true) ->
         retractall(goal(wear_mask)));
+
+    ((goal(medical_check), location(Id), open_hours_place(Id,_,C), hour(H), C == H) ->
+        retractall(goal(medical_check)));
+
+    ((goal(have_fun),  location(Id), open_hours_place(Id,_,C), hour(H), C == H)  ->
+        retractall(goal(wear_mask)));
+
     (goal(remove_mask), wearing_mask(false) ->
         retractall(goal(remove_mask)));
     true.
@@ -211,6 +218,8 @@ behavioral_step(Action, Arguments):-
     (goal(work), work_place(WorkId, _), location(WorkId)->
     work(Action, Arguments));
 
+    (goal(medical_check)-> Action = medical_check);
+
     (goal(move, NodeId), not(location(NodeId))->
     (move(NodeId, Action, Arguments)));
 
@@ -231,7 +240,6 @@ feedback(Location, WearingMask):-
 %---------------------------- Local Plans --------------------------------------------------------
 
 % Rules
-
 
 remove_goals():-
     retractall(goal(_)),
@@ -257,13 +265,17 @@ goal_move(TagetNode):-
     retractall(goal(move, _)),
     assert(goal(move, TagetNode)).
     
-
 get_to_work(WorkId):-
     goal_move(WorkId),
     location(WorkId).
 
-open_hours_place(1, 1, 10).
-hour(2).
+get_to_public_place(Id):-
+    goal_move(Id),
+    location(Id).
+
+get_to_hospital(Hospital):-
+    goal_move(Hospital),
+    location(Hospital).
 
 work(WorkId):-
     hour(H),
@@ -272,24 +284,52 @@ work(WorkId):-
         assert(goal(work)); true),
     H >= C.
 
+medical_check(HospitalId):-
+    hour(H),
+    open_hours_place(HospitalId, _, C),
+    (not(goal(medical_check))->
+        assert(goal(medical_check)); true),
+    H >= C.
+
+have_fun(Id):-
+    hour(H),
+    open_hours_place(Id, _, C),
+    (not(goal(have_fun))->
+        assert(goal(have_fun)); true),
+    H >= C.
+
+
 go_home(HomeId):-
     goal_move(HomeId).
 
-work_day_routine(WorkId, HomeId):-
+work_day_routine(WorkId):-
+    home(HomeId),
     get_to_work(WorkId),
     work(WorkId),
     go_home(HomeId).
 
-free_day_routine():-
-    true.
-
-planification_step():-
-    remove_goals(),
+hospital_rutine(HospitalId):-
     home(HomeId),
+    get_to_hospital(HospitalId),
+    medical_check(HospitalId),
+    go_home(HomeId).
+
+go_public_place_rutine(Id):-
+    home(HomeId),
+    get_to_public_place(Id),
+    have_fun(Id),
+    go_home(HomeId).
+
+hospital_overrun(_, false).
+
+planification_step(Plan):-
+    remove_goals(),
     work_place(WorkId, _),
-    (work_is_open(WorkId), too_sick(false) ->
-        work_day_routine(WorkId, HomeId);
-        (free_day_routine())).
+    ((work_is_open(WorkId), too_sick(false)) -> work_day_routine(WorkId), Plan = work_day_routine(WorkId));
+    ((too_sick(true), hospital(Id,_), open_place(Id, true), hospital_overrun(Id, false))-> hospital_rutine(Id), Plan = hospital_rutine(Id));
+    ((public_space(Id, _),open_place(Id, true), week_day(W), W == saturday; W == sunday) -> go_public_place_rutine(Id), Plan = go_public_place_rutine(Id)); 
+    Plan = no_plan.
+
 
 % Facts for testing purposes:
 % hour(16).
@@ -305,6 +345,24 @@ planification_step():-
 
 
 %---------------------------- Cooperation Knowledge -----------------------------------------------
+
+% % Enviar un mensaje
+% recibe_message(SenderId, ReceiverId, Message) :-
+%     retractall(message(SenderId, Message)),
+%     assert(message(SenderId, Message)).
+
+% % Coordinar acciones
+% coordinate_action(AgentId, OtherAgentId, PlanId) :-
+%     send_message(AgentId, OtherAgentId, coordinate_action),
+%     receive_message(AgentId, OtherAgentId, coordinate_action).
+
+cooperation_step(Plan):- 
+    open_place(PlaceId, true),
+    home(Home),
+    go_public_place_rutine(PlaceId, Home).
+
+
+
 
 %--------------------------- Auxiliary Methods -----------------------------------------
 

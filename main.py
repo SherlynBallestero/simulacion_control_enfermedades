@@ -22,7 +22,7 @@ def plot_dissease_evolution_days(dissease_progression, steps):
     states = ['susceptible', 'asymptomatic', 'symptomatic', 'critical', 'terminal', 'dead', 'recovered']
     colors = ['y', 'g', 'r', 'c', 'm', 'b', 'k']
     days = steps // 6 // 24
-    x = range(days + 1) 
+    x = range(days) 
     y = [[dissease_progression[day * 6 * 24][state] for day in range(days)] for state in states]
     addition = [0] * len(y[0])
     for i, data in enumerate(y):

@@ -1,5 +1,7 @@
 symptoms_of_disease([cough]).
 
+medidas([mask_use,social_distancing,tests_and_diagnosis,contact_tracing, vaccination, isolation, quarantine]).
+
 recommendation_control_measure(low, mask_use).
 recommendation_control_measure(low, social_distancing).
 

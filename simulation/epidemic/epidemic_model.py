@@ -70,7 +70,7 @@ class EpidemicModel:
             List[str]: The symptoms of the agent.
         """
         result = list(self.disease_k.query(f'symptoms({agent_id}, S)'))
-        return [atom.value for atom in result[0]['S']]
+        return [atom.value for atom in result[0]['S']] #TODO errorna veces
 
     def _step_dissease_query(self, agent: Agent) -> str:
         """

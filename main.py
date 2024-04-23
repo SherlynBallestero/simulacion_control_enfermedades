@@ -5,6 +5,8 @@ import logging
 from simulation.enviroment.maps import TEST_CITY_1
 from simulation.enviroment.environment import Environment
 from simulation.epidemic.epidemic_model import EpidemicModel
+import matplotlib
+matplotlib.use('TkAgg') 
 import matplotlib.pyplot as plt
 
 # Create and configure logger
@@ -20,7 +22,7 @@ def plot_dissease_evolution_days(dissease_progression, steps):
     '''
     # Data for plotting
     states = ['susceptible', 'asymptomatic', 'symptomatic', 'critical', 'terminal', 'dead', 'recovered']
-    colors = ['y', 'g', 'r', 'c', 'm', 'b', 'k']
+    colors = ['g', 'y', 'r', 'c', 'm', 'b', 'k']
     days = steps // 6 // 24
     x = range(days) 
     y = [[dissease_progression[day * 6 * 24][state] for day in range(days)] for state in states]
@@ -75,7 +77,7 @@ if __name__ == '__main__':
     logger.debug("=== Initializing Epidemic Model ===")
     epidemic_model = EpidemicModel()
     logger.debug("=== Initializing Environment ===")
-    env = Environment(2, epidemic_model, map)
+    env = Environment(10, epidemic_model, map)
     logger.info(f'=== Starting Simulation Loop With {sim_steps} Steps ===')
     simulate(env, sim_steps)
     plot_dissease_evolution_days(env.dissease_step_progression, len(env.dissease_step_progression))

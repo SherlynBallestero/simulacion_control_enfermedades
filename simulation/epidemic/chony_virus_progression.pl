@@ -45,17 +45,17 @@ possible_symptoms_recovered([]).
 
 % Age Influence on the disease
 
-age_influence(young, gets_better, 0.25).
-age_influence(young, gets_worse, 0.15).
-age_influence(young, nothing_happens, 0.6).
+age_influence(young, gets_better, 0.05).
+age_influence(young, gets_worse, 0.03).
+age_influence(young, nothing_happens, 0.92).
 
-age_influence(adult, gets_better, 0.25).
-age_influence(adult, gets_worse, 0.25).
-age_influence(adult, nothing_happens, 0.5).
+age_influence(adult, gets_better, 0.05).
+age_influence(adult, gets_worse, 0.05).
+age_influence(adult, nothing_happens, 0.90).
 
-age_influence(old, gets_better, 0.15).
-age_influence(old, gets_worse, 0.45).
-age_influence(old, nothing_happens, 0.4).
+age_influence(old, gets_better, 0.05).
+age_influence(old, gets_worse, 0.15).
+age_influence(old, nothing_happens, 0.80).
 
 % Symptoms Progression
 

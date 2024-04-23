@@ -22,6 +22,10 @@
 % public_transportation_working(Id, Bool).
 % public_transportation_schedule(Id, AddrList).
 % hospital_acepting_patients(Id, Bool).
+% family([agents_id])
+% work_friends([agents_id])
+% friends([agents_id])
+
 
 % goal(move, 1).
 % hour(16).
@@ -46,7 +50,8 @@
 initialize_k():-
     assert(too_sick(false)),
     assert(wearing_mask(false)),
-    assert(social_distancing(false)).
+    assert(social_distancing(false)),
+    assert(friends([])).
 
 add_node_info(Id, Address, CapacityStatus, NodeType):-%TODO: see if this is necesary and if it works
     retractall(node(Id, _, _, _)),
@@ -150,6 +155,12 @@ add_isolation(Bool):-
     retractall(isolation(_)),
     assert(isolation(Bool)).
 
+add_friends(Friends):-
+    friends(CurrentFriends),
+    append(CurrentFriends, Friends, NewFriends),
+    retractall(friends(_)),
+    assert(friends(NewFriends)).
+
 work_is_open(WorkId):-
     not(week_day(saturday)),
     not(week_day(sunday)),
@@ -214,20 +225,21 @@ behavioral_step(Action, Arguments):-
     % check archieved goals
     check_goals(),
     % (preconditions) - (actions)
+    (goal(wear_mask), mask_necessity(true), location(NodeId), mask_requirement(NodeId, true), wearing_mask(false)->
+        wear_mask(Action, Arguments));
+    
+    (goal(remove_mask), wearing_mask(true)->
+        remove_mask(Action, Arguments));
 
     (goal(work), work_place(WorkId, _), location(WorkId)->
-    work(Action, Arguments));
+        work(Action, Arguments));
 
     (goal(medical_check)-> Action = medical_check);
 
     (goal(move, NodeId), not(location(NodeId))->
-    (move(NodeId, Action, Arguments)));
+        (move(NodeId, Action, Arguments))).
 
-    (goal(wear_mask), mask_necessity(true), location(NodeId), mask_requirement(NodeId, true), wearing_mask(false)->
-        wear_mask(Action, Arguments));
 
-    (goal(remove_mask), wearing_mask(true)->
-        remove_mask(Action, Arguments)).
 
 
 feedback(Location, WearingMask):-
@@ -325,9 +337,9 @@ hospital_overrun(_, false).
 planification_step(Plan):-
     remove_goals(),
     work_place(WorkId, _),
-    ((work_is_open(WorkId), too_sick(false)) -> work_day_routine(WorkId), Plan = work_day_routine(WorkId));
     ((too_sick(true), hospital(Id,_), open_place(Id, true), hospital_overrun(Id, false))-> hospital_rutine(Id), Plan = hospital_rutine(Id));
-    ((public_space(Id, _),open_place(Id, true), week_day(W), W == saturday; W == sunday) -> go_public_place_rutine(Id), Plan = go_public_place_rutine(Id)); 
+    ((work_is_open(WorkId), too_sick(false)) -> work_day_routine(WorkId), Plan = work_day_routine(WorkId));
+    ((public_space(Id, _),open_place(Id, true), week_day(W), (W == saturday; W == sunday)) -> go_public_place_rutine(Id), Plan = go_public_place_rutine(Id)); 
     Plan = no_plan.
 
 
@@ -356,13 +368,10 @@ planification_step(Plan):-
 %     send_message(AgentId, OtherAgentId, coordinate_action),
 %     receive_message(AgentId, OtherAgentId, coordinate_action).
 
-cooperation_step(Plan):- 
-    open_place(PlaceId, true),
-    home(Home),
-    go_public_place_rutine(PlaceId, Home).
-
-
-
+% cooperation_step(Plan):- 
+%     open_place(PlaceId, true),
+%     home(Home),
+%     go_public_place_rutine(PlaceId, Home).
 
 %--------------------------- Auxiliary Methods -----------------------------------------
 

@@ -33,11 +33,21 @@ class Environment:
         """
         self.map: Terrain = map    
         self.agents: List[Agent] = []
+        self.dead_agents: set[Agent] = set()
         self.canelo = None
         self.epidemic_model = epidemic_model
+        self.dissease_step_progression = []
         logger.debug('=== Initializing Agents ===')
         self.initialize_citizen_agents(num_agents)
         self.initialize_canelo_agent()
+        self.initialize_relations()
+
+        def kill_agent(agent):
+            self.dead_agents.add(agent.unique_id)
+            agent_location = agent.location
+            self.map[agent_location].agent_list.remove(agent.unique_id)
+
+        self.epidemic_model.kill_agent = kill_agent
 
     def _initialize_agents_knowledge(self, id):
         kb = Knowledge()
@@ -56,9 +66,45 @@ class Environment:
             work.add_person(id)
             kb.add_work_place(self.map[work.id])
             kb.add_is_medical_personnel(False)
-        kb.query('initialize_k()')
+        list(kb.query('initialize_k()'))
         return kb
     
+    def create_family(self, home):
+        if len(home.persons) <= 1:
+            return []
+        id_list = [agent_id for agent_id in home.persons]
+        for agent_id in home.persons:
+            agent = self.agents[agent_id]
+            friends_list = id_list.copy()
+            if agent_id in friends_list:
+                friends_list.remove(agent_id)
+            agent.knowledge_base.add_friends(friends_list)
+
+    def create_work_relations(self, work):
+        if len(work.persons) <= 1:
+            return []
+        id_list = [agent_id for agent_id in work.persons]
+        for agent_id in work.persons:
+            friends_amount = random.randint(1, int(len(work.persons)/2))
+            posible_friends = random.sample(id_list, friends_amount)
+            agent = self.agents[agent_id]
+            if agent_id in posible_friends:
+                friends_list = posible_friends.remove(agent_id)
+            else:
+                friends_list = posible_friends
+            agent.knowledge_base.add_friends(friends_list)
+
+    def initialize_relations(self):
+        terrain = self.map
+        houses = terrain.houses
+        work_places = terrain.works
+
+        for house in houses:
+            self.create_family(house)
+
+        for work_place in work_places:
+            self.create_work_relations(work_place)
+
     def initialize_canelo_agent(self):
         kb = KnowledgeCanelo()
         mind_map = self.generate_citizen_mind_map()
@@ -182,6 +228,8 @@ class Environment:
             step_num (int): The current step number of the simulation.
         """
         for agent in random.sample(self.agents, len(self.agents)):
+            if agent.unique_id in self.dead_agents:
+                continue
             logger.info(f'Step of agent {agent.unique_id}')
             agent.step(step_num)
             # self._debug_agent_k(agent.knowledge_base)
@@ -191,6 +239,8 @@ class Environment:
         
         ocupied_nodes = [([self.agents[agent_id] for agent_id in node.agent_list], node.contact_rate) for node in self.map.graph.nodes.values() if node.agent_list]
         self.epidemic_model.step(ocupied_nodes)
+
+        self.dissease_step_progression.append(self.get_dissease_stats())
 
     def _debug_agent_k(self, agent_k:Knowledge):
         logger.debug(f'Knowlege Base Facts:')
@@ -329,6 +379,19 @@ class Environment:
                 logger.debug(f'{key}: {fact[key]}')
         pass
 
+    def get_dissease_stats(self):
+        agent_dist = {
+            'susceptible': 0,
+            'asymptomatic': 0,
+            'symptomatic': 0,
+            'critical': 0,
+            'terminal': 0,
+            'dead': 0
+        }
+        for agent in self.agents:
+            agent_dist[agent.status] += 1
+
+        return agent_dist
 
 class WorldInterface:
     """
@@ -366,7 +429,7 @@ class WorldInterface:
                 path = agent._last_path
             else:
                 map = self.agent_mind_map
-                if parameters[1].value:
+                if parameters[1].value == 'true':
                     problem = AgentPathProblem(map[agent.location], map[parameters[0]], map, 'minimum_contact_path')          
                 else:
                     problem = AgentPathProblem(map[agent.location], map[parameters[0]], map)
@@ -397,8 +460,6 @@ class WorldInterface:
         
         elif not action:            
             logger.info(f'Agent {agent.unique_id} action is empty')
-
-
 
     def percieve(self, agent: Agent, step_num: int) -> dict:
         """
@@ -444,6 +505,7 @@ class WorldInterface:
             current_node_perception.oppening_hours = current_node.opening_hours
             current_node_perception.closing_hours = current_node.closing_hours
             current_node_perception.is_open = current_node.is_open
+            current_node_perception.mask_required = current_node.mask_required
 
         new_perception[current_node.addr] = current_node_perception
 
@@ -474,7 +536,6 @@ class WorldInterface:
     def send_message(self, agent, message):
         pass
 
-    
     def comunicate(self, sender: Agent, message, Id = None) -> None:
         """
         Communicate a message from one agent to another.
@@ -491,7 +552,6 @@ class WorldInterface:
         for agent_id in list_family:
             agent = self.eviroment.agents[agent_id]
             self.send_message(agent, message)
-        
 
 class WorldInterfaceCanelo:
     """
@@ -546,12 +606,12 @@ class WorldInterfaceCanelo:
             logger.info(f'Canelo is transmitting not use mask')
             for agent in self.list_agents:
                 self.comunicate( agent, action)
-         
+        
         elif action == 'quarantine':
             logger.info(f'Canelo is transmitting go quarantine')
             for agent in self.list_agents:
                 self.comunicate( agent, action)
-             
+        
         elif action == 'social_distancing':
             logger.info(f'Canelo is transmitting social_distancing')
             for agent in self.list_agents:
@@ -670,5 +730,6 @@ class WorldInterfaceCanelo:
 
         new_perception[current_node.addr] = current_node_perception
 
-        return new_perception
 
+
+        return new_perception

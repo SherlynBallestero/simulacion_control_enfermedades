@@ -1,299 +1,237 @@
-2024-04-21 15:43:33,847 - INFO - === Simulation Execution Started ===
-2024-04-21 15:43:33,850 - DEBUG - === Initializing City ===
-2024-04-21 15:43:33,850 - DEBUG - === Initializing Epidemic Model ===
-2024-04-21 15:43:33,866 - DEBUG - === Initializing Environment ===
-2024-04-21 15:43:33,866 - DEBUG - === Initializing Agents ===
-2024-04-21 15:43:33,940 - INFO - === Starting Simulation Loop With 4464 Steps ===
-2024-04-21 15:43:33,941 - INFO - === Step: ('Monday', 0, 0, 0) ===
-2024-04-21 15:43:33,942 - INFO - Step of agent 0
-2024-04-21 15:43:33,945 - INFO - Agent Intent:
-2024-04-21 15:43:33,945 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:33,946 - INFO - Agent 0 action is empty
-2024-04-21 15:43:33,947 - ERROR - Action none not recognized
-2024-04-21 15:43:33,948 - INFO - === Step: ('Monday', 0, 0, 10) ===
-2024-04-21 15:43:33,948 - INFO - Step of agent 0
-2024-04-21 15:43:33,950 - INFO - Agent Intent:
-2024-04-21 15:43:33,950 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:33,950 - INFO - Agent 0 action is empty
-2024-04-21 15:43:33,951 - ERROR - Action none not recognized
-2024-04-21 15:43:33,952 - INFO - === Step: ('Monday', 0, 0, 20) ===
-2024-04-21 15:43:33,952 - INFO - Step of agent 0
-2024-04-21 15:43:33,954 - INFO - Agent Intent:
-2024-04-21 15:43:33,955 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:33,955 - INFO - Agent 0 action is empty
-2024-04-21 15:43:33,956 - ERROR - Action none not recognized
-2024-04-21 15:43:33,956 - INFO - === Step: ('Monday', 0, 0, 30) ===
-2024-04-21 15:43:33,957 - INFO - Step of agent 0
-2024-04-21 15:43:33,958 - INFO - Agent Intent:
-2024-04-21 15:43:33,961 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:33,962 - INFO - Agent 0 action is empty
-2024-04-21 15:43:33,963 - ERROR - Action none not recognized
-2024-04-21 15:43:33,964 - INFO - === Step: ('Monday', 0, 0, 40) ===
-2024-04-21 15:43:33,964 - INFO - Step of agent 0
-2024-04-21 15:43:33,966 - INFO - Agent Intent:
-2024-04-21 15:43:33,967 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:33,967 - INFO - Agent 0 action is empty
-2024-04-21 15:43:33,968 - ERROR - Action none not recognized
-2024-04-21 15:43:33,969 - INFO - === Step: ('Monday', 0, 0, 50) ===
-2024-04-21 15:43:33,969 - INFO - Step of agent 0
-2024-04-21 15:43:33,970 - INFO - Agent Intent:
-2024-04-21 15:43:33,971 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:33,971 - INFO - Agent 0 action is empty
-2024-04-21 15:43:33,972 - ERROR - Action none not recognized
-2024-04-21 15:43:33,973 - INFO - === Step: ('Monday', 0, 1, 0) ===
-2024-04-21 15:43:33,973 - INFO - Step of agent 0
-2024-04-21 15:43:33,975 - INFO - Agent Intent:
-2024-04-21 15:43:33,976 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:33,976 - INFO - Agent 0 action is empty
-2024-04-21 15:43:33,977 - ERROR - Action none not recognized
-2024-04-21 15:43:33,978 - INFO - === Step: ('Monday', 0, 1, 10) ===
-2024-04-21 15:43:33,978 - INFO - Step of agent 0
-2024-04-21 15:43:33,980 - INFO - Agent Intent:
-2024-04-21 15:43:33,981 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:33,982 - INFO - Agent 0 action is empty
-2024-04-21 15:43:33,983 - ERROR - Action none not recognized
-2024-04-21 15:43:33,983 - INFO - === Step: ('Monday', 0, 1, 20) ===
-2024-04-21 15:43:33,983 - INFO - Step of agent 0
-2024-04-21 15:43:33,985 - INFO - Agent Intent:
-2024-04-21 15:43:33,985 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:33,986 - INFO - Agent 0 action is empty
-2024-04-21 15:43:33,987 - ERROR - Action none not recognized
-2024-04-21 15:43:33,987 - INFO - === Step: ('Monday', 0, 1, 30) ===
-2024-04-21 15:43:33,988 - INFO - Step of agent 0
-2024-04-21 15:43:33,990 - INFO - Agent Intent:
-2024-04-21 15:43:33,990 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:33,990 - INFO - Agent 0 action is empty
-2024-04-21 15:43:33,992 - ERROR - Action none not recognized
-2024-04-21 15:43:33,992 - INFO - === Step: ('Monday', 0, 1, 40) ===
-2024-04-21 15:43:33,993 - INFO - Step of agent 0
-2024-04-21 15:43:33,996 - INFO - Agent Intent:
-2024-04-21 15:43:33,997 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:33,998 - INFO - Agent 0 action is empty
-2024-04-21 15:43:33,999 - ERROR - Action none not recognized
-2024-04-21 15:43:34,000 - INFO - === Step: ('Monday', 0, 1, 50) ===
-2024-04-21 15:43:34,000 - INFO - Step of agent 0
-2024-04-21 15:43:34,002 - INFO - Agent Intent:
-2024-04-21 15:43:34,002 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,003 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,003 - ERROR - Action none not recognized
-2024-04-21 15:43:34,004 - INFO - === Step: ('Monday', 0, 2, 0) ===
-2024-04-21 15:43:34,004 - INFO - Step of agent 0
-2024-04-21 15:43:34,006 - INFO - Agent Intent:
-2024-04-21 15:43:34,007 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,008 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,011 - ERROR - Action none not recognized
-2024-04-21 15:43:34,012 - INFO - === Step: ('Monday', 0, 2, 10) ===
-2024-04-21 15:43:34,012 - INFO - Step of agent 0
-2024-04-21 15:43:34,014 - INFO - Agent Intent:
-2024-04-21 15:43:34,015 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,015 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,016 - ERROR - Action none not recognized
-2024-04-21 15:43:34,017 - INFO - === Step: ('Monday', 0, 2, 20) ===
-2024-04-21 15:43:34,017 - INFO - Step of agent 0
-2024-04-21 15:43:34,019 - INFO - Agent Intent:
-2024-04-21 15:43:34,019 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,019 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,020 - ERROR - Action none not recognized
-2024-04-21 15:43:34,021 - INFO - === Step: ('Monday', 0, 2, 30) ===
-2024-04-21 15:43:34,021 - INFO - Step of agent 0
-2024-04-21 15:43:34,023 - INFO - Agent Intent:
-2024-04-21 15:43:34,024 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,024 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,026 - ERROR - Action none not recognized
-2024-04-21 15:43:34,028 - INFO - === Step: ('Monday', 0, 2, 40) ===
-2024-04-21 15:43:34,029 - INFO - Step of agent 0
-2024-04-21 15:43:34,032 - INFO - Agent Intent:
-2024-04-21 15:43:34,032 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,033 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,034 - ERROR - Action none not recognized
-2024-04-21 15:43:34,035 - INFO - === Step: ('Monday', 0, 2, 50) ===
-2024-04-21 15:43:34,035 - INFO - Step of agent 0
-2024-04-21 15:43:34,036 - INFO - Agent Intent:
-2024-04-21 15:43:34,037 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,037 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,038 - ERROR - Action none not recognized
-2024-04-21 15:43:34,039 - INFO - === Step: ('Monday', 0, 3, 0) ===
-2024-04-21 15:43:34,039 - INFO - Step of agent 0
-2024-04-21 15:43:34,041 - INFO - Agent Intent:
-2024-04-21 15:43:34,042 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,042 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,044 - ERROR - Action none not recognized
-2024-04-21 15:43:34,045 - INFO - === Step: ('Monday', 0, 3, 10) ===
-2024-04-21 15:43:34,045 - INFO - Step of agent 0
-2024-04-21 15:43:34,047 - INFO - Agent Intent:
-2024-04-21 15:43:34,047 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,048 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,049 - ERROR - Action none not recognized
-2024-04-21 15:43:34,049 - INFO - === Step: ('Monday', 0, 3, 20) ===
-2024-04-21 15:43:34,049 - INFO - Step of agent 0
-2024-04-21 15:43:34,051 - INFO - Agent Intent:
-2024-04-21 15:43:34,051 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,052 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,053 - ERROR - Action none not recognized
-2024-04-21 15:43:34,053 - INFO - === Step: ('Monday', 0, 3, 30) ===
-2024-04-21 15:43:34,053 - INFO - Step of agent 0
-2024-04-21 15:43:34,056 - INFO - Agent Intent:
-2024-04-21 15:43:34,056 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,057 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,058 - ERROR - Action none not recognized
-2024-04-21 15:43:34,058 - INFO - === Step: ('Monday', 0, 3, 40) ===
-2024-04-21 15:43:34,058 - INFO - Step of agent 0
-2024-04-21 15:43:34,063 - INFO - Agent Intent:
-2024-04-21 15:43:34,063 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,064 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,065 - ERROR - Action none not recognized
-2024-04-21 15:43:34,065 - INFO - === Step: ('Monday', 0, 3, 50) ===
-2024-04-21 15:43:34,065 - INFO - Step of agent 0
-2024-04-21 15:43:34,067 - INFO - Agent Intent:
-2024-04-21 15:43:34,067 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,068 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,068 - ERROR - Action none not recognized
-2024-04-21 15:43:34,069 - INFO - === Step: ('Monday', 0, 4, 0) ===
-2024-04-21 15:43:34,069 - INFO - Step of agent 0
-2024-04-21 15:43:34,071 - INFO - Agent Intent:
-2024-04-21 15:43:34,072 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,073 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,074 - ERROR - Action none not recognized
-2024-04-21 15:43:34,074 - INFO - === Step: ('Monday', 0, 4, 10) ===
-2024-04-21 15:43:34,075 - INFO - Step of agent 0
-2024-04-21 15:43:34,076 - INFO - Agent Intent:
-2024-04-21 15:43:34,077 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,078 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,079 - ERROR - Action none not recognized
-2024-04-21 15:43:34,080 - INFO - === Step: ('Monday', 0, 4, 20) ===
-2024-04-21 15:43:34,080 - INFO - Step of agent 0
-2024-04-21 15:43:34,082 - INFO - Agent Intent:
-2024-04-21 15:43:34,082 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,083 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,084 - ERROR - Action none not recognized
-2024-04-21 15:43:34,084 - INFO - === Step: ('Monday', 0, 4, 30) ===
-2024-04-21 15:43:34,084 - INFO - Step of agent 0
-2024-04-21 15:43:34,086 - INFO - Agent Intent:
-2024-04-21 15:43:34,086 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,087 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,089 - ERROR - Action none not recognized
-2024-04-21 15:43:34,089 - INFO - === Step: ('Monday', 0, 4, 40) ===
-2024-04-21 15:43:34,090 - INFO - Step of agent 0
-2024-04-21 15:43:34,091 - INFO - Agent Intent:
-2024-04-21 15:43:34,092 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,093 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,095 - ERROR - Action none not recognized
-2024-04-21 15:43:34,096 - INFO - === Step: ('Monday', 0, 4, 50) ===
-2024-04-21 15:43:34,097 - INFO - Step of agent 0
-2024-04-21 15:43:34,099 - INFO - Agent Intent:
-2024-04-21 15:43:34,099 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,100 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,101 - ERROR - Action none not recognized
-2024-04-21 15:43:34,101 - INFO - === Step: ('Monday', 0, 5, 0) ===
-2024-04-21 15:43:34,101 - INFO - Step of agent 0
-2024-04-21 15:43:34,103 - INFO - Agent Intent:
-2024-04-21 15:43:34,104 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,104 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,105 - ERROR - Action none not recognized
-2024-04-21 15:43:34,106 - INFO - === Step: ('Monday', 0, 5, 10) ===
-2024-04-21 15:43:34,106 - INFO - Step of agent 0
-2024-04-21 15:43:34,108 - INFO - Agent Intent:
-2024-04-21 15:43:34,109 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,109 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,110 - ERROR - Action none not recognized
-2024-04-21 15:43:34,111 - INFO - === Step: ('Monday', 0, 5, 20) ===
-2024-04-21 15:43:34,111 - INFO - Step of agent 0
-2024-04-21 15:43:34,113 - INFO - Agent Intent:
-2024-04-21 15:43:34,114 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,114 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,115 - ERROR - Action none not recognized
-2024-04-21 15:43:34,116 - INFO - === Step: ('Monday', 0, 5, 30) ===
-2024-04-21 15:43:34,116 - INFO - Step of agent 0
-2024-04-21 15:43:34,118 - INFO - Agent Intent:
-2024-04-21 15:43:34,119 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,119 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,120 - ERROR - Action none not recognized
-2024-04-21 15:43:34,121 - INFO - === Step: ('Monday', 0, 5, 40) ===
-2024-04-21 15:43:34,121 - INFO - Step of agent 0
-2024-04-21 15:43:34,122 - INFO - Agent Intent:
-2024-04-21 15:43:34,123 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,123 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,124 - ERROR - Action none not recognized
-2024-04-21 15:43:34,125 - INFO - === Step: ('Monday', 0, 5, 50) ===
-2024-04-21 15:43:34,125 - INFO - Step of agent 0
-2024-04-21 15:43:34,129 - INFO - Agent Intent:
-2024-04-21 15:43:34,130 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,131 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,132 - ERROR - Action none not recognized
-2024-04-21 15:43:34,133 - INFO - === Step: ('Monday', 0, 6, 0) ===
-2024-04-21 15:43:34,133 - INFO - Step of agent 0
-2024-04-21 15:43:34,134 - INFO - Agent Intent:
-2024-04-21 15:43:34,135 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,136 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,137 - ERROR - Action none not recognized
-2024-04-21 15:43:34,137 - INFO - === Step: ('Monday', 0, 6, 10) ===
-2024-04-21 15:43:34,138 - INFO - Step of agent 0
-2024-04-21 15:43:34,139 - INFO - Agent Intent:
-2024-04-21 15:43:34,140 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,140 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,141 - ERROR - Action none not recognized
-2024-04-21 15:43:34,141 - INFO - === Step: ('Monday', 0, 6, 20) ===
-2024-04-21 15:43:34,142 - INFO - Step of agent 0
-2024-04-21 15:43:34,143 - INFO - Agent Intent:
-2024-04-21 15:43:34,144 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,144 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,145 - ERROR - Action none not recognized
-2024-04-21 15:43:34,146 - INFO - === Step: ('Monday', 0, 6, 30) ===
-2024-04-21 15:43:34,146 - INFO - Step of agent 0
-2024-04-21 15:43:34,148 - INFO - Agent Intent:
-2024-04-21 15:43:34,149 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,149 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,150 - ERROR - Action none not recognized
-2024-04-21 15:43:34,151 - INFO - === Step: ('Monday', 0, 6, 40) ===
-2024-04-21 15:43:34,151 - INFO - Step of agent 0
-2024-04-21 15:43:34,153 - INFO - Agent Intent:
-2024-04-21 15:43:34,153 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,153 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,155 - ERROR - Action none not recognized
-2024-04-21 15:43:34,155 - INFO - === Step: ('Monday', 0, 6, 50) ===
-2024-04-21 15:43:34,156 - INFO - Step of agent 0
-2024-04-21 15:43:34,157 - INFO - Agent Intent:
-2024-04-21 15:43:34,158 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,159 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,161 - ERROR - Action none not recognized
-2024-04-21 15:43:34,162 - INFO - === Step: ('Monday', 0, 7, 0) ===
-2024-04-21 15:43:34,162 - INFO - Step of agent 0
-2024-04-21 15:43:34,165 - INFO - Agent Intent:
-2024-04-21 15:43:34,166 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,166 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,168 - ERROR - Action none not recognized
-2024-04-21 15:43:34,168 - INFO - === Step: ('Monday', 0, 7, 10) ===
-2024-04-21 15:43:34,168 - INFO - Step of agent 0
-2024-04-21 15:43:34,170 - INFO - Agent Intent:
-2024-04-21 15:43:34,171 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,171 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,172 - ERROR - Action none not recognized
-2024-04-21 15:43:34,173 - INFO - === Step: ('Monday', 0, 7, 20) ===
-2024-04-21 15:43:34,173 - INFO - Step of agent 0
-2024-04-21 15:43:34,175 - INFO - Agent Intent:
-2024-04-21 15:43:34,176 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,176 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,178 - ERROR - Action none not recognized
-2024-04-21 15:43:34,179 - INFO - === Step: ('Monday', 0, 7, 30) ===
-2024-04-21 15:43:34,179 - INFO - Step of agent 0
-2024-04-21 15:43:34,180 - INFO - Agent Intent:
-2024-04-21 15:43:34,181 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,181 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,182 - ERROR - Action none not recognized
-2024-04-21 15:43:34,182 - INFO - === Step: ('Monday', 0, 7, 40) ===
-2024-04-21 15:43:34,183 - INFO - Step of agent 0
-2024-04-21 15:43:34,185 - INFO - Agent Intent:
-2024-04-21 15:43:34,186 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,187 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,189 - ERROR - Action none not recognized
-2024-04-21 15:43:34,189 - INFO - === Step: ('Monday', 0, 7, 50) ===
-2024-04-21 15:43:34,190 - INFO - Step of agent 0
-2024-04-21 15:43:34,191 - INFO - Agent Intent:
-2024-04-21 15:43:34,192 - INFO - 	goal: The agent has not goals in life :-(
-2024-04-21 15:43:34,192 - INFO - Agent 0 action is empty
-2024-04-21 15:43:34,195 - ERROR - Action none not recognized
-2024-04-21 15:43:34,195 - INFO - === Step: ('Monday', 0, 8, 0) ===
-2024-04-21 15:43:34,196 - INFO - Step of agent 0
-2024-04-21 15:43:34,200 - INFO - Agent Intent:
-2024-04-21 15:43:34,201 - INFO - 	goal: move, parameters: 164
-2024-04-21 15:43:34,201 - INFO - Agent 0 is moving to 164 from 1
+2024-04-22 23:54:29,275 - DEBUG - Loaded backend tkagg version 8.6.
+2024-04-22 23:54:29,560 - DEBUG - STREAM b'IHDR' 16 13
+2024-04-22 23:54:29,561 - DEBUG - STREAM b'sBIT' 41 4
+2024-04-22 23:54:29,561 - DEBUG - b'sBIT' 41 4 (unknown)
+2024-04-22 23:54:29,562 - DEBUG - STREAM b'pHYs' 57 9
+2024-04-22 23:54:29,562 - DEBUG - STREAM b'IDAT' 78 1189
+2024-04-22 23:54:29,585 - DEBUG - STREAM b'IHDR' 16 13
+2024-04-22 23:54:29,586 - DEBUG - STREAM b'sBIT' 41 4
+2024-04-22 23:54:29,586 - DEBUG - b'sBIT' 41 4 (unknown)
+2024-04-22 23:54:29,586 - DEBUG - STREAM b'pHYs' 57 9
+2024-04-22 23:54:29,587 - DEBUG - STREAM b'IDAT' 78 2994
+2024-04-22 23:54:29,690 - DEBUG - STREAM b'IHDR' 16 13
+2024-04-22 23:54:29,691 - DEBUG - STREAM b'sBIT' 41 4
+2024-04-22 23:54:29,691 - DEBUG - b'sBIT' 41 4 (unknown)
+2024-04-22 23:54:29,692 - DEBUG - STREAM b'pHYs' 57 9
+2024-04-22 23:54:29,693 - DEBUG - STREAM b'IDAT' 78 374
+2024-04-22 23:54:29,703 - DEBUG - STREAM b'IHDR' 16 13
+2024-04-22 23:54:29,703 - DEBUG - STREAM b'sBIT' 41 4
+2024-04-22 23:54:29,704 - DEBUG - b'sBIT' 41 4 (unknown)
+2024-04-22 23:54:29,705 - DEBUG - STREAM b'pHYs' 57 9
+2024-04-22 23:54:29,705 - DEBUG - STREAM b'IDAT' 78 286
+2024-04-22 23:54:29,713 - DEBUG - STREAM b'IHDR' 16 13
+2024-04-22 23:54:29,713 - DEBUG - STREAM b'sBIT' 41 4
+2024-04-22 23:54:29,714 - DEBUG - b'sBIT' 41 4 (unknown)
+2024-04-22 23:54:29,714 - DEBUG - STREAM b'pHYs' 57 9
+2024-04-22 23:54:29,714 - DEBUG - STREAM b'IDAT' 78 263
+2024-04-22 23:54:29,722 - DEBUG - STREAM b'IHDR' 16 13
+2024-04-22 23:54:29,722 - DEBUG - STREAM b'sBIT' 41 4
+2024-04-22 23:54:29,723 - DEBUG - b'sBIT' 41 4 (unknown)
+2024-04-22 23:54:29,723 - DEBUG - STREAM b'pHYs' 57 9
+2024-04-22 23:54:29,724 - DEBUG - STREAM b'IDAT' 78 387
+2024-04-22 23:54:29,730 - DEBUG - STREAM b'IHDR' 16 13
+2024-04-22 23:54:29,731 - DEBUG - STREAM b'sBIT' 41 4
+2024-04-22 23:54:29,731 - DEBUG - b'sBIT' 41 4 (unknown)
+2024-04-22 23:54:29,731 - DEBUG - STREAM b'pHYs' 57 9
+2024-04-22 23:54:29,732 - DEBUG - STREAM b'IDAT' 78 436
+2024-04-22 23:54:29,738 - DEBUG - STREAM b'IHDR' 16 13
+2024-04-22 23:54:29,739 - DEBUG - STREAM b'sBIT' 41 4
+2024-04-22 23:54:29,739 - DEBUG - b'sBIT' 41 4 (unknown)
+2024-04-22 23:54:29,740 - DEBUG - STREAM b'pHYs' 57 9
+2024-04-22 23:54:29,740 - DEBUG - STREAM b'IDAT' 78 351
+2024-04-22 23:54:29,747 - DEBUG - STREAM b'IHDR' 16 13
+2024-04-22 23:54:29,748 - DEBUG - STREAM b'sBIT' 41 4
+2024-04-22 23:54:29,749 - DEBUG - b'sBIT' 41 4 (unknown)
+2024-04-22 23:54:29,749 - DEBUG - STREAM b'pHYs' 57 9
+2024-04-22 23:54:29,749 - DEBUG - STREAM b'IDAT' 78 364
+2024-04-22 23:54:29,781 - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0.
+2024-04-22 23:54:29,783 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXSizFourSymReg.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,784 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXSizOneSymBol.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,785 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXGeneralBolIta.ttf', name='STIXGeneral', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2024-04-22 23:54:29,785 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSans.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 0.05
+2024-04-22 23:54:29,785 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXSizThreeSymReg.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,786 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXGeneral.ttf', name='STIXGeneral', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,787 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXGeneralBol.ttf', name='STIXGeneral', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,787 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXSizThreeSymBol.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,788 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\cmtt10.ttf', name='cmtt10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,789 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXSizTwoSymReg.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,789 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\cmr10.ttf', name='cmr10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,790 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXNonUni.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,790 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSans-Oblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 1.05
+2024-04-22 23:54:29,791 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\cmsy10.ttf', name='cmsy10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,792 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXSizFourSymBol.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,792 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\cmb10.ttf', name='cmb10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,793 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXNonUniBolIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2024-04-22 23:54:29,793 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSerif.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,793 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXNonUniBol.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,794 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSerif-BoldItalic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2024-04-22 23:54:29,794 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXSizOneSymReg.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,795 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSansMono-Bold.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,795 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\cmex10.ttf', name='cmex10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,795 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSansMono-Oblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2024-04-22 23:54:29,796 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXSizTwoSymBol.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,796 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSerif-Italic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2024-04-22 23:54:29,797 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSans-BoldOblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 1.335
+2024-04-22 23:54:29,797 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSansMono-BoldOblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2024-04-22 23:54:29,797 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSansMono.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,798 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSerif-Bold.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,798 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXSizFiveSymReg.ttf', name='STIXSizeFiveSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,799 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXNonUniIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2024-04-22 23:54:29,799 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSansDisplay.ttf', name='DejaVu Sans Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,800 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSerifDisplay.ttf', name='DejaVu Serif Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,801 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\cmss10.ttf', name='cmss10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,801 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\cmmi10.ttf', name='cmmi10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,802 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSans-Bold.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 0.33499999999999996
+2024-04-22 23:54:29,802 - DEBUG - findfont: score(FontEntry(fname='c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXGeneralItalic.ttf', name='STIXGeneral', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2024-04-22 23:54:29,803 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\comicz.ttf', name='Comic Sans MS', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2024-04-22 23:54:29,803 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\micross.ttf', name='Microsoft Sans Serif', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,804 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\SitkaVF.ttf', name='Sitka', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,805 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\framdit.ttf', name='Franklin Gothic Medium', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2024-04-22 23:54:29,805 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\corbelb.ttf', name='Corbel', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,806 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\georgiab.ttf', name='Georgia', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,806 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\tahomabd.ttf', name='Tahoma', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,807 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\seguili.ttf', name='Segoe UI', style='italic', variant='normal', weight=300, stretch='normal', size='scalable')) = 11.145
+2024-04-22 23:54:29,808 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\HPSimplified.ttf', name='HP Simplified', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,809 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\verdana.ttf', name='Verdana', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 3.6863636363636365
+2024-04-22 23:54:29,810 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\arial.ttf', name='Arial', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 6.413636363636363
+2024-04-22 23:54:29,811 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\seguisbi.ttf', name='Segoe UI', style='italic', variant='normal', weight=600, stretch='normal', size='scalable')) = 11.24
+2024-04-22 23:54:29,812 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\trebuc.ttf', name='Trebuchet MS', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,812 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\msyhl.ttc', name='Microsoft YaHei', style='normal', variant='normal', weight=290, stretch='normal', size='scalable')) = 10.1545
+2024-04-22 23:54:29,813 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\consolai.ttf', name='Consolas', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2024-04-22 23:54:29,814 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\cambriaz.ttf', name='Cambria', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2024-04-22 23:54:29,814 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\georgiaz.ttf', name='Georgia', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2024-04-22 23:54:29,814 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\corbelli.ttf', name='Corbel', style='italic', variant='normal', weight=300, stretch='normal', size='scalable')) = 11.145
+2024-04-22 23:54:29,815 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\msgothic.ttc', name='MS Gothic', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,815 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\msyi.ttf', name='Microsoft Yi Baiti', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,815 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\CascadiaCode.ttf', name='Cascadia Code', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,816 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\comici.ttf', name='Comic Sans MS', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2024-04-22 23:54:29,816 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\YuGothB.ttc', name='Yu Gothic', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,816 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\seguibli.ttf', name='Segoe UI', style='italic', variant='normal', weight=900, stretch='normal', size='scalable')) = 11.525
+2024-04-22 23:54:29,817 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\corbell.ttf', name='Corbel', style='normal', variant='normal', weight=300, stretch='normal', size='scalable')) = 10.145
+2024-04-22 23:54:29,817 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\ebrimabd.ttf', name='Ebrima', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,818 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\LeelaUIb.ttf', name='Leelawadee UI', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,818 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\msyh.ttc', name='Microsoft YaHei', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,819 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\lucon.ttf', name='Lucida Console', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,819 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\pala.ttf', name='Palatino Linotype', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,819 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\palabi.ttf', name='Palatino Linotype', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2024-04-22 23:54:29,820 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\Nirmala.ttf', name='Nirmala UI', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,821 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\ariali.ttf', name='Arial', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 7.413636363636363
+2024-04-22 23:54:29,822 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\comic.ttf', name='Comic Sans MS', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,822 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\corbeli.ttf', name='Corbel', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2024-04-22 23:54:29,823 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\webdings.ttf', name='Webdings', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,823 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\phagspab.ttf', name='Microsoft PhagsPa', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,823 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\ariblk.ttf', name='Arial', style='normal', variant='normal', weight=900, stretch='normal', size='scalable')) = 6.888636363636364
+2024-04-22 23:54:29,824 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\malgunbd.ttf', name='Malgun Gothic', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,824 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\georgiai.ttf', name='Georgia', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2024-04-22 23:54:29,824 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\segoeuii.ttf', name='Segoe UI', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2024-04-22 23:54:29,825 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\segmdl2.ttf', name='Segoe MDL2 Assets', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,825 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\segoeuisl.ttf', name='Segoe UI', style='normal', variant='normal', weight=350, stretch='normal', size='scalable')) = 10.0975
+2024-04-22 23:54:29,825 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\palai.ttf', name='Palatino Linotype', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2024-04-22 23:54:29,826 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\framd.ttf', name='Franklin Gothic Medium', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,826 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\mmrtextb.ttf', name='Myanmar Text', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,827 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\segoeuib.ttf', name='Segoe UI', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,827 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\taile.ttf', name='Microsoft Tai Le', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,827 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\wingding.ttf', name='Wingdings', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,828 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\bahnschrift.ttf', name='Bahnschrift', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,828 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\tahoma.ttf', name='Tahoma', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,829 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\Candarab.ttf', name='Candara', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,829 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\segoeuiz.ttf', name='Segoe UI', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2024-04-22 23:54:29,829 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\timesbi.ttf', name='Times New Roman', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2024-04-22 23:54:29,830 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\trebucit.ttf', name='Trebuchet MS', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2024-04-22 23:54:29,830 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\LeelawUI.ttf', name='Leelawadee UI', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,831 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\javatext.ttf', name='Javanese Text', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,831 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\HPSimplified_Lt.ttf', name='HP Simplified', style='normal', variant='normal', weight=300, stretch='normal', size='scalable')) = 10.145
+2024-04-22 23:54:29,831 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\HPSimplified_Rg.ttf', name='HP Simplified', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,832 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\ebrima.ttf', name='Ebrima', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,832 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\segoesc.ttf', name='Segoe Script', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,832 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\Candarali.ttf', name='Candara', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2024-04-22 23:54:29,833 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\seguisli.ttf', name='Segoe UI', style='italic', variant='normal', weight=350, stretch='normal', size='scalable')) = 11.0975
+2024-04-22 23:54:29,833 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\Inkfree.ttf', name='Ink Free', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,834 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\himalaya.ttf', name='Microsoft Himalaya', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,834 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\SitkaVF-Italic.ttf', name='Sitka', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2024-04-22 23:54:29,834 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\consolaz.ttf', name='Consolas', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2024-04-22 23:54:29,835 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\sylfaen.ttf', name='Sylfaen', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,835 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\calibrii.ttf', name='Calibri', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2024-04-22 23:54:29,835 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\verdanaz.ttf', name='Verdana', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 4.971363636363637
+2024-04-22 23:54:29,836 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\trebucbi.ttf', name='Trebuchet MS', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2024-04-22 23:54:29,837 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\Gabriola.ttf', name='Gabriola', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,837 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\CascadiaMono.ttf', name='Cascadia Mono', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,838 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\holomdl2.ttf', name='HoloLens MDL2 Assets', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,838 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\calibri.ttf', name='Calibri', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,838 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\SegoeIcons.ttf', name='Segoe Fluent Icons', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,839 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\georgia.ttf', name='Georgia', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,840 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\constanb.ttf', name='Constantia', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,840 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\segoeprb.ttf', name='Segoe Print', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,840 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\seguibl.ttf', name='Segoe UI', style='normal', variant='normal', weight=900, stretch='normal', size='scalable')) = 10.525
+2024-04-22 23:54:29,841 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\constani.ttf', name='Constantia', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2024-04-22 23:54:29,841 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\gadugi.ttf', name='Gadugi', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,842 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\cambriab.ttf', name='Cambria', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,842 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\mmrtext.ttf', name='Myanmar Text', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,842 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\simsun.ttc', name='SimSun', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,843 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\verdanai.ttf', name='Verdana', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 4.6863636363636365
+2024-04-22 23:54:29,844 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\seguiemj.ttf', name='Segoe UI Emoji', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,844 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\courbd.ttf', name='Courier New', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,845 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\Candaral.ttf', name='Candara', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,846 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\LeelUIsl.ttf', name='Leelawadee UI', style='normal', variant='normal', weight=350, stretch='normal', size='scalable')) = 10.0975
+2024-04-22 23:54:29,847 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\segoepr.ttf', name='Segoe Print', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,847 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\segoescb.ttf', name='Segoe Script', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,848 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\constan.ttf', name='Constantia', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,848 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\cour.ttf', name='Courier New', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,849 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\msyhbd.ttc', name='Microsoft YaHei', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,850 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\symbol.ttf', name='Symbol', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,850 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\seguisb.ttf', name='Segoe UI', style='normal', variant='normal', weight=600, stretch='normal', size='scalable')) = 10.24
+2024-04-22 23:54:29,851 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\consola.ttf', name='Consolas', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,851 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\mvboli.ttf', name='MV Boli', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,852 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\comicbd.ttf', name='Comic Sans MS', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,853 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\Candara.ttf', name='Candara', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,853 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\YuGothL.ttc', name='Yu Gothic', style='normal', variant='normal', weight=300, stretch='normal', size='scalable')) = 10.145
+2024-04-22 23:54:29,854 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\palab.ttf', name='Palatino Linotype', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,854 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\constanz.ttf', name='Constantia', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2024-04-22 23:54:29,855 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\NirmalaS.ttf', name='Nirmala UI', style='normal', variant='normal', weight=350, stretch='normal', size='scalable')) = 10.0975
+2024-04-22 23:54:29,855 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\SegUIVar.ttf', name='Segoe UI Variable', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,856 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\msjhl.ttc', name='Microsoft JhengHei', style='normal', variant='normal', weight=290, stretch='normal', size='scalable')) = 10.1545
+2024-04-22 23:54:29,856 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\impact.ttf', name='Impact', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,856 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\calibrili.ttf', name='Calibri', style='italic', variant='normal', weight=300, stretch='normal', size='scalable')) = 11.145
+2024-04-22 23:54:29,857 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\seguisym.ttf', name='Segoe UI Symbol', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,857 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\corbel.ttf', name='Corbel', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,857 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\msjhbd.ttc', name='Microsoft JhengHei', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,858 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\simsunb.ttf', name='SimSun-ExtB', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,858 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\timesi.ttf', name='Times New Roman', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2024-04-22 23:54:29,858 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\YuGothM.ttc', name='Yu Gothic', style='normal', variant='normal', weight=500, stretch='normal', size='scalable')) = 10.145
+2024-04-22 23:54:29,859 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\Candarai.ttf', name='Candara', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2024-04-22 23:54:29,859 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\arialbd.ttf', name='Arial', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 6.698636363636363
+2024-04-22 23:54:29,860 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\HPSimplified_LtIt.ttf', name='HP Simplified', style='italic', variant='normal', weight=300, stretch='normal', size='scalable')) = 11.145
+2024-04-22 23:54:29,860 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\ntailu.ttf', name='Microsoft New Tai Lue', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,861 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\couri.ttf', name='Courier New', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2024-04-22 23:54:29,861 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\HPSimplified_It.ttf', name='HP Simplified', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2024-04-22 23:54:29,862 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\l_10646.ttf', name='Lucida Sans Unicode', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,862 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\cambriai.ttf', name='Cambria', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2024-04-22 23:54:29,863 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\calibril.ttf', name='Calibri', style='normal', variant='normal', weight=300, stretch='normal', size='scalable')) = 10.145
+2024-04-22 23:54:29,863 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\verdanab.ttf', name='Verdana', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 3.9713636363636367
+2024-04-22 23:54:29,864 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\segoeuil.ttf', name='Segoe UI', style='normal', variant='normal', weight=300, stretch='normal', size='scalable')) = 10.145
+2024-04-22 23:54:29,864 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\taileb.ttf', name='Microsoft Tai Le', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,864 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\ntailub.ttf', name='Microsoft New Tai Lue', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,865 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\times.ttf', name='Times New Roman', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,865 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\calibriz.ttf', name='Calibri', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2024-04-22 23:54:29,865 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\segoeui.ttf', name='Segoe UI', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,866 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\calibrib.ttf', name='Calibri', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,866 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\courbi.ttf', name='Courier New', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2024-04-22 23:54:29,867 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\malgun.ttf', name='Malgun Gothic', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,868 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\NirmalaB.ttf', name='Nirmala UI', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,868 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\trebucbd.ttf', name='Trebuchet MS', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,869 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\corbelz.ttf', name='Corbel', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2024-04-22 23:54:29,870 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\gadugib.ttf', name='Gadugi', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,871 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\YuGothR.ttc', name='Yu Gothic', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,872 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\cambria.ttc', name='Cambria', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,872 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\Candaraz.ttf', name='Candara', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2024-04-22 23:54:29,873 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\arialbi.ttf', name='Arial', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 7.698636363636363
+2024-04-22 23:54:29,874 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\timesbd.ttf', name='Times New Roman', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,874 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\monbaiti.ttf', name='Mongolian Baiti', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,875 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\mingliub.ttc', name='MingLiU-ExtB', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,875 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\seguihis.ttf', name='Segoe UI Historic', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,875 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\consolab.ttf', name='Consolas', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2024-04-22 23:54:29,876 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\malgunsl.ttf', name='Malgun Gothic', style='normal', variant='normal', weight=300, stretch='normal', size='scalable')) = 10.145
+2024-04-22 23:54:29,877 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\HPSimplified_BdIt.ttf', name='HP Simplified', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2024-04-22 23:54:29,877 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\phagspa.ttf', name='Microsoft PhagsPa', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,877 - DEBUG - findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\msjh.ttc', name='Microsoft JhengHei', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2024-04-22 23:54:29,878 - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0 to DejaVu Sans ('c:\\Users\\Alejandro\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSans.ttf') with score of 0.050000.

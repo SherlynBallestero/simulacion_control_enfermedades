@@ -32,6 +32,7 @@ class EpidemicModel:
         self.infection_stages: List[str] = [atom.value for atom in list(self.disease_k.query('infection_stages(Stages)'))[0]['Stages']]
         self.mask_effectiveness: float = list(self.disease_k.query('mask_effectiveness(E)'))[0]['E']
         self.transmission_mask: float = self.transmission_rate * self.mask_effectiveness
+        self.kill_agent = None
 
     def _query_stage(self, agent_id: int) -> str:
         """
@@ -94,6 +95,8 @@ class EpidemicModel:
         state = self._step_dissease_query(agent)
         if state in ['recovered', 'dead']:
             agent.status = state
+            if state == 'dead':
+                self.kill_agent(agent)
         else:
             self._update_agent(agent)
 

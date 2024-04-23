@@ -19,6 +19,7 @@ class Knowledge:
         list(self.prolog.query(f'add_map_node({node.id}, {node.addr}, {node.capacity_status}, {node.node_type})'))
         if node.node_type in ['hospital', 'works_space', 'bus_stop', 'public_space']:
             list(self.prolog.query(f'add_open_hours_place({node.id}, {node.oppening_hours}, {node.closing_hours})'))
+        list(self.prolog.query(f'add_place_to_use_mask({node.id}, {str(node.mask_required).lower()})'))
         
     def add_date_k(self, date):
         """
@@ -151,6 +152,8 @@ class Knowledge:
     def add_isolation(self, requirement: bool):
         list(self.prolog.query(f'add_isolation({requirement})'))
     
+    def add_friends(self, friend_list: list):
+        list(self.prolog.query(f'add_friends({friend_list})'))
     
     def feedback(self, location, wearing_mask):
         self.query(f'feedback({location}, {wearing_mask})')
@@ -262,7 +265,7 @@ class BehaviorLayer:
             return None, None
         
     def search_friend(self, agent, plan):
-        message, place = self._split_string(plan) if plan != 'no_plan' else None, None
+        message, place = self._split_string(plan) if plan else None, None
         self.world_model.comunicate(agent, message, place)
         
     def _split_string(self, s):

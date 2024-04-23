@@ -50,6 +50,7 @@ class Agent:
             new_perception = world_perception[node.addr]
             old_perception.capacity_status = new_perception.capacity_status
             old_perception.information_source = new_perception.information_source
+            old_perception.mask_required = new_perception.mask_required
             k.add_node_k(new_perception)
 
     def step(self, step_num):

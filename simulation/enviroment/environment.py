@@ -46,7 +46,7 @@ class Environment:
             self.dead_agents.add(agent.unique_id)
             agent_location = agent.location
             self.map[agent_location].agent_list.remove(agent.unique_id)
-            agent.knowledge_base = None
+            # agent.knowledge_base = None
 
         self.epidemic_model.kill_agent = kill_agent
 
@@ -233,7 +233,7 @@ class Environment:
                 continue
             logger.info(f'Step of agent {agent.unique_id}')
             agent.step(step_num)
-            # self._debug_agent_k(agent.knowledge_base)
+            self._debug_agent_k(agent.knowledge_base)
         
         infected_agents = self._count_infected_agents()
         self.canelo.step(infected_agents)
@@ -272,7 +272,7 @@ class Environment:
             logger.error(f"query 'min' resulted in error: {e}")
 
         try:
-            self._log_fact_type('work_place', agent_k.query(f'work_place(WorkId)'))
+            self._log_fact_type('work_place', agent_k.query(f'work_place(WorkId,_)'))
         except Exception as e:
             logger.error(f"query 'work_place' resulted in error: {e}")
 
@@ -360,6 +360,12 @@ class Environment:
             self._log_fact_type('goal', agent_k.query(f'goal(Goal,Parameters)'))
         except Exception as e:
             logger.error(f"query 'goal' resulted in error: {e}")
+        
+        try:
+            self._log_fact_type('friends', agent_k.query(f'friends(X)'))
+        except Exception as e:
+            logger.error(f"query 'friends' resulted in error: {e}")
+
 
     def _count_infected_agents(self):
         infected = 0

@@ -118,7 +118,11 @@ class EpidemicModel:
         Args:
             agent (Agent): The agent to update.
         """
+
         agent.status = self._query_stage(agent.unique_id)
+        if not agent.status:
+            agent.status = 'recovered'
+
         if agent.status in self.infection_stages:
             agent.symptoms = self._query_symptoms(agent.unique_id)
 

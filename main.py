@@ -105,19 +105,19 @@ d_evol = [
 
 
 if __name__ == '__main__':
-    # sim_days = 31
-    # sim_hours = sim_days * 24
-    # sim_steps = sim_hours * 6
+    sim_days = 31
+    sim_hours = sim_days * 24
+    sim_steps = sim_hours * 6
 
-    # logger.info("=== Simulation Execution Started ===")
-    # logger.debug("=== Initializing City ===")
-    # map = TEST_CITY_1
-    # logger.debug("=== Initializing Epidemic Model ===")
-    # epidemic_model = EpidemicModel()
-    # logger.debug("=== Initializing Environment ===")
-    # env = Environment(4, epidemic_model, map)
-    # logger.info(f'=== Starting Simulation Loop With {sim_steps} Steps ===')
-    # simulate(env, sim_steps)
-    # plot_dissease_evolution_days(env.dissease_evolution, [])
-    plot_dissease_evolution_days(d_evol, len(d_evol))
+    logger.info("=== Simulation Execution Started ===")
+    logger.debug("=== Initializing City ===")
+    map = TEST_CITY_1
+    logger.debug("=== Initializing Epidemic Model ===")
+    epidemic_model = EpidemicModel()
+    logger.debug("=== Initializing Environment ===")
+    env = Environment(4, epidemic_model, map)
+    logger.info(f'=== Starting Simulation Loop With {sim_steps} Steps ===')
+    simulate(env, sim_steps)
+    plot_dissease_evolution_days(env.dissease_evolution, len(env.dissease_evolution))
+    # plot_dissease_evolution_days(d_evol, len(d_evol))
     pass

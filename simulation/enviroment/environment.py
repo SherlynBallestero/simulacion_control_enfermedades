@@ -386,7 +386,8 @@ class Environment:
             'symptomatic': 0,
             'critical': 0,
             'terminal': 0,
-            'dead': 0
+            'dead': 0,
+            'recovered': 0
         }
         for agent in self.agents:
             agent_dist[agent.status] += 1

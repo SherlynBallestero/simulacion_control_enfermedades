@@ -20,13 +20,10 @@ int_max_val = [10, 5] # Dominios máximos para las variables
 real_min_val = [0.0, -0.5] # Dominios mínimos para las variables reales
 real_max_val = [1.0, 0.5] # Dominios máximos para las variables reales
 
-# Ajustar el número de genes para incluir tanto las variables enteras como las reales
-# num_genes = len(int_min_val) + 2 # Asumiendo que tienes 2 variables reales
-
 # Definición del espacio de valores para cada gen
 gene_space = [
-    {'low': -5, 'high': 5, 'type': 'int'}, # Gen 1: enteros entre -5 y 5
-    {'low': 0, 'high': 10, 'type': 'float'}, # Gen 2: números flotantes entre 0 y 10
+    {'low': -5, 'high': 5}, # Gen 1: enteros entre -5 y 5
+    {'low': 0, 'high': 10}, # Gen 2: números flotantes entre 0 y 10
     # Puedes agregar más genes aquí
 ]
 
@@ -35,8 +32,10 @@ ga_instance = pygad.GA(num_generations =100,
                        fitness_func=fitness_func,
                        sol_per_pop=10,
                        num_genes=len(gene_space),
-                       init_range_low=real_min_val,
-                       init_range_high=real_max_val)
+                       gene_space=gene_space,
+                    #    init_range_low=real_min_val,
+                    #    init_range_high=real_max_val,
+                       gene_type=[int, float])
 
 
 ga_instance.run()

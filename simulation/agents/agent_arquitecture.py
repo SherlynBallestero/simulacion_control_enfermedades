@@ -153,7 +153,8 @@ class Knowledge:
         list(self.prolog.query(f'add_isolation({requirement})'))
     
     def add_friends(self, friend_list: list):
-        list(self.prolog.query(f'add_friends({friend_list})'))
+        if friend_list:
+            list(self.prolog.query(f'add_friends({friend_list})'))
     
     def feedback(self, location, wearing_mask):
         self.query(f'feedback({location}, {wearing_mask})')

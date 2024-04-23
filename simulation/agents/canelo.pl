@@ -1,25 +1,5 @@
 symptoms_of_disease([cough]).
 
-% Specific control measures for symptoms
-control_measure(normal_fever, mask_use).
-control_measure(normal_cough, social_distancing).
-control_measure(normal_short_breath, tests_and_diagnosis).
-control_measure(back_ache, contact_tracing).
-control_measure(stomach_ache, isolation).
-control_measure(laziness, quarantine).
-control_measure(sleepiness, vaccination).
-
-% Specific control measures for critical symptoms
-control_measure(critical_fever, quarantine).
-control_measure(critical_cough, social_distancing).
-control_measure(critical_short_breath, isolation).
-control_measure(gastritis, social_distancing).
-
-% Specific control measures for terminal symptoms
-control_measure(terminal_fever, isolation).
-control_measure(candela, isolation).
-control_measure(que_ostine, isolation).
-
 recommendation_control_measure(low, mask_use).
 recommendation_control_measure(low, social_distancing).
 

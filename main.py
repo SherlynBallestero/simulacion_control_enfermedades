@@ -21,7 +21,7 @@ def plot_dissease_evolution_days(dissease_progression, days):
     # Data for plotting
     states = ['susceptible', 'asymptomatic', 'symptomatic', 'critical', 'terminal', 'dead', 'recovered']
     colors = ['y', 'g', 'r', 'c', 'm', 'b', 'k']
-    x = range(days) + 1
+    x = range(days + 1) 
     y = [[day[state] for day in dissease_progression] for state in states]
     addition = [0] * len(y[0])
     for i, data in enumerate(y):
@@ -118,6 +118,6 @@ if __name__ == '__main__':
     env = Environment(4, epidemic_model, map)
     logger.info(f'=== Starting Simulation Loop With {sim_steps} Steps ===')
     simulate(env, sim_steps)
-    plot_dissease_evolution_days(env.dissease_evolution, len(env.dissease_evolution))
+    plot_dissease_evolution_days(env.dissease_step_progression, len(env.dissease_step_progression))
     # plot_dissease_evolution_days(d_evol, len(d_evol))
     pass

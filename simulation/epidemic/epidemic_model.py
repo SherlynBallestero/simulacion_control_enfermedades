@@ -119,7 +119,8 @@ class EpidemicModel:
             agent (Agent): The agent to update.
         """
         agent.status = self._query_stage(agent.unique_id)
-        agent.symptoms = self._query_symptoms(agent.unique_id)
+        if agent.status in self.infection_stages:
+            agent.symptoms = self._query_symptoms(agent.unique_id)
 
     def spread_disease(self, agent: Agent) -> None:
         """

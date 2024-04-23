@@ -46,6 +46,7 @@ class Environment:
             self.dead_agents.add(agent.unique_id)
             agent_location = agent.location
             self.map[agent_location].agent_list.remove(agent.unique_id)
+            agent.knowledge_base = None
 
         self.epidemic_model.kill_agent = kill_agent
 

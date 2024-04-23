@@ -14,15 +14,16 @@ logging.basicConfig(filename="simulation.log",
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
 
-def plot_dissease_evolution_days(dissease_progression, days):
+def plot_dissease_evolution_days(dissease_progression, steps):
     '''
     Shows a bar plot of the disease evolution in the population, the x-axis represents the different states of the disease, the y-axis the number of agents, the bar has different colors depending of the state of the disease
     '''
     # Data for plotting
     states = ['susceptible', 'asymptomatic', 'symptomatic', 'critical', 'terminal', 'dead', 'recovered']
     colors = ['y', 'g', 'r', 'c', 'm', 'b', 'k']
-    x = range(days) + 1
-    y = [[day[state] for day in dissease_progression] for state in states]
+    days = steps // 6 // 24
+    x = range(days + 1) 
+    y = [[dissease_progression[day * 6 * 24][state] for day in range(days)] for state in states]
     addition = [0] * len(y[0])
     for i, data in enumerate(y):
         plt.bar(x, data, color=colors[i], bottom=addition)
@@ -63,47 +64,6 @@ def format_day(step_num):
     return week_day, month_day, hour, min
 
 
-# For testing
-d_evol = [
-    {
-        'susceptible':4,
-        'asymptomatic':0,
-        'symptomatic':0,
-        'critical':0,
-        'terminal':0,
-        'dead':0,
-        'recovered':0
-    },
-    {
-        'susceptible':3,
-        'asymptomatic':1,
-        'symptomatic':0,
-        'critical':0,
-        'terminal':0,
-        'dead':0,
-        'recovered':0
-    },
-    {
-        'susceptible':2,
-        'asymptomatic':1,
-        'symptomatic':1,
-        'critical':0,
-        'terminal':0,
-        'dead':0,
-        'recovered':0
-    },
-    {
-        'susceptible':1,
-        'asymptomatic':1,
-        'symptomatic':1,
-        'critical':1,
-        'terminal':0,
-        'dead':0,
-        'recovered':0
-    }
-]
-
-
 if __name__ == '__main__':
     sim_days = 31
     sim_hours = sim_days * 24
@@ -115,9 +75,9 @@ if __name__ == '__main__':
     logger.debug("=== Initializing Epidemic Model ===")
     epidemic_model = EpidemicModel()
     logger.debug("=== Initializing Environment ===")
-    env = Environment(4, epidemic_model, map)
+    env = Environment(2, epidemic_model, map)
     logger.info(f'=== Starting Simulation Loop With {sim_steps} Steps ===')
     simulate(env, sim_steps)
-    plot_dissease_evolution_days(env.dissease_evolution, len(env.dissease_evolution))
+    plot_dissease_evolution_days(env.dissease_step_progression, len(env.dissease_step_progression))
     # plot_dissease_evolution_days(d_evol, len(d_evol))
     pass

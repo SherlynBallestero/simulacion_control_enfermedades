@@ -1,0 +1,16 @@
+pygad
+numpy
+
+
+
+
+pyswip
+typing
+
+
+itertools
+matplotlib.pyplot
+streamlit
+gpt4all
+io
+

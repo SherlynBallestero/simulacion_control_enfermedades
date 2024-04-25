@@ -3,6 +3,7 @@ from typing import Dict, Any, Tuple, List, Set, Hashable
 from simulation.enviroment.graph import Graph
 from simulation.enviroment.sim_nodes import CitizenPerceptionNode as CPNode
 from simulation.agents.agent_arquitecture import BehaviorLayer, LocalPlanningLayer, CooperativeLayer, Knowledge, KnowledgeCanelo
+from ai.genetic_algorythm import GA
 import logging
 
 logger = logging.getLogger(__name__)
@@ -34,7 +35,11 @@ class Agent:
         self.knowledge_base = knowledge_base
         self.mind_map = mind_map if mind_map is not None else {}
         self.symptoms = []
-
+        self.hospitals = [node.id for node in mind_map.nodes.values() if node.node_type == 'hospital']
+        self.public_places = [node.id for node in mind_map.nodes.values() if node.node_type == 'public_space']
+        self.knowledge_base.facts['hospitals'] = self.hospitals
+        self.knowledge_base.facts['public_places'] = self.public_places
+        
         # Agent Control Unit
         self.bbc = bb_component
         self.pbc = lp_component
@@ -50,23 +55,28 @@ class Agent:
             new_perception = world_perception[node.addr]
             old_perception.capacity_status = new_perception.capacity_status
             old_perception.information_source = new_perception.information_source
+            old_perception.mask_required = new_perception.mask_required
             k.add_node_k(new_perception)
 
     def step(self, step_num):
         perception = self.wi.percieve(self, step_num)
         self.process_perception(perception, step_num)
-        action, arguments = self.bbc.react("behavioral_step(Action, Arguments)")
-        if not action:
-            
-            plan = self.pbc.plan("planification_step(X)")
-            action, arguments = self.bbc.react("behavioral_step(Action, Arguments)")
-        
-        if (not action)  :
-            coperate = self.cc.cooperate(self, "coperate()")
+        action, arguments = self.bbc.react()#TODO: Im am here
+        if action == 'idle':
+            self.pbc.plan()
+            action, arguments = self.bbc.react()
+        if action == 'idle':
+            self.cc.cooperate(self, "coperate()")
+            self.pbc.plan()
+            action, arguments = self.bbc.react()
+        # if (not action)  :
+        #     coperate = self.cc.cooperate(self, "coperate()")
 
-        log_agent_intentions(self.knowledge_base)
+        # log_agent_intentions(self.knowledge_base)
         self.wi.act(self, action, arguments)
         self.knowledge_base.feedback(self.location, self.masked)
+        
+
 
 class Canelo:
     """Class representing the president."""
@@ -82,7 +92,9 @@ class Canelo:
         # Hierarchical Knowlege Base
         self.knowledge_base = knowledge_base
         self.mind_map = mind_map if mind_map is not None else {}
-
+        self.measures = ['mask_use', 'social_distancing', 'tests_and_diagnosis', 'contact_tracing', 'vaccination', 'isolation', 'quarantine']
+        self.measures_places = ['use_mask_pp', 'temporary_closure_pp', 'use_mask_work', 'temporary_closure_work']
+        
         # Agent Control Unit
         self.bbc = bb_component
         self.pbc = lp_component
@@ -93,7 +105,7 @@ class Canelo:
         # perception = self.wi.percieve(self, step_num)
         # self.process_perception(perception, step_num)
         # action, arguments = self.bbc.react("behavioral_step(Action, Arguments)")
-        
+
         # if not action:
         #     plan = self.pbc.plan("planification_step()")
         #     action, arguments = self.bbc.react("behavioral_step(Action, Arguments)")
@@ -103,8 +115,36 @@ class Canelo:
         # self.knowledge_base.feedback(self.location, self.masked)
 
         x = infected_agents * 0.1
-        action, actionPlace = self.knowledge_base.query(f'recommendation_based_on_severity({x}, Recommendation, RecomendationPlaces)')
-        self.wi.act(self,action, actionPlace)
+        # action, actionPlace = self.knowledge_base.query(f'recommendation_based_on_severity({x}, Recommendation, RecomendationPlaces)')
+        
+        ga = GA()
+        solution = ga.__call__()
+        action = self.recommendation_based_on_severity(x, solution )
+        self.wi.act(self,action)
+        
+    def recommendation_based_on_severity(self,people_sick, solution):
+        
+        # limits =  [limit_mask_use, limit_social_distancing,limit_tests_and_diagnosis, limit_contact_tracing, limit_vaccination, limit_isolation, limit_quarantine]
+
+        # for x in solution:
+        #     limits[x] = solution[x]
+            
+        if people_sick < solution[0]:
+            return 'mask_use'
+        elif people_sick < solution[1]:
+            return 'social_distancing'
+        elif people_sick < solution[2]:
+            return 'tests_and_diagnosis'
+        elif people_sick < solution[3]:
+            return 'contact_tracing'
+        elif people_sick < solution[4]:
+            return 'vaccination'
+        elif people_sick < solution[5]:
+            return 'isolation'
+        elif people_sick < solution[6]:
+            return 'quarantine'
+        else:
+            return 'none'
         
  
 def log_agent_intentions(agent_k):

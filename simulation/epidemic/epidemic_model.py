@@ -32,6 +32,7 @@ class EpidemicModel:
         self.infection_stages: List[str] = [atom.value for atom in list(self.disease_k.query('infection_stages(Stages)'))[0]['Stages']]
         self.mask_effectiveness: float = list(self.disease_k.query('mask_effectiveness(E)'))[0]['E']
         self.transmission_mask: float = self.transmission_rate * self.mask_effectiveness
+        self.kill_agent = None
 
     def _query_stage(self, agent_id: int) -> str:
         """
@@ -69,7 +70,7 @@ class EpidemicModel:
             List[str]: The symptoms of the agent.
         """
         result = list(self.disease_k.query(f'symptoms({agent_id}, S)'))
-        return [atom.value for atom in result[0]['S']]
+        return [atom.value for atom in result[0]['S']] #TODO errorna veces
 
     def _step_dissease_query(self, agent: Agent) -> str:
         """
@@ -87,13 +88,15 @@ class EpidemicModel:
     def step_dissease(self, agent: Agent) -> None:
         """
         Advance the agent's infection stage based on the disease progression rules.
-
+        
         Args:
             agent (Agent): The agent to advance.
         """
         state = self._step_dissease_query(agent)
         if state in ['recovered', 'dead']:
             agent.status = state
+            if state == 'dead':
+                self.kill_agent(agent)
         else:
             self._update_agent(agent)
 
@@ -115,8 +118,13 @@ class EpidemicModel:
         Args:
             agent (Agent): The agent to update.
         """
+
         agent.status = self._query_stage(agent.unique_id)
-        agent.symptoms = self._query_symptoms(agent.unique_id)
+        if not agent.status:
+            agent.status = 'recovered'
+
+        if agent.status in self.infection_stages:
+            agent.symptoms = self._query_symptoms(agent.unique_id)
 
     def spread_disease(self, agent: Agent) -> None:
         """
@@ -148,8 +156,7 @@ class EpidemicModel:
                         agent_new_symptoms = self._query_symptoms(citizen.unique_id)
                         log_agent_symptoms_chages(agent_old_symptoms, agent_new_symptoms)
                     if agent_new_status != agent_old_status:
-                        logger.info(f'Agent status changed from {agent_old_status} to {agent_new_status}')
-                    
+                        logger.info(f'Agent status changed from {agent_old_status} to {agent_new_status}')            
                     
                 else:
                     for infected_citizen in [c for c in citizens if c.status in self.infection_stages]:

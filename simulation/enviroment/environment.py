@@ -22,7 +22,7 @@ class Environment:
         agents (List[Agent]): The list of agents in the environment.
         epidemic_model (EpidemicModel): The epidemic model for the simulation.
     """
-    def __init__(self, num_agents: int, epidemic_model: EpidemicModel, map: Terrain):
+    def __init__(self, num_agents: int, epidemic_model: EpidemicModel, map: Terrain, ):
         """
         Initialize the environment.
 
@@ -33,11 +33,56 @@ class Environment:
         """
         self.map: Terrain = map    
         self.agents: List[Agent] = []
+        self.dead_agents: set[Agent] = set()
         self.canelo = None
         self.epidemic_model = epidemic_model
+        self.dissease_step_progression = []
         logger.debug('=== Initializing Agents ===')
         self.initialize_citizen_agents(num_agents)
-        self.initialize_canelo_agent()
+        # self.initialize_canelo_agent()
+        self.initialize_relations()
+
+        def kill_agent(agent):
+            self.dead_agents.add(agent.unique_id)
+            agent_location = agent.location
+            self.map[agent_location].agent_list.remove(agent.unique_id)
+            # agent.knowledge_base = None
+
+        self.epidemic_model.kill_agent = kill_agent
+
+    def initialize_citizen_agents(self, num_agents: int) -> None:
+        """
+        Initialize agents within the environment.
+
+        Args:
+            num_agents (int): The number of agents to initialize.
+        """
+        infected_agents = random.randint(0, int(num_agents/2))
+
+        for i in range(num_agents):
+            mind_map = self.generate_citizen_mind_map()
+            kb = self._initialize_agents_knowledge(i)
+
+            agents_wi  = WorldInterface(self, self.map, mind_map, kb)
+            agents_bbc = BehaviorLayer(agents_wi, kb, mind_map)
+            agents_pbc = LocalPlanningLayer(agents_bbc, kb, mind_map)
+            agent_cc = CooperativeLayer(agents_pbc, kb, mind_map)
+
+            agent = Agent(
+                unique_id=i, 
+                mind_map=mind_map,
+                lp_component=agents_pbc,
+                bb_component=agents_bbc,
+                c_component=agent_cc,
+                wi_component=agents_wi,
+                knowledge_base=kb
+                )
+            
+            if i < infected_agents:
+                self.epidemic_model._infect_citizen(agent)
+
+            location = random.choice(list(self.map.keys()))
+            self.add_agent(agent, location)
 
     def _initialize_agents_knowledge(self, id):
         kb = Knowledge()
@@ -56,9 +101,47 @@ class Environment:
             work.add_person(id)
             kb.add_work_place(self.map[work.id])
             kb.add_is_medical_personnel(False)
-        kb.query('initialize_k()')
+        #TODO: Keep Initializing the KB
+        
         return kb
     
+    def create_family(self, home):
+        if len(home.persons) <= 1:
+            return []
+        id_list = [agent_id for agent_id in home.persons]
+        for agent_id in home.persons:
+            agent = self.agents[agent_id]
+            friends_list = id_list.copy()
+            if agent_id in friends_list:
+                friends_list.remove(agent_id)
+            agent.knowledge_base.add_friends(friends_list)
+
+    def create_work_relations(self, work):
+        if len(work.persons) <= 1:
+            return []
+        id_list = [agent_id for agent_id in work.persons]
+        for agent_id in work.persons:
+            friends_amount = random.randint(1, int(len(work.persons)/2))
+            posible_friends = random.sample(id_list, friends_amount)
+            agent = self.agents[agent_id]
+            if agent_id in posible_friends:
+                friends_list = posible_friends.remove(agent_id)
+            else:
+                friends_list = posible_friends
+                if friends_list:
+                    agent.knowledge_base.add_friends(friends_list)
+
+    def initialize_relations(self):
+        terrain = self.map
+        houses = terrain.houses
+        work_places = terrain.works
+
+        for house in houses:
+            self.create_family(house)
+
+        for work_place in work_places:
+            self.create_work_relations(work_place)
+
     def initialize_canelo_agent(self):
         kb = KnowledgeCanelo()
         mind_map = self.generate_citizen_mind_map()
@@ -79,38 +162,6 @@ class Environment:
         
         self.canelo = agent
         
-    def initialize_citizen_agents(self, num_agents: int) -> None:
-        """
-        Initialize agents within the environment.
-
-        Args:
-            num_agents (int): The number of agents to initialize.
-        """
-        infected_agents = random.randint(0, int(num_agents/2))
-        for i in range(num_agents):
-            mind_map = self.generate_citizen_mind_map()
-            kb = self._initialize_agents_knowledge(i)
-            
-            agents_wi  = WorldInterface(self, self.map, mind_map, kb)
-            agents_bbc = BehaviorLayer(agents_wi, kb)
-            agents_pbc = LocalPlanningLayer(agents_bbc, kb)
-            agent_cc = CooperativeLayer(agents_pbc, kb)
-            
-            agent = Agent(
-                unique_id=i, 
-                mind_map=mind_map,
-                lp_component=agents_pbc,
-                bb_component=agents_bbc,
-                c_component=agent_cc,
-                wi_component=agents_wi,
-                knowledge_base=kb
-                )
-            
-            if i < infected_agents:
-                self.epidemic_model._infect_citizen(agent)
-
-            location = random.choice(list(self.map.keys()))
-            self.add_agent(agent, location)
 
     def add_agent(self, agent: Agent, pos: int) -> None:
         """
@@ -182,133 +233,26 @@ class Environment:
             step_num (int): The current step number of the simulation.
         """
         for agent in random.sample(self.agents, len(self.agents)):
+            if agent.unique_id in self.dead_agents:
+                continue
             logger.info(f'Step of agent {agent.unique_id}')
             agent.step(step_num)
-            # self._debug_agent_k(agent.knowledge_base)
+            self._debug_agent_k(agent.knowledge_base)
         
         infected_agents = self._count_infected_agents()
         self.canelo.step(infected_agents)
         
         ocupied_nodes = [([self.agents[agent_id] for agent_id in node.agent_list], node.contact_rate) for node in self.map.graph.nodes.values() if node.agent_list]
-        self.epidemic_model.step(ocupied_nodes)
+        # self.epidemic_model.step(ocupied_nodes)
+
+        self.dissease_step_progression.append(self.get_dissease_stats())
 
     def _debug_agent_k(self, agent_k:Knowledge):
         logger.debug(f'Knowlege Base Facts:')
-        facts = []
-        try:
-            self._log_fact_type('home', agent_k.query(f'home(HomeID)'))
-        except Exception as e:
-            logger.error(f"query 'home' resulted in error: {e}")
+        for fact in agent_k.facts.keys():
+            logger.debug(f'{fact}:')
+            logger.debug(f'{agent_k[fact]}')
 
-        try:
-            self._log_fact_type('week_day', agent_k.query(f'week_day(DayOfTheWeek)'))
-        except Exception as e:
-            logger.error(f"query 'week_day' resulted in error: {e}")
-
-        try:
-            self._log_fact_type('month_day', agent_k.query(f'month_day(DayOfTheMonth)'))
-        except Exception as e:
-            logger.error(f"query 'month_day' resulted in error: {e}")
-
-        try:
-            self._log_fact_type('hour', agent_k.query(f'hour(Hour)'))
-        except Exception as e:
-            logger.error(f"query 'hour' resulted in error: {e}")
-
-        try:
-            self._log_fact_type('min', agent_k.query(f'min(Min)'))
-        except Exception as e:
-            logger.error(f"query 'min' resulted in error: {e}")
-
-        try:
-            self._log_fact_type('work_place', agent_k.query(f'work_place(WorkId)'))
-        except Exception as e:
-            logger.error(f"query 'work_place' resulted in error: {e}")
-
-        try:
-            self._log_fact_type('open_place', agent_k.query(f'open_place(PlaceId, IsOpen)'))
-        except Exception as e:
-            logger.error(f"query 'open_place' resulted in error: {e}")
-
-        try:
-            self._log_fact_type('open_hours_place', agent_k.query(f'open_hours_place(ID,OpeningHour,ClosingHour)'))
-        except Exception as e:
-            logger.error(f"query 'open_hours_place' resulted in error: {e}")
-
-        try:
-            self._log_fact_type('disease_symptoms', agent_k.query(f'disease_symptoms(Symptoms)'))
-        except Exception as e:
-            logger.error(f"query 'disease_symptoms' resulted in error: {e}")
-
-        try:
-            self._log_fact_type('my_symptoms', agent_k.query(f'my_symptoms(MySymptoms)'))
-        except Exception as e:
-            logger.error(f"query 'my_symptoms' resulted in error: {e}")
-
-        try:
-            self._log_fact_type('is_medical_personal', agent_k.query(f'is_medical_personal(IsMedic)'))
-        except Exception as e:
-            logger.error(f"query 'is_medical_personal' resulted in error: {e}")
-
-        try:
-            self._log_fact_type('mask_necessity', agent_k.query(f'mask_necessity(MaskNec)'))
-        except Exception as e:
-            logger.error(f"query 'mask_necessity' resulted in error: {e}")
-
-        try:
-            self._log_fact_type('mask_requirement', agent_k.query(f'mask_requirement(NodeId,Requirement)'))
-        except Exception as e:
-            logger.error(f"query 'mask_requirement' resulted in error: {e}")
-
-        try:
-            self._log_fact_type('public_space', agent_k.query(f'public_space(ID,Address)'))
-        except Exception as e:
-            logger.error(f"query 'public_space' resulted in error: {e}")
-
-        try:
-            self._log_fact_type('hospital', agent_k.query(f'hospital(ID,Address)'))
-        except Exception as e:
-            logger.error(f"query 'hospital' resulted in error: {e}")
-
-        try:
-            self._log_fact_type('hospital_overrun', agent_k.query(f'hospital_overrun(ID,IsOverrun)'))
-        except Exception as e:#TODO: Debug this
-            logger.error(f"query 'hospital_overrun' resulted in error: {e}")
-
-        try:
-            self._log_fact_type('public_transportation_working', agent_k.query(f'public_transportation_working(Id,IsItWorking)'))
-        except Exception as e:
-            logger.error(f"query 'public_transportation_working' resulted in error: {e}")
-
-        try:
-            self._log_fact_type('public_transportation_schedule', agent_k.query(f'public_transportation_schedule(ID,Schedule)'))
-        except Exception as e:
-            logger.error(f"query 'public_transportation_schedule' resulted in error: {e}")
-
-        try:
-            self._log_fact_type('hospital_acepting_patients', agent_k.query(f'hospital_acepting_patients(Id,IsAccepting)'))
-        except Exception as e:
-            logger.error(f"query 'hospital_acepting_patients' resulted in error: {e}")
-
-        try:
-            self._log_fact_type('sleeping', agent_k.query(f'sleeping(IsAgentSleeping)'))
-        except Exception as e:
-            logger.error(f"query 'sleeping' resulted in error: {e}")
-
-        try:
-            self._log_fact_type('position', agent_k.query(f'location(PositionId)'))
-        except Exception as e:
-            logger.error(f"query 'position' resulted in error: {e}")
-
-        try:
-            self._log_fact_type('isolation_center', agent_k.query(f'isolation_center(Id,Address)'))
-        except Exception as e:
-            logger.error(f"query 'isolation_center' resulted in error: {e}")
-
-        try:
-            self._log_fact_type('goal', agent_k.query(f'goal(Goal,Parameters)'))
-        except Exception as e:
-            logger.error(f"query 'goal' resulted in error: {e}")
 
     def _count_infected_agents(self):
         infected = 0
@@ -329,6 +273,20 @@ class Environment:
                 logger.debug(f'{key}: {fact[key]}')
         pass
 
+    def get_dissease_stats(self):
+        agent_dist = {
+            'susceptible': 0,
+            'asymptomatic': 0,
+            'symptomatic': 0,
+            'critical': 0,
+            'terminal': 0,
+            'dead': 0,
+            'recovered': 0
+        }
+        for agent in self.agents:
+            agent_dist[agent.status] += 1
+
+        return agent_dist
 
 class WorldInterface:
     """
@@ -358,7 +316,7 @@ class WorldInterface:
             parametersList = []
             parametersList.append(parameters)
             parameters = parametersList
-            
+        
         if action == 'move':#TODO: Change to a heuristic to another when needed
             logger.info(f'Agent {agent.unique_id} is moving to {parameters[0]} from {agent.location}')
             # a = a_star(self.map, agent.location, parameters[0])
@@ -366,7 +324,7 @@ class WorldInterface:
                 path = agent._last_path
             else:
                 map = self.agent_mind_map
-                if parameters[1].value:
+                if parameters[1] == 'true':
                     problem = AgentPathProblem(map[agent.location], map[parameters[0]], map, 'minimum_contact_path')          
                 else:
                     problem = AgentPathProblem(map[agent.location], map[parameters[0]], map)
@@ -397,8 +355,6 @@ class WorldInterface:
         
         elif not action:            
             logger.info(f'Agent {agent.unique_id} action is empty')
-
-
 
     def percieve(self, agent: Agent, step_num: int) -> dict:
         """
@@ -444,6 +400,7 @@ class WorldInterface:
             current_node_perception.oppening_hours = current_node.opening_hours
             current_node_perception.closing_hours = current_node.closing_hours
             current_node_perception.is_open = current_node.is_open
+            current_node_perception.mask_required = current_node.mask_required
 
         new_perception[current_node.addr] = current_node_perception
 
@@ -473,7 +430,6 @@ class WorldInterface:
         
     def send_message(self, agent, message):
         pass
-
     
     def comunicate(self, sender: Agent, message, Id = None) -> None:
         """
@@ -491,7 +447,6 @@ class WorldInterface:
         for agent_id in list_family:
             agent = self.eviroment.agents[agent_id]
             self.send_message(agent, message)
-        
 
 class WorldInterfaceCanelo:
     """
@@ -507,7 +462,7 @@ class WorldInterfaceCanelo:
         self.list_agents = list_agents
         self.agent_kb = knowledge_base
 
-    def act(self, agent: Canelo, action: str, action_place: str) -> None:
+    def act(self, agent: Canelo, action: str) -> None:
         """
         Perform an action for an agent.
 
@@ -516,25 +471,25 @@ class WorldInterfaceCanelo:
             action (str): The action to perform.
             parameters (list): The parameters for the action.
         """
-        if action_place == 'use_mask_pp':
+        if action == 'use_mask_pp':
             logger.info(f'Canelo is transmitting use mask in public places')
             for agent in self.list_agents:
-                self.comunicate( agent, action_place)
+                self.comunicate( agent, action)
         
-        elif action_place == 'temporary_closure_pp':
+        elif action == 'temporary_closure_pp':
             logger.info(f'Canelo is transmitting temporaly closure in public places')
             for agent in self.list_agents:
-                self.comunicate( agent, action_place)
+                self.comunicate( agent, action)
         
-        elif action_place == 'use_mask_work':
+        elif action == 'use_mask_work':
             logger.info(f'Canelo is transmitting use mask in work')
             for agent in self.list_agents:
-                self.comunicate( agent, action_place, list(agent.knowledge_base.query('work_place(X,_)'))[0]['X'])
+                self.comunicate( agent, action, list(agent.knowledge_base.query('work_place(X,_)'))[0]['X'])
         
-        elif action_place == 'temporary_closure_work':
+        elif action == 'temporary_closure_work':
             logger.info(f'Canelo is transmitting temporaly closure in work')
             for agent in self.list_agents:
-                self.comunicate( agent, action_place, list(agent.knowledge_base.query('work_place(X,_)'))[0]['X'])
+                self.comunicate( agent, action, list(agent.knowledge_base.query('work_place(X,_)'))[0]['X'])
         
         
         if action == 'mask_use':
@@ -546,12 +501,12 @@ class WorldInterfaceCanelo:
             logger.info(f'Canelo is transmitting not use mask')
             for agent in self.list_agents:
                 self.comunicate( agent, action)
-         
+        
         elif action == 'quarantine':
             logger.info(f'Canelo is transmitting go quarantine')
             for agent in self.list_agents:
                 self.comunicate( agent, action)
-             
+        
         elif action == 'social_distancing':
             logger.info(f'Canelo is transmitting social_distancing')
             for agent in self.list_agents:
@@ -670,5 +625,6 @@ class WorldInterfaceCanelo:
 
         new_perception[current_node.addr] = current_node_perception
 
-        return new_perception
 
+
+        return new_perception

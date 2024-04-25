@@ -29,6 +29,7 @@ class CitizenPerceptionNode(PerceptionNode):
         self.capacity_status = capacity_status
         self.information_source = information_source
         self.node_type = node_type
+        self.mask_required = False
 
 class SimNode(Node):
     """
@@ -45,6 +46,7 @@ class SimNode(Node):
         self.capacity = capacity
         self.agent_list = []
         self.addr = addr
+        self.mask_required = False
 
     def __str__(self):
         agents = '\n\t'.join(str(self.agent_list))

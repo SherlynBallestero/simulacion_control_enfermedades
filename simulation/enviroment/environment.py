@@ -22,7 +22,7 @@ class Environment:
         agents (List[Agent]): The list of agents in the environment.
         epidemic_model (EpidemicModel): The epidemic model for the simulation.
     """
-    def __init__(self, num_agents: int, epidemic_model: EpidemicModel, map: Terrain, ):
+    def __init__(self, num_agents: int, epidemic_model: EpidemicModel, map: Terrain, solution:list =None ):
         """
         Initialize the environment.
 
@@ -38,8 +38,9 @@ class Environment:
         self.epidemic_model = epidemic_model
         self.dissease_step_progression = []
         logger.debug('=== Initializing Agents ===')
+        self.solution = solution
         self.initialize_citizen_agents(num_agents)
-        # self.initialize_canelo_agent()
+        self.initialize_canelo_agent()
         self.initialize_relations()
 
         def kill_agent(agent):
@@ -147,9 +148,9 @@ class Environment:
         mind_map = self.generate_citizen_mind_map()
         
         agents_wi  = WorldInterfaceCanelo(self.map, self.agents, kb)
-        agents_bbc = BehaviorLayer(agents_wi, kb)
-        agents_pbc = LocalPlanningLayer(agents_bbc, kb)
-        agent_cc = CooperativeLayer(agents_pbc, kb)
+        agents_bbc = BehaviorLayer(agents_wi, kb, mind_map)
+        agents_pbc = LocalPlanningLayer(agents_bbc, kb, mind_map)
+        agent_cc = CooperativeLayer(agents_pbc, kb, mind_map)
         
         agent = Canelo( 
                 mind_map=mind_map, 
@@ -157,12 +158,12 @@ class Environment:
                 lp_component=agents_pbc,
                 c_component=agent_cc,
                 wi_component=agents_wi,
-                knowledge_base=kb
+                knowledge_base=kb,
+                solution = self.solution
                 )
         
         self.canelo = agent
         
-
     def add_agent(self, agent: Agent, pos: int) -> None:
         """
         Add an agent to the environment at a specified location.
@@ -240,7 +241,7 @@ class Environment:
             self._debug_agent_k(agent.knowledge_base)
         
         infected_agents = self._count_infected_agents()
-        self.canelo.step(infected_agents)
+        # self.canelo.step(infected_agents)
         
         ocupied_nodes = [([self.agents[agent_id] for agent_id in node.agent_list], node.contact_rate) for node in self.map.graph.nodes.values() if node.agent_list]
         # self.epidemic_model.step(ocupied_nodes)
@@ -252,7 +253,6 @@ class Environment:
         for fact in agent_k.facts.keys():
             logger.debug(f'{fact}:')
             logger.debug(f'{agent_k[fact]}')
-
 
     def _count_infected_agents(self):
         infected = 0

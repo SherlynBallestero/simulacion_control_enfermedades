@@ -31,7 +31,7 @@ class Terrain:
         node = BlockNode(capacity, last_id+1, addr)
         self._add_node(node)
     
-    def add_work(self, addr: Tuple, capacity: int):
+    def add_work(self, addr: Tuple, capacity: int, opening_hours: int = 8, closing_hours: int = 18):
         """
         Adds a workspace to the terrain with a given address and capacity.
         
@@ -43,7 +43,7 @@ class Terrain:
         last_id = id_list[-1] if id_list else 0
         for node in self.graph.nodes.values():
             if isinstance(node, BlockNode) and node.addr == addr:
-                w_node = Workspace(capacity, last_id+1, addr)
+                w_node = Workspace(capacity, last_id+1, addr, opening_hours, closing_hours)
                 self.works.append(w_node)
                 self._add_node(w_node)
                 self.add_edge(node.id, w_node.id)
@@ -67,7 +67,7 @@ class Terrain:
                 self.add_edge(node.id, w_node.id)
                 break
     
-    def add_recreational(self, addr: Tuple, capacity: int):
+    def add_recreational(self, addr: Tuple, capacity: int, opening_hours: int = 19, closing_hours: int = 23):
         """
         Adds a recreational place to the terrain with a given address and capacity.
         
@@ -79,13 +79,13 @@ class Terrain:
         last_id = id_list[-1] if id_list else 0
         for node in self.graph.nodes.values():
             if isinstance(node, BlockNode) and node.addr == addr:
-                w_node = PublicPlace(capacity, last_id+1, addr)
+                w_node = PublicPlace(capacity, last_id+1, addr, opening_hours, closing_hours)
                 self.recreational.append(w_node.id)
                 self._add_node(w_node)
                 self.add_edge(node.id, w_node.id)
                 break
     
-    def add_hospital(self, addr: Tuple, capacity: int):
+    def add_hospital(self, addr: Tuple, capacity: int, opening_hours: int = 8, closing_hours: int = 18):
         """
         Adds a hospital to the terrain with a given address and capacity.
         
@@ -97,7 +97,7 @@ class Terrain:
         last_id = id_list[-1] if id_list else 0
         for node in self.graph.nodes.values():
             if isinstance(node, BlockNode) and node.addr == addr:
-                w_node = Hospital(capacity, last_id+1, addr)
+                w_node = Hospital(capacity, last_id+1, addr, opening_hours, closing_hours)
                 self.hospitals.append(w_node)
                 self._add_node(w_node)
                 self.add_edge(node.id, w_node.id)

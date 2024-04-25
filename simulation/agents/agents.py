@@ -76,8 +76,6 @@ class Agent:
         self.wi.act(self, action, arguments)
         self.knowledge_base.feedback(self.location, self.masked)
         
-
-
 class Canelo:
     """Class representing the president."""
     def __init__(self, 
@@ -86,12 +84,14 @@ class Canelo:
                  lp_component: LocalPlanningLayer = None,
                  c_component: CooperativeLayer = None,
                  wi_component: 'WorldInterfaceCanelo' = None,
-                 knowledge_base: KnowledgeCanelo = None
+                 knowledge_base: KnowledgeCanelo = None,
+                 solution: list = [0]*7
                  ):
 
         # Hierarchical Knowlege Base
         self.knowledge_base = knowledge_base
         self.mind_map = mind_map if mind_map is not None else {}
+        
         self.measures = ['mask_use', 'social_distancing', 'tests_and_diagnosis', 'contact_tracing', 'vaccination', 'isolation', 'quarantine']
         self.measures_places = ['use_mask_pp', 'temporary_closure_pp', 'use_mask_work', 'temporary_closure_work']
         
@@ -100,6 +100,8 @@ class Canelo:
         self.pbc = lp_component
         self.cc = c_component
         self.wi = wi_component
+        
+        self.solution = solution
  
     def step(self, infected_agents):
         # perception = self.wi.percieve(self, step_num)
@@ -117,9 +119,7 @@ class Canelo:
         x = infected_agents * 0.1
         # action, actionPlace = self.knowledge_base.query(f'recommendation_based_on_severity({x}, Recommendation, RecomendationPlaces)')
         
-        ga = GA()
-        solution = ga.__call__()
-        action = self.recommendation_based_on_severity(x, solution )
+        action = self.recommendation_based_on_severity(x, self.solution )
         self.wi.act(self,action)
         
     def recommendation_based_on_severity(self,people_sick, solution):

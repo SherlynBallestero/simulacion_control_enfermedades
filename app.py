@@ -1,32 +1,32 @@
 import streamlit as st
-import requests
+import web_api
 
 # URL base de la API FastAPI
 base_url = "http://localhost:8000"
 
 # Función para inicializar la simulación
 def initialize_simulation(params):
-    response = requests.post(f"{base_url}/simulation/initialize", json=params)
+    response =web_api.post(f"{base_url}/simulation/initialize", json=params)
     return response.json()
 
 # Función para eliminar la simulación
 def delete_simulation():
-    response = requests.get(f"{base_url}/simulation/delete")
+    response =web_api.get(f"{base_url}/simulation/delete")
     return response.json()
 
 # Función para reiniciar la simulación
 def reset_simulation():
-    response = requests.get(f"{base_url}/simulation/reset")
+    response =web_api.get(f"{base_url}/simulation/reset")
     return response.json()
 
 # Función para iniciar la simulación
 def start_simulation():
-    response = requests.get(f"{base_url}/simulate")
+    response =web_api.get(f"{base_url}/simulate")
     return response.json()
 
 # Función para obtener el estado de la simulación
 def get_simulation_status():
-    response = requests.get(f"{base_url}/simulate/status")
+    response =web_api.get(f"{base_url}/simulate/status")
     return response.json()
 
 # Interfaz de usuario con Streamlit

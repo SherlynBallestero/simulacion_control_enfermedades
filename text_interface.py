@@ -1,133 +1,101 @@
-import streamlit as st
-import gpt4all as gpt
-from gpt4all import GPT4All
-# from simulation.main import function, factorial, contar_palabras, filtrar_lista, calcular_media, es_primo, maximo_lista, suma
-import io
-import sys
+'''
+For executing the simulation without the chat interface
+'''
+import logging
+from simulation.enviroment.maps import TEST_CITY_1
+from simulation.enviroment.environment import Environment
+from simulation.epidemic.epidemic_model import EpidemicModel
+import matplotlib
+matplotlib.use('TkAgg') 
+import matplotlib.pyplot as plt
 
-model = GPT4All("/home/chony/LLM/Mistral-7B-Instruct-v0.1-GGUF/mistral-7b-instruct-v0.1.Q4_K_S.gguf")
+# Create and configure logger
+logging.basicConfig(filename="simulation.log",
+                    format='%(asctime)s - %(levelname)s - %(message)s',
+                    filemode='w')
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
 
-st.title("EpiDoc")
+def plot_dissease_evolution_days(dissease_progression, steps):
+    '''
+    Shows a bar plot of the disease evolution in the population, the x-axis represents the different states of the disease, the y-axis the number of agents, the bar has different colors depending of the state of the disease
+    '''
+    # Data for plotting
+    states = ['susceptible', 'asymptomatic', 'symptomatic', 'critical', 'terminal', 'dead', 'recovered']
+    colors = ['g', 'y', 'r', 'c', 'm', 'b', 'k']
+    days = steps // 6 // 24
+    x = range(days) 
+    y = [[dissease_progression[day * 6 * 24][state] for day in range(days)] for state in states]
+    addition = [0] * len(y[0])
+    for i, data in enumerate(y):
+        plt.bar(x, data, color=colors[i], bottom=addition)
+        addition = [sum(x) for x in zip(addition, data)]
 
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-    st.session_state.messages.append({
-        "role": "user",
-        "content": """
-                    Dado que he solicitado que las respuestas a mis preguntas sean exclusivamente llamadas a funciones específicas, sin incluir texto adicional o comentarios, y considerando las funciones que has mencionado (function, factorial, contar_palabras, filtrar_lista, calcular_media), me gustaría que me proporcionaras una respuesta que cumpla con estos criterios.
-
-                    En particular, me interesa obtener el factorial de 5. Entiendo que el factorial de un número es el producto de todos los números enteros positivos desde 1 hasta ese número. Por lo tanto, espero que la respuesta sea una llamada a la función `factorial` con el argumento 5.
-
-                    Además, me gustaría que esta respuesta se ajuste a la estructura de las respuestas anteriores que has proporcionado, donde cada respuesta es una llamada a una función específica sin texto adicional.
-
-                    Por favor, proporciona una respuesta que cumpla con estos requisitos,que tus respuestas sean solamente funciones de python.$
-                    """
-    })
-    st.session_state.messages.append({
-        "role": "user",
-        "content": """Quiero que mi chatbot responda únicamente con llamados a las siguientes funciones de Python, sin ningún texto ni comentario adicional:
-                    - function(nombre_funcion, *args, **kwargs): llama a la función con el nombre especificado y los argumentos proporcionados.
-                    - factorial(n): calcula el factorial de un número entero n.
-                    - contar_palabras(frase): cuenta el número de palabras en una frase.
-                    - filtrar_lista(funcion_filtro, lista): filtra una lista utilizando una función de filtro.
-                    - calcular_media(numeros): calcula la media aritmética de una lista de números.
-
-                    Por favor, asegúrate de que tus respuestas sean únicamente llamados a estas funciones.$
-                    """
-    })
-    st.session_state.messages.append({
-        "role": "user",
-        "content": """El simbolo $ al final de mis prompts significa que ya terminde de escribir no me sigas autocompletando"""
-    })
-    st.session_state.messages.append({
-        "role": "user",
-        "content": "cual es el factorial de 5 ?$"
-    })
-    st.session_state.messages.append({
-        "role": "assistent",
-        "content": "factorial(5)"
-    })
-    st.session_state.messages.append({
-        "role": "user",
-        "content": "cuantas palabras tiene la oracion: hola mundo$"
-    })
-    st.session_state.messages.append({
-        "role": "assistent",
-        "content": "contar_palabras([hola, mundo])"
-    })
-    st.session_state.messages.append({
-        "role": "user",
-        "content": "calcula la media de 5 numeros primos cualesquiera$"
-    })
-    st.session_state.messages.append({
-        "role": "assistent",
-        "content": "calcular_media([3,3,3,5,7])"
-    })
-    st.session_state.messages.append({
-        "role": "user",
-        "content": "5 es un numero primo?$"
-    })
-    st.session_state.messages.append({
-        "role": "assistent",
-        "content": "es_primo(5)"
-    })
-    st.session_state.messages.append({
-        "role": "user",
-        "content": "cual es el maximo de esta lista [2,3]$"
-    })
-    st.session_state.messages.append({
-        "role": "assistent",
-        "content": "maximo_lista([2,3])"
-    })
-    st.session_state.messages.append({
-        "role": "user",
-        "content": "suma 2 y 3$"
-    })
-    st.session_state.messages.append({
-        "role": "assistent",
-        "content": "suma(2,3)"
-    })
-    
-# Convertir el historial en una cadena de texto
-historial_texto = "\n".join([f"{msg['role']}: {msg['content']}" for msg in st.session_state.messages])
-
-print(historial_texto)
+    # Plotting
+    plt.show()
 
 
-# Display chat messages from history on app rerun
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
-        
-# Assigning and determining the messages that the user will enter from the prompt
-if prompt := st.chat_input("What is up?"):
-    # Add user message to chat history
-    st.session_state.messages.append({"role": "user", "content": prompt})
-    
-    # Pasar el historial y el mensaje del usuario al modelo
-    # Suponiendo que 'model' es tu modelo de lenguaje y que tiene un método 'generate'
-    
-    # Display user message in chat message container
-    with st.chat_message("user"):
-        st.markdown(prompt)
-        
-        
-    with st.chat_message("assistant"):
-        message_placeholder = st.empty()
-        full_response = ""
-        
-        response = model.generate(historial_texto + "\n" + "user: " + prompt + "$")
-        content = message_placeholder.markdown(response)
-        
-        res = response.replace("assistant:", "", 1)
-        res = res.replace(" ", "")
-        
-        print(res)
-        result = eval(res)
-        print(result)
+def simulate(env, steps_num):
+    # Main simulation loop
+    for step in range(steps_num):
+        date = format_day(step)
+        logger.info(f'=== Step: {date} ===')
+        # log_infection_status(env, 'Starting cond:')
+        env.step(step)
+        # log_infection_status(env, 'Ending cond:')
 
-        
-        # Finalmente, agregamos al asistente y al usuario al historial.
-        st.session_state.messages.append({"role": "assistent", "content": response})
-    
-    
+def log_infection_status(env, msg):
+    total_agents = len(env.agents)
+    healthy_agents = len([healthy_agent for healthy_agent in env.agents if healthy_agent.status if healthy_agent.status == 'susceptible'])
+    infected_agents = len([infected_agent for infected_agent in env.agents if infected_agent.status if infected_agent.status == 'asymptomatic'])
+    symptomatic_agents = len([symptomatic_agent for symptomatic_agent in env.agents if symptomatic_agent.status if symptomatic_agent.status == 'symptomatic'])
+    critical_agents = len([critical_agent for critical_agent in env.agents if critical_agent.status if critical_agent.status == 'critical'])
+    terminal_agents = len([terminal_agent for terminal_agent in env.agents if terminal_agent.status if terminal_agent.status == 'terminal'])
+    dead_agents = len([dead_agent for dead_agent in env.agents if dead_agent.status if dead_agent.status == 'dead'])
+    recovered_agents = len([recovered_agent for recovered_agent in env.agents if recovered_agent.status if recovered_agent.status == 'recovered'])
+    logger.info(f'{msg}\n\tagent_num: {total_agents}\n\thealthy_agents: {healthy_agents}\n\tinfected_agents: {infected_agents}\n\tsymptomatic_agents: {symptomatic_agents}\n\tcritical_agents: {critical_agents}\n\tterminal_agents: {terminal_agents}\n\tdead_agents: {dead_agents}\n\trecovered_agents: {recovered_agents}\n\t')
+
+def format_day(step_num):
+    # Calculating day of the week, hour and min sim_days = 31 sim_hours = sim_days * 24 sim_steps = sim_hours * 6
+    days_of_the_week = [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday","Sunday"]
+    min = step_num % 6 * 10
+    hour = step_num // 6 % 24
+    day = step_num // 6 // 24 % 7
+    week_day = days_of_the_week[day]
+    month_day = step_num // 6 // 24
+    return week_day, month_day, hour, min
+
+
+# if __name__ == '__main__':
+#     sim_days = 31
+#     sim_hours = sim_days * 24
+#     sim_steps = sim_hours * 6
+
+#     logger.info("=== Simulation Execution Started ===")
+#     logger.debug("=== Initializing City ===")
+#     map = TEST_CITY_1
+#     logger.debug("=== Initializing Epidemic Model ===")
+#     epidemic_model = EpidemicModel()
+#     logger.debug("=== Initializing Environment ===")
+#     env = Environment(10, epidemic_model, map)
+#     logger.info(f'=== Starting Simulation Loop With {sim_steps} Steps ===')
+#     simulate(env, sim_steps)
+#     plot_dissease_evolution_days(env.dissease_step_progression, len(env.dissease_step_progression))
+#     # plot_dissease_evolution_days(d_evol, len(d_evol))
+#     pass
+def llm_calling(sim_days):
+    sim_hours = sim_days * 24
+    sim_steps = sim_hours * 6
+
+    logger.info("=== Simulation Execution Started ===")
+    logger.debug("=== Initializing City ===")
+    map = TEST_CITY_1
+    logger.debug("=== Initializing Epidemic Model ===")
+    epidemic_model = EpidemicModel()
+    logger.debug("=== Initializing Environment ===")
+    env = Environment(10, epidemic_model, map)
+    logger.info(f'=== Starting Simulation Loop With {sim_steps} Steps ===')
+    simulate(env, sim_steps)
+    # plot_dissease_evolution_days(env.dissease_step_progression, len(env.dissease_step_progression))
+    # # plot_dissease_evolution_days(d_evol, len(d_evol))
+    pass

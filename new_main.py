@@ -20,7 +20,7 @@ def fitness_func(ga_instance, solution = None, solution_idx = None):
 
     map = TEST_CITY_1
     epidemic_model = EpidemicModel()
-    env = Environment(10, epidemic_model, map, solution)
+    env = Environment(5, epidemic_model, map, solution)
     simulate(env, sim_steps)
     sum = 0
     a = env.dissease_step_progression[-1]

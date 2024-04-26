@@ -19,7 +19,6 @@ class Knowledge:
         # self.prolog.consult('./simulation/agents/hierarchical_agent_KB.pl')
         self.facts = {}
         self.initializing_k()
-        
 
     def add_node_k(self, node: SimNode):
         
@@ -113,10 +112,12 @@ class Knowledge:
             id (int): The identifier of the place.
             open (bool): Whether the place is open.
         """
-        # list(self.prolog.query(f'add_open_place({id}, {str(open).lower()})'))
-        raise NotImplementedError()
+        self.facts['open_place'] = {
+            'id': id,
+            'open': open
+        }
 
-    def add_open_hours(self, id: int, opening_hours: int, closing_hours: int):
+    def add_open_hours_place(self, id: int, opening_hours: int, closing_hours: int):
         """
         Add open hours to the knowledge base.
 
@@ -126,7 +127,11 @@ class Knowledge:
             closing_hours (int): The closing hours of the place.
         """
         # list(self.prolog.query(f'add_open_hours_place({id}, {opening_hours}, {closing_hours})'))
-        raise NotImplementedError()
+        self.facts['open_hours_place'] = {
+            'id': id,
+            'opening_hours': opening_hours,
+            'closing_hours': closing_hours
+        }
 
     def add_dissease_symptoms(self, symptom_list: list):
         """
@@ -181,16 +186,13 @@ class Knowledge:
             self.facts['maps'][place_id]['mask_required'] = requirement
 
     def add_social_distancing(self, requirement: bool):
-        # list(self.prolog.query(f'add_social_distancing({requirement})'))
         self.facts['social_distancing'] = requirement
 
     def add_tests_and_diagnosis(self, requirement: bool):
-        # list(self.prolog.query(f'add_tests_and_diagnosis({requirement})'))
-        raise NotImplementedError()
+        self.facts['tests_and_diagnosis'] = requirement
 
     def add_isolation(self, requirement: bool):
-        # list(self.prolog.query(f'add_isolation({requirement})'))
-        raise NotImplementedError()
+        self.facts['isolation'] = requirement
 
     def add_friends(self, friend_list: list):
         # if friend_list:
@@ -202,6 +204,9 @@ class Knowledge:
 
     def add_wearing_mask(self, wearing_mask: bool):
         self.facts['wearing_mask'] = wearing_mask
+
+    def add_quarantine(self, quarantine: bool):
+        self.facts['quarantine'] = quarantine
 
     def add_location(self, location: int):
         self.facts['location'] = location
@@ -219,8 +224,7 @@ class Knowledge:
         self.facts['too_sick'] = False
         self.facts['mask_necessity'] = False
         self.facts['medical_check'] = False
-        self.facts['social_distancing'] = False
-        
+        self.facts['social_distancing'] = False     
 
     def update_goals(self):
         # removes already achieved goals

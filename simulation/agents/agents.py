@@ -117,18 +117,12 @@ class Canelo:
         # self.knowledge_base.feedback(self.location, self.masked)
 
         x = infected_agents * 0.1
-        # action, actionPlace = self.knowledge_base.query(f'recommendation_based_on_severity({x}, Recommendation, RecomendationPlaces)')
         
         action = self.recommendation_based_on_severity(x, self.solution )
         self.wi.act(self,action)
         
     def recommendation_based_on_severity(self,people_sick, solution):
         
-        # limits =  [limit_mask_use, limit_social_distancing,limit_tests_and_diagnosis, limit_contact_tracing, limit_vaccination, limit_isolation, limit_quarantine]
-
-        # for x in solution:
-        #     limits[x] = solution[x]
-            
         if people_sick < solution[0]:
             return 'mask_use'
         elif people_sick < solution[1]:
@@ -143,6 +137,17 @@ class Canelo:
             return 'isolation'
         elif people_sick < solution[6]:
             return 'quarantine'
+        
+        # elif people_sick < solution[7]:
+        #     return 'use_mask_pp'
+        # elif people_sick < solution[8]:
+        #     return 'temporary_closure_pp'
+        # elif people_sick < solution[9]:
+        #     return 'use_mask_work'
+        # elif people_sick < solution[10]:
+        #     return 'temporary_closure_work'
+        
+        
         else:
             return 'none'
         

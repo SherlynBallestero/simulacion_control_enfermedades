@@ -7,35 +7,36 @@ import sys
 import re
 import json
 import matplotlib.pyplot as plt
+import requests
 import web_api
-#web_api requests fuctions
+#requests requests fuctions
 
 # URL base de la API FastAPI
 base_url = "http://localhost:8000"
 
 #Function to initialize the simulation
 def initialize_simulation(params):
-    response =web_api.post(f"{base_url}/simulation/initialize", json=params)
+    response =requests.post(f"{base_url}/simulation/initialize", json=params)
     return response.json()
 
 # Function to delete the simulation
 def delete_simulation():
-    response =web_api.get(f"{base_url}/simulation/delete")
+    response =requests.get(f"{base_url}/simulation/delete")
     return response.json()
 
 # Function to restart the simulation
 def reset_simulation():
-    response =web_api.get(f"{base_url}/simulation/reset")
+    response =requests.get(f"{base_url}/simulation/reset")
     return response.json()
 
 # Function to start the simulation
 def start_simulation():
-    response =web_api.get(f"{base_url}/simulate")
+    response =requests.get(f"{base_url}/simulate")
     return response.json()
 
 #Function to get status of the simulation
 def get_simulation_status():
-    response =web_api.get(f"{base_url}/simulate/status")
+    response =requests.get(f"{base_url}/simulate/status")
     return response.json()
 
 
@@ -91,6 +92,22 @@ Input:{el input del usuario}
 Output:
 
 '''
+def substring_in_brances(input):
+    answer=''
+    flag=False
+    for char in input:
+        
+        if char=="{":
+            flag=True
+        elif char=="}":
+            break
+        elif flag and char !='"':
+            answer+=char
+   
+    print(answer)        
+    return answer
+            
+    
 #nedded functions
 def get_llm_response(query):
     # Usa el modelo cargado para generar una respuesta
@@ -98,13 +115,19 @@ def get_llm_response(query):
     return response
 #parser in a dict the sim's params, return a dict, maybe i need conmtrol output for the llm if not well!
 def get_dict_params(llm_extracted_params):
-    result = re.search(r'\{(.*?)\}', llm_extracted_params)
-    # Verificamos si encontramos un resultado
     
-    input_string= result.group(1)
-    print(input_string)
-    # Remove the "Input:" and "Output:" parts from the string
-    input_string = input_string.replace('Input:\"Output:{', '').replace('}\"', '')
+    # result = re.search(r'\{(.*?)\}', llm_extracted_params)
+    # # Verificamos si encontramos un resultado
+
+    # if result:
+    #     print("yey")
+    # else:
+    #     print("noo")
+    # input_string= result.group(1)
+    input_string= substring_in_brances(llm_extracted_params)
+   
+    # # Remove the "Input:" and "Output:" parts from the string
+    # input_string = input_string.replace('Input:\"Output:{', '').replace('}\"', '')
     
     # Split the string into key-value pairs
     key_value_pairs = input_string.split(',')
@@ -130,6 +153,7 @@ def get_simulation_return(path):
         return contenido
 
 def create_SimulationParameters(params:dict):
+    print(params)
     if "days" in params:
         simulation_days_user=int(params["days"])
     else:
@@ -150,15 +174,12 @@ if st.button("Obtener respuesta"):
         # get  LLM-answer
         response = get_llm_response(prompt2 +' '+ user_query)
         params=get_dict_params(response)
-      
-         
         simulation_params=create_SimulationParameters(params)
         
+        res = initialize_simulation(simulation_params)
+        st.write(res)
         
-        print(type(simulation_params))
-        
-        print(simulation_params)
-        st.write(params)
+       
         
     else:
         st.write("Por favor, escribe una consulta para obtener una respuesta.")

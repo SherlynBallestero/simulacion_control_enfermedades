@@ -102,7 +102,7 @@ class AgentPathProblem(Problem):
         if self.path_type == 'shortest_path':
             return 1
         elif self.path_type == 'minimum_contact_path':
-            self.calculate_contact_danger(s1)
+            return self.calculate_contact_danger(s1)
 
     def result(self, state, action):
         return action
@@ -115,18 +115,18 @@ class AgentPathProblem(Problem):
         contact_danger = {
             'low': 1, 'medium': 2, 'high': 3, 'very_high': 4
         }
-        if node.state.capacity_status == 'unknown':
+        if node.capacity_status == 'unknown':
             total = 0
-            for neighbor in self.map.get_neighbors(node.state.id):
+            for neighbor in self.map.get_neighbors(node.id):
                 if self.map[neighbor].capacity_status != 'unknown':
                     total += contact_danger[self.map[neighbor].capacity_status]
-            contact_val = total/ len(self.map.get_neighbors(node.state.id))
+            contact_val = total/ len(self.map.get_neighbors(node.id))
             #change the state so capacity status corresponds to the 
-            node.state.capacity_status = 'low' if contact_val < 1.5 else 'medium' if contact_val < 2.5 else 'high' if contact_val < 3.5 else 'very_high'
-        return contact_danger[node.state.capacity_status]
+            node.capacity_status = 'low' if contact_val < 1.5 else 'medium' if contact_val < 2.5 else 'high' if contact_val < 3.5 else 'very_high'
+        return contact_danger[node.capacity_status]
 
     def minimum_contact_h(self, node):# TODO: define a heuristic of minimum cost path
-        return self.calculate_contact_danger(node) + self.manhattan_h(node)
+        return self.calculate_contact_danger(node.state) + self.manhattan_h(node)
 
     def h(self, node): 
         if self.path_type == 'shortest_path':
@@ -154,7 +154,8 @@ def expand(problem, node):
     s = node.state
     for action in problem.actions(s):
         s1 = problem.result(s, action)
-        cost = node.path_cost + problem.action_cost(s, action, s1)
+        action_cost = problem.action_cost(s, action, s1)
+        cost = node.path_cost + action_cost
         yield Node(s1, node, action, cost)
 
 

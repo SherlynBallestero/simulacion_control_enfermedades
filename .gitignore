@@ -1,0 +1,4 @@
+*.log
+*.cpython-310.pyc
+*.cpython-312.pyc
+*.pyc

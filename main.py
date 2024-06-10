@@ -5,6 +5,9 @@ import logging
 from simulation.enviroment.maps import TEST_CITY_1
 from simulation.enviroment.environment import Environment
 from simulation.epidemic.epidemic_model import EpidemicModel
+import matplotlib
+matplotlib.use('TkAgg') 
+import matplotlib.pyplot as plt
 
 # Create and configure logger
 logging.basicConfig(filename="simulation.log",
@@ -12,6 +15,25 @@ logging.basicConfig(filename="simulation.log",
                     filemode='w')
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
+
+def plot_dissease_evolution_days(dissease_progression, steps):
+    '''
+    Shows a bar plot of the disease evolution in the population, the x-axis represents the different states of the disease, the y-axis the number of agents, the bar has different colors depending of the state of the disease
+    '''
+    # Data for plotting
+    states = ['susceptible', 'asymptomatic', 'symptomatic', 'critical', 'terminal', 'dead', 'recovered']
+    colors = ['g', 'y', 'r', 'c', 'm', 'b', 'k']
+    days = steps // 6 // 24
+    x = range(days) 
+    y = [[dissease_progression[day * 6 * 24][state] for day in range(days)] for state in states]
+    addition = [0] * len(y[0])
+    for i, data in enumerate(y):
+        plt.bar(x, data, color=colors[i], bottom=addition)
+        addition = [sum(x) for x in zip(addition, data)]
+
+    # Plotting
+    plt.show()
+
 
 def simulate(env, steps_num):
     # Main simulation loop
@@ -43,6 +65,7 @@ def format_day(step_num):
     month_day = step_num // 6 // 24
     return week_day, month_day, hour, min
 
+
 if __name__ == '__main__':
     sim_days = 31
     sim_hours = sim_days * 24
@@ -54,6 +77,9 @@ if __name__ == '__main__':
     logger.debug("=== Initializing Epidemic Model ===")
     epidemic_model = EpidemicModel()
     logger.debug("=== Initializing Environment ===")
-    env = Environment(4, epidemic_model, map)
+    env = Environment(10, epidemic_model, map)
     logger.info(f'=== Starting Simulation Loop With {sim_steps} Steps ===')
     simulate(env, sim_steps)
+    plot_dissease_evolution_days(env.dissease_step_progression, len(env.dissease_step_progression))
+    # plot_dissease_evolution_days(d_evol, len(d_evol))
+    pass

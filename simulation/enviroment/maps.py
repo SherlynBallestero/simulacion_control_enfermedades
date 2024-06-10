@@ -23,7 +23,7 @@ for i in range(10):
             
         cost_edge+=1
 
-for _ in range(50):
+for _ in range(5):
     house_addr = random.choice(list(TEST_CITY_1.nodes_by_addrs.keys()))
     TEST_CITY_1.add_house(house_addr, random.randint(1, 5))
 

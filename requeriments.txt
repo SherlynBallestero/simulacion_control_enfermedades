@@ -2,7 +2,7 @@ pygad
 numpy
 
 
-
+pillow
 
 pyswip
 typing

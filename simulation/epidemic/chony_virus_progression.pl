@@ -8,7 +8,7 @@
 % Facts
 
 infection_stages([asymptomatic, symptomatic, critical, terminal]).
-base_transmition_rate(0.5).
+base_transmition_rate(1.0).
 mask_effectiveness(0.4).
 
 % Vaccination effects
@@ -45,17 +45,17 @@ possible_symptoms_recovered([]).
 
 % Age Influence on the disease
 
-age_influence(young, gets_better, 0.25).
-age_influence(young, gets_worse, 0.15).
-age_influence(young, nothing_happens, 0.6).
+age_influence(young, gets_better, 0.005).
+age_influence(young, gets_worse, 0.003).
+age_influence(young, nothing_happens, 0.992).
 
-age_influence(adult, gets_better, 0.25).
-age_influence(adult, gets_worse, 0.25).
-age_influence(adult, nothing_happens, 0.5).
+age_influence(adult, gets_better, 0.005).
+age_influence(adult, gets_worse, 0.005).
+age_influence(adult, nothing_happens, 0.990).
 
-age_influence(old, gets_better, 0.15).
-age_influence(old, gets_worse, 0.45).
-age_influence(old, nothing_happens, 0.4).
+age_influence(old, gets_better, 0.005).
+age_influence(old, gets_worse, 0.015).
+age_influence(old, nothing_happens, 0.980).
 
 % Symptoms Progression
 

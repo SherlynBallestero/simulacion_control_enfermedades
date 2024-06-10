@@ -1,7 +1,8 @@
 # Simulacion de Control de Enfermedades
+
 >Authors:
-> - Alejandro Yero Valdes C411
-> - María de Lourdes Choy C411
+> - María de Lourdes Choy C412
+> - Alejandro Yero Valdes C412
 
 ## How to run the project
 

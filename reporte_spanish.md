@@ -1,10 +1,5 @@
 # Simulación de Control de Enfermedades
 
-Autores:
-- María de Lourdes Choy 
-- Alejandro Yero Valdes 
-- Sherlyn Ballesteros Cruz 
-
 # Introducción
 
 En el mundo actual, la propagación de enfermedades se ha convertido en un desafío global que requiere una atención urgente. La importancia de detener esta propagación no solo radica en la protección de la salud de las personas, sino también en la preservación de la estabilidad social y económica de las comunidades. En este trabajo, exploraremos las diferentes estrategias y medidas que se pueden implementar para prevenir y controlar la propagación de enfermedades, destacando la necesidad de una acción coordinada a nivel local.

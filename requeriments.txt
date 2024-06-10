@@ -1,13 +1,8 @@
 pygad
 numpy
-
-
 pillow
-
 pyswip
 typing
-
-
 itertools
 matplotlib.pyplot
 streamlit

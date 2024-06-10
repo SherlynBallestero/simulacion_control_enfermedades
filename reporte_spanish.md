@@ -1,9 +1,9 @@
 # Simulación de Control de Enfermedades
 
 Autores:
-- María de Lourdes Choy C412
-- Alejandro Yero Valdes C412
-- Sherlyn Ballesteros Cruz ---
+- María de Lourdes Choy 
+- Alejandro Yero Valdes 
+- Sherlyn Ballesteros Cruz 
 
 # Introducción
 

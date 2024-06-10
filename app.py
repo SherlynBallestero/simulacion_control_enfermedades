@@ -1,7 +1,6 @@
 import streamlit as st
 import gpt4all as gpt
 from gpt4all import GPT4All
-# from simulation.main import function, factorial, contar_palabras, filtrar_lista, calcular_media, es_primo, maximo_lista, suma
 import io
 import sys
 import json

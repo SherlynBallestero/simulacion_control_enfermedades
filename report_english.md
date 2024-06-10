@@ -1,11 +1,6 @@
 
 # Disease Control Simulation
 
-Authors:
-- María de Lourdes Choy
-- Alejandro Yero Valdes
-- Sherlyn Ballesteros Cruz
-
 ## Introduction
 
 In today's world, the spread of diseases has become a global challenge that requires urgent attention. Stopping this spread is essential not only for protecting people's health but also for preserving social and economic stability within communities. In this work, we will explore different strategies and measures that can be implemented to prevent and control disease spread, emphasizing the need for coordinated action at the local level.

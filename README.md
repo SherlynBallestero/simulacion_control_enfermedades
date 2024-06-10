@@ -19,6 +19,6 @@ for a path of your  model-path, if you have not one, you can dowload it from LM 
 
 
 
-[Report_Spanish](./reporte_spanish)
+[Report_Spanish](./reporte_spanish.md)
 
 [Report_English](./report_english)

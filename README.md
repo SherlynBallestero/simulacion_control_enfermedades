@@ -2,7 +2,7 @@
 
 >Authors:
 >
-> -Sherlyn Ballestero Cruz
+> - Sherlyn Ballestero Cruz
 > - María de Lourdes Choy C412
 > - Alejandro Yero Valdes C412
 
